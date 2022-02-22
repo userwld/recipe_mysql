@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 
-</head>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/images/yoon_ico.ico" />
+
 <body>
 	<c:choose>
 		<c:when test="${formpath == 'main'}">
@@ -26,4 +23,3 @@
 			<%@ include file="common/footer.jsp" %>
 		</div>
 </body>
-</html>

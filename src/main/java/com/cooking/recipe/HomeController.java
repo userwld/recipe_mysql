@@ -36,5 +36,10 @@ public class HomeController {
 	   public String join() {
 		   return "member/join";
 	   }
+	   
+	   @RequestMapping(value="/search")
+	   public String search() {
+		   return "search";
+	   }
 	
 }

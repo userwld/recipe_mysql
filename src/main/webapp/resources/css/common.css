@@ -1,0 +1,5 @@
+@charset "UTF-8";
+
+#wrap, .content{width:980px; font-family: "Roboto";}
+a, button{cursor: pointer;}
+a,  a:link, a:visited, a:active, a:hover{text-decoration: none; color: black; }

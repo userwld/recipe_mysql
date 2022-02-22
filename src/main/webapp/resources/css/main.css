@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* 메인 헤더 */
+#header_section, #header_section2{ width:980px; font-weight: bold; font-family:"Roboto"; color: white;}
+#header_section ul{margin-top : 10px;}
+#header_section li, #header_section2 li{ display: inline;list-style: none; z-index:2;}
+.logo{position: relative; left: 20px;}
+.menu, .menu{text-align: right; margin-left: 20px; position : relative; left:500px;}
+#header_section a, #header_section a:link, #header_section a:visited,#header_section a:active,#header_section a:hover {color : white; text-decoration: none; cursor: pointer;}
+
+
+/* 메인 검색 영역 */
+button {cursor: pointer;}
+#content{width : 980px; height: auto; margin-top: -50px; background-color: black; padding-bottom: 50px; margin-bottom: 20px;}
+.search_wrap{ position: relative; top: -200px; left: -200px;}
+.search_wrap select{ width : 100px; height: 40px; position: relative; top: -14px; text-align: center; border-radius: 6px;}
+.search_group { position: relative;left: 250px; top: -53px;flex-wrap: wrap;align-items: stretch; width: 40%;}
+.search_group .btn.btn-outline-primary {top: -38px; color: #0d6efd; background-color: white; position: relative; border-color: #0d6efd; left: 240px;}
+
+/* 메인 슬라이드 */
+*{margin:0;padding:0;}
+    .slide ul,.slide li{list-style:none;}
+    .slide{height:500px;overflow:hidden; z-index:1;}
+    .slide ul{position:relative;height:100%;opacity: 0.9;}
+    .slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite;}
+    .slide li:nth-child(1){background:#ffa;animation-delay:0s}
+    .slide li:nth-child(2){background:#faa;animation-delay:2s}
+    .slide li:nth-child(3){background:#afa;animation-delay:4s}
+    .slide li:nth-child(4){background:#aaf;animation-delay:6s}
+     /* 100 / 8 = 12.5 */
+    @keyframes fade {
+      0% {opacity:0;}
+      5% {opacity:1;}
+      25% {opacity:1;}
+      30% {opacity:0;}
+      100% {opacity:0;}
+    }
+   
+/* 메인 best 영역*/
+.bestRecipe{margin-top : -80px; color : white;}   
+.bestProduct{margin-top:60px; color : white;}
+.bestRecipe .col-md, .bestRecipe .col-md img, .bestProduct .col-md, .bestProduct .col-md img{width: 170px; height: auto;}
+.bestRecipe .col-md img, .bestProduct .col-md img{border: 1px solid  rgb(150, 199, 193); cursor: pointer;}
+.bestRecipe .br_label, .bestProduct .bp_label{margin-bottom: 5px; width : 120px; border-radius: 10px; color: white; font-weight: bold; position: relative; left: -340px; font-size: 18px; text-align: left;}
+.col-md label{ width : 25px;  border-radius: 20px; color: white; font-weight: bold; z-index:2; 
+position: relative; left: -75px; top: 15px;}
+.col-md p{width: 170px;}
+.bestRecipe .col-md label, .bestRecipe .col-md p{background-color: #4FBDBA;}
+.bestProduct .col-md label, .bestProduct .col-md p{background-color :#35858B;}
+.daily, .weekly{border-color: transparent; width:60px; border-radius: 10px; margin-left:8px; position: relative; left:330px; font-weight: bold;}
+.daily{background-color: rgb(222, 217, 196);}
+.weekly{background-color: rgb(208, 202, 178)}

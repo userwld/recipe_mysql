@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* 레시피 상세 페이지 - recipeDetail.jsp */
-.content{ margin-bottom: 100px;}
+.content{ margin-bottom: 50px;}
 .content{height: auto;}
 
 .recipe_summary,.recipe_img_area, .recipe_basic_area{height: 350px;}

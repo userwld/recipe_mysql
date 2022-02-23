@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/* 상품 상세 페이지 - productDetail.jsp */
+.content{ margin-bottom: 50px;}
+.content{height: auto;}
+
+.product_basic{width:900px; height: 350px; text-align: left; border: 5px solid  #35858B; border-radius : 20px; overflow: hidden; margin : -30px 0px 0px 40px;}
+.product_img_area{width:300px;  padding : 20px;}
+.product_img_area img{width : 260px; height: 300px;}
+.product_basic_area{width:600px; height: 350px; padding-top : 20px; padding-bottom: 20px; position: relative; top: -340px; left:300px;}
+.product_basic_area ul{height: 62%; padding-left:0px;}
+.product_basic_area li{list-style: none; height: 33px;}
+.product_basic_area li i{margin-right: 5px;}
+.product_con{width : 550px; white-space: normal; line-height: 1.2; height: 3.6em; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;}
+.order_area{height: 38%; position: relative; left:170px;}
+.order_area .col{height: 45px; width: 200px; text-align: center; margin:3px;}
+.order_area .col .count_sel{margin-top:2px; width:132px; background-color: #4FBDBA; border-radius: 20px; height: 35px; line-height: 2; margin-left: 6px;}
+.cart_in_btn, .order_now_btn{width:100%; height: 100%; border-radius: 5px; font-weight: bold;}
+.cart_in_btn{background-color: white; color: #35858B; border: 1px solid  #35858B; line-height: 2.3; cursor: pointer;}
+.order_now_btn{background-color: #35858B; color:white; border-color: transparent;}
+.btn.btn-outline-secondary{width : 40px; font-size: 15px;}
+.input-group.mb-3{width: 130px; height: 33px; margin-top:2px; margin-left:25px;}
+#minusBtn{position: relative; left:52px; border-bottom-right-radius: 4px; border-top-right-radius: 4px;}
+#orderCount{position: relative; left:-38px; text-align: center; background-color: white;}
+
+.product_detail{width:900px; height: auto; text-align: left; border: 5px solid  #35858B; border-radius : 20px; overflow: hidden; margin : 30px 0px 0px 40px; padding:20px;}
+.product_detail label{font-size: 18px; font-weight: bold; margin-left : 5px;}
+.product_detail ul{margin-top:18px;}
+

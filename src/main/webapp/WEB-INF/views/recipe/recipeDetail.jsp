@@ -21,7 +21,7 @@
 				<div class="recipe_basic_area">
 					<c:set var="sumTest" value="요약 잘린내용 여기 나와요"/>
 					<ul>
-						<li><i class="bi bi-suit-heart-fill"></i>레시피 명 : <label>나물비빔밥</label></li>	<!-- 요약이 너무 길면 ...으로 나오고, 요약 위에 마우스 오버시 tooltip에 나오도록 함 -->
+						<li><i class="bi bi-suit-heart-fill"></i>레시피명 : <label>나물비빔밥</label></li>	<!-- 요약이 너무 길면 ...으로 나오고, 요약 위에 마우스 오버시 tooltip에 나오도록 함 -->
 						<li class="summary" data-toggle="tooltip" data-placement="top" title="${sumTest}"><i class="bi bi-info-circle"></i>요약 : <label>채소가 어쩌구저쩌구 신선해요</label></li>
 						<li><i class="bi bi-tags"></i>카테고리 : <label></label></li>
 						<li><i class="bi bi-alarm"></i>조리시간 : <label></label></li>

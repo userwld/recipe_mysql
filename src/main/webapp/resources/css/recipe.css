@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/* 레시피 상세 페이지 - recipeDetail.jsp */
+.content{ margin-bottom: 100px;}
+.content{height: auto;}
+
+.recipe_summary,.recipe_img_area, .recipe_basic_area{height: 350px;}
+.recipe_summary{width: 900px; text-align: left; border: 5px dotted  #4FBDBA; border-radius : 20px; overflow: hidden; margin : -30px 0px 0px 40px;}
+.recipe_img_area{width:300px; position : relative;  padding : 20px;}
+.recipe_img_area img{width:260px; height: 300px; border-radius: 10px;}
+.recipe_basic_area{width:600px; position: relative; left: 300px; top:-336px; padding-top : 20px; padding-bottom : 20px;}
+.recipe_basic_area ul{margin-left : -20px;}
+.recipe_basic_area li{height: 33px; width: 500px; list-style: none;}
+.recipe_basic_area li i{margin-right: 5px;}
+.recipe_basic_area li label{font-size : 14px;}
+.recipe_basic_area .summary label{width:430px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; position: relative; top:5px;}
+
+.mealKit_btn_area{margin-top: 20px;}
+.mealKitBtn{height: 35px; width: 140px; margin-left: 10px; border-color: transparent; border-radius: 10px; font-weight: bold; background-color: #4FBDBA; color: white;}
+
+.ingredient{height: auto; margin-top: 50px; margin-left: 40px; width: 900px; text-align: left; border: 5px dotted  #4FBDBA; border-radius : 20px; overflow:hidden; padding:20px;}
+.ingredient label, .recipe_detail label{font-size: 18px; font-weight: bold; margin-left : 5px;}
+.ingredient .container, .recipe_detail ul{margin-top: 18px;}
+.recipe_detail{margin-top:20px;}
+.recipe_detail li{list-style: decimal;}

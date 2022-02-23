@@ -41,5 +41,14 @@ public class HomeController {
 	   public String search() {
 		   return "search";
 	   }
+	   
+	   @RequestMapping(value="/recipeDetail")
+	   public String recipeDetail() {
+		   return "recipe/recipeDetail";
+	   }
 	
+	   @RequestMapping(value="/productDetail")
+	   public String productDetail() {
+		   return "product/productDetail";
+	   }
 }

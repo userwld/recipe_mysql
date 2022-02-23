@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/search.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<c:url value="/resources/js/search.js" />"></script>
 </head>
 <center>
 	<div id="wrap">
@@ -17,8 +18,8 @@
 				<c:set var="end" value="10"/>
 				<c:forEach begin="1" end="${end}">
 					 <div class="col-md">
-				      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg">
-				    	<p>스테이크</p>
+				      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" onclick="location.href='recipeViewProc';">
+				    	<p onclick="location.href='recipeViewProc';">스테이크</p>
 			    	</div>
 				</c:forEach>		<!-- 한줄에 3개씩 넣고 간격 맞추기 위해 3으로 나눠서 0이 아닐경우 빈 div넣어서 간격조정 -->
 				<c:if test="${end % 3 != 0 }">

@@ -26,19 +26,20 @@
 	      <li><img src="${pageContext.request.contextPath}/resources/images/main/slide4.jpg"></li>
 	    </ul>
 		</div>
-	<div class="search_wrap">
-		<select class="select" data-mdb-filter="true">
-		  <option value="sel">Category</option>
-		  <option value="recipe">레시피</option>
-		  <option value="product">상품</option> 
-		</select>
-		
-		<div class="search_group">
-		  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-		  <button type="button" class="btn btn-outline-primary" onclick="location.href='searchProc';">search</button>
+	<form>
+		<div class="search_wrap">
+			<select class="select" data-mdb-filter="true">
+			  <option value="sel">Category</option>
+			  <option value="recipe">레시피</option>
+			  <option value="product">상품</option> 
+			</select>
+			
+			<div class="search_group">
+			  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+			  <button type="button" class="btn btn-outline-primary" onclick="location.href='searchProc';">search</button>
+			</div>
 		</div>
-	</div>
-	
+	</form>
 	<div class="bestRecipe">
 		<label class="br_label">Best Recipe</label><button class="daily">일간</button><button class="weekly">주간</button>
 		<div class="container">

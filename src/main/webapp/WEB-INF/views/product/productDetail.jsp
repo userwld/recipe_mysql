@@ -33,17 +33,17 @@
 						<div class="container">
 						 	 <div class="row row-cols-4">
 							    <div class="col"><label class="count_sel">수량 선택</label></div>
-							    <div class="col"><label class="cart_in_btn">장바구니 담기</label></div> 
+							    <div class="col"><label class="cart_in_btn" onclick="location.href='cartInsertProc';">장바구니 담기</label></div> 
 							</div>
 							 <div class="row row-cols-4">
 							 	 <div class="col">
 								 	<div class="input-group mb-3">
-										  <button class="btn btn-outline-secondary" type="button" id="plusBtn" onclick="orderCalc('+');">+</button>
-										  <button class="btn btn-outline-secondary" type="button" id="minusBtn" onclick="orderCalc('-');">-</button>
-										  <input type="text" class="form-control" value="1" id="orderCount" onkeyup="countSet();" readonly="readonly">
+										  <button class="btn btn-outline-secondary" type="button" id="minusBtn" onclick="calcOrder('-');">-</button>
+										  <button class="btn btn-outline-secondary" type="button" id="plusBtn" onclick="calcOrder('+');">+</button>
+										  <input type="text" class="form-control" value="1" id="orderCount" name="orderCount" onkeyup="setCount();" readonly="readonly">
 									</div>
 								</div>
-							    <div class="col"><button class="order_now_btn">바로 구매</button></div>
+							    <div class="col"><button class="order_now_btn" onclick="location.href='orderViewProc';">바로 구매</button></div>
 							</div>
 						</div>
 					</div>

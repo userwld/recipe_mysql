@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* 장바구니 페이지 - cart.jsp */
+.logo{margin-top: 30px;}
+/* 장바구니 목록 테이블 */
+.cart_user_label{margin-top:50px;}
+.cart_user_label label{text-decoration: underline; margin-right:5px;}
+.cart_user_label i{margin-left:5px;}
+.cartList{height: auto; margin-top:50px; width:980px;}
+.cartList .cartTb{width:100%; text-align: center;}
+.cartList .cartTb th{background-color: rgb(222, 217, 196); height: 40px; border-top: 1px solid darkgray; border-bottom:1px solid darkgray;}
+.cartList .cartTb td{border-bottom:1px solid darkgray;}
+.cartList .cartTb td img{height: 120px; width:150px; margin-top: 10px; margin-bottom:10px; cursor:pointer;}
+.cartList .cartTb .btn.btn-outline-danger{height: 30px; line-height: 0;}
+.cartList .cartTb input[type='checkbox']{width:20px; height: 20px; position: relative; top:2px;}
+.cartList .cartTb label{margin-left:5px; position: relative; top:-2px;}
+.cartList .cartTb .product_name{cursor:pointer;}
+
+.input-group.mb-3{width: 130px; height: 33px; margin:15px;}
+.btn.btn-outline-secondary{width : 40px; font-size: 15px;}
+#plusBtn{position: relative; left:53px; border-bottom-right-radius: 4px; border-top-right-radius: 4px;}
+.cartList .cartTb .form-control{position: relative; left:-38px; text-align: center; background-color: white; border-top: 1px solid gray; border-bottom : 1px solid gray; border-bottom-right-radius: 0; border-top-right-radius: 0;}
+
+/* 총 금액 영역 */
+.total_price_area{margin-top:80px; width:980px; height: 80px; background-color: rgb(222, 217, 196);}
+.total_price_area .container, .total_price_area .row{height: 100%;}
+.total_price_area .row .col strong,.total_price_area .row .col .totalPrice{font-size:20px; line-height: 4;}
+
+/* 취소/ 주문 버튼 영역 */
+.order_btn_area{margin-top:40px; margin-bottom: 80px; text-align: right;}
+.order_btn_area button{width:120px; font-weight: bold;}
+.order_btn_area .btn.btn-primary.btn-lg{background-color: white; color:rgb(208, 202, 178); border:1px solid rgb(208, 202, 178);}
+.order_btn_area .btn.btn-secondary.btn-lg{background-color: rgb(208, 202, 178); border-color: transparent;}

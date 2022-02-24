@@ -51,4 +51,14 @@ public class HomeController {
 	   public String productDetail() {
 		   return "product/productDetail";
 	   }
+	   
+	   @RequestMapping(value="/cart")
+	   public String cart() {
+		   return "order/cart";
+	   }
+	   
+	   @RequestMapping(value="/order")
+	   public String order() {
+		   return "order/order";
+	   }
 }

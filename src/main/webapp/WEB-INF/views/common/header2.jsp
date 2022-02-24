@@ -15,7 +15,7 @@
 		<ul>
 			<li class="logo"><a href="${root}">Yoon's Recipe</a></li>
 			<li class="menu"><a href="${root}join">회원가입 / 로그인</a></li>
-			<li class="menu"><a href="#">장바구니</a></li>
+			<li class="menu"><a href="${root}cartViewProc">장바구니</a></li>
 			<li class="menu"><a href="#">주문내역</a></li>
 		</ul>
 		<div class="search_wrap">

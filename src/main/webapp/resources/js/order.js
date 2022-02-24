@@ -1,5 +1,4 @@
 
-
 /* 장바구니 페이지 */
 
 // 수량 조정 버튼 클릭 시 
@@ -79,5 +78,25 @@ function checkList(){
 	}
 	totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	$('.totalPrice').text(totalPrice);
+}
 
+
+
+/* 주문 페이지 */
+
+function daumPost(){		
+	new daum.Postcode({
+		oncomplete:function(data){	
+			var addr = "";
+			if(data.userSelectedType === "R"){	
+				addr = data.roadAddress;
+			}else{	
+				addr = data.jibunAddress;
+			}
+			
+			var totalAddr = "(" + data.zonecode + ") " + addr; 		
+			$('.addr1').text(totalAddr);
+			$('.addr2').focus();
+		}
+	}).open();
 }

@@ -89,10 +89,8 @@
 				<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='orderViewProc';">주문하기</button>
 			</div>
 			
-			
-			
-			
+			<div class="margin_bottom"></div>
+		
 		</div>
-	
 	</div>
 </center>

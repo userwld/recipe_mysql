@@ -13,9 +13,11 @@
 button {cursor: pointer;}
 #content{width : 980px; height: auto; margin-top: -50px; background-color: black; padding-bottom: 50px; margin-bottom: 20px;}
 .search_wrap{ position: relative; top: -200px; left: -200px;}
-.search_wrap select{ width : 100px; height: 40px; position: relative; top: -14px; text-align: center; border-radius: 6px;}
-.search_group { position: relative;left: 250px; top: -53px;flex-wrap: wrap;align-items: stretch; width: 40%;}
-.search_group .btn.btn-outline-primary {top: -38px; color: #0d6efd; background-color: white; position: relative; border-color: #0d6efd; left: 236px;}
+.search_wrap select{ width : 100px; height: 40px; position: relative; top: -14px; text-align: center; border-radius: 6px; border-color: #35858B; color:#35858B;}
+.search_group { position: relative;left: 250px; top: -53px;flex-wrap: wrap;align-items: stretch; width: 40%; }
+.search_group .form-control.rounded{border-color: #35858B;}
+.search_group .btn.btn-outline-primary {top: -38px; color: #35858B; background-color: white; position: relative; border-color: #35858B; left: 236px;}
+input:focus{outline: none;}
 
 /* 메인 슬라이드 */
 *{margin:0;padding:0;}
@@ -49,4 +51,4 @@ position: relative; left: -75px; top: 15px;}
 .bestProduct .col-md label, .bestProduct .col-md p{background-color :#35858B;}
 .daily, .weekly{border-color: transparent; width:60px; border-radius: 10px; margin-left:8px; position: relative; left:330px; font-weight: bold;}
 .daily{background-color: rgb(222, 217, 196);}
-.weekly{background-color: rgb(208, 202, 178)}
+.weekly{background-color: rgb(208, 202, 178);}

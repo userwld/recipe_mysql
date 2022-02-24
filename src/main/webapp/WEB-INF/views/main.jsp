@@ -35,7 +35,7 @@
 			</select>
 			
 			<div class="search_group">
-			  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+			  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." aria-label="Search" aria-describedby="search-addon" />
 			  <button type="button" class="btn btn-outline-primary" onclick="location.href='searchProc';">search</button>
 			</div>
 		</div>

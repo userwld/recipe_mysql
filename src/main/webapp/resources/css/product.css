@@ -11,6 +11,7 @@
 .product_basic_area ul{height: 62%; padding-left:0px;}
 .product_basic_area li{list-style: none; height: 33px;}
 .product_basic_area li i{margin-right: 5px;}
+.product_basic_area .bi.bi-suit-heart{color:red;}
 .product_con{width : 550px; white-space: normal; line-height: 1.2; height: 3.6em; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;}
 .order_area{height: 38%; position: relative; left:170px;}
 .order_area .col{height: 45px; width: 200px; text-align: center; margin:3px;}

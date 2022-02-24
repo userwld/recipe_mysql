@@ -12,6 +12,7 @@
 .recipe_basic_area ul{margin-left : -20px;}
 .recipe_basic_area li{height: 33px; width: 500px; list-style: none;}
 .recipe_basic_area li i{margin-right: 5px;}
+.recipe_basic_area .bi.bi-suit-heart-fill{color:red;}
 .recipe_basic_area li label{font-size : 14px;}
 .recipe_basic_area .summary label{width:430px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; position: relative; top:5px;}
 

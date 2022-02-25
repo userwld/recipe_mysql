@@ -36,6 +36,10 @@ public class HomeController {
 	   public String join() {
 		   return "member/join";
 	   }
+	   @RequestMapping(value="/memberList")
+	   public String memberList() {
+		   return "member/memberList";
+	   }
 	   
 	   @RequestMapping(value="/search")
 	   public String search() {
@@ -50,6 +54,11 @@ public class HomeController {
 	   @RequestMapping(value="/productDetail")
 	   public String productDetail() {
 		   return "product/productDetail";
+	   }
+	   
+	   @RequestMapping(value="/productList")
+	   public String productList() {
+		   return"product/productList";
 	   }
 	   
 	   @RequestMapping(value="/cart")

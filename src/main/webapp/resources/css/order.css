@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* 장바구니 페이지 - cart.jsp */
-.logo{margin-top: 30px;}
+.cart_logo,.order_logo{margin-top: 30px;}
 /* 장바구니 목록 테이블 */
 .cart_user_label{margin-top:50px;}
 .cart_user_label label{text-decoration: underline; margin-right:5px;}

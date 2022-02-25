@@ -7,13 +7,12 @@ a, a:link, a:visited, a:active, a:hover{text-decoration: none; color: black; }
 
 
 /* 헤더2 */
-#header_section{ width:980px; font-weight: bold; font-family:"Roboto"; color: black; position: relative; margin: 0px auto; left: -130px;}
-#header_section ul{margin-top : 10px;}
-#header_section li{ display: inline; list-style: none; z-index:2;}
-#header_section .logo{position: relative; left: 20px;}
-#header_section .menu{text-align: right; margin-left: 20px; position : relative; left:500px;}
+#header_section{ width:980px; font-weight: bold; font-family:"Roboto"; color: black; }
+#header_section ul{margin-top : 10px; margin-right: 10px;}
+#header_section li{z-index:2; width:auto; text-align: right; padding-right: 10px;}
+#header_section .logo{position: relative; left:-400px; top:35px; z-index:2;}
 #header_section a, #header_section a:link, #header_section a:visited,#header_section a:active,#header_section a:hover {color : black; text-decoration: none; cursor: pointer;}
-.search_wrap{ position: relative; left: 180px; top: -43px;}
+.search_wrap{ position: relative; left: -60px; top: -27px;}
 .search_wrap select{ width : 90px; height: 37px; position: relative; left:-195px; text-align: center; border-radius: 6px; border-color: #35858B; color:#35858B;}
 .search_group { position: relative; top: -37px; flex-wrap: wrap;align-items: stretch; width: 30%;}
 .search_group .form-control.rounded{border-color: #35858B;}

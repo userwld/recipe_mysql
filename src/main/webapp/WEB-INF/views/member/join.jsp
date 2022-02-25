@@ -18,9 +18,9 @@
 
 <center>
 	<div id="wrap">
-		<div class="logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
+		<div class="join_logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
 		<!-- 회원가입 / 로그인 메인 -->
-		<div class="content">
+		<div class="join_content">
 			<div class="social">
 				<div class="social_label"><label>간편 회원가입</label></div>
 				<p><strong>소셜 로그인</strong>을 통해 간단히 가입할 수 있습니다.</p>
@@ -29,7 +29,7 @@
 					<button><img src="${pageContext.request.contextPath}/resources/images/member/kakao.png" class="kakao_btn" title="kakao"></button>
 				</div>
 			</div>
-			<form>
+			<form action="loginProc">
 				<div class="member_login">
 					<div class="login_label"><label>로그인</label></div>
 					
@@ -43,7 +43,7 @@
 						 	<input type="password" class="form-control" placeholder="UserPassword" aria-label="UserPassword" aria-describedby="addon-wrapping">
 						</div>
 						<div class="login_btn_area">
-							<button>Login</button>
+							<button type="submit">Login</button>
 						</div>
 					</div>
 				</div>

@@ -9,11 +9,25 @@
 
 <center>
 	<div id="header_section">
-		<ul>
-			<li class="logo"><a href="${root}">Yoon's Recipe</a></li>
-			<li class="menu"><a href="${root}join">회원가입 / 로그인</a></li>
-			<li class="menu"><a href="${root}cartViewProc">장바구니</a></li>
-			<li class="menu"><a href="${root}orderHistoryViewProc">주문내역</a></li>
-		</ul>
+		<div class="logo"><a href="${root}">Yoon's Recipe</a></div>
+		<ul class="nav justify-content-end">
+		<c:choose>
+			<c:when test="${empty id}">
+				<li class="nav-item"><a href="${root}join">회원가입 / 로그인</a></li>
+				<li class="nav-item"><a href="${root}cartViewProc">장바구니</a></li>
+				<li class="nav-item"><a href="${root}orderHistoryViewProc">주문내역</a></li>
+			</c:when>
+			<c:when test="${not empty id and id eq 'admin' }">
+				<li class="nav-item" ><a href="${root}logoutProc">로그아웃</a></li>
+				<li class="nav-item"><a href="${root}memberListViewProc">회원관리</a></li>
+				<li class="nav-item"><a href="${root}productListViewProc">상품관리</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item"><a href="${root}logoutProc">로그아웃</a></li>
+				<li class="nav-item"><a href="${root}cartViewProc">장바구니</a></li>
+				<li class="nav-item"><a href="${root}orderHistoryViewProc">주문내역</a></li>
+			</c:otherwise>
+		</c:choose>
+	</ul>
 	</div>
 </center>

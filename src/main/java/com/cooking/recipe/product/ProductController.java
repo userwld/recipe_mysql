@@ -11,5 +11,10 @@ public class ProductController {
 		return "forward:index?formpath=productDetail";
 	}
 	
+	@RequestMapping(value="/productListViewProc")
+	public String productListViewProc() {
+		return "forward:index?formpath=productList";
+	}
+	
 	
 }

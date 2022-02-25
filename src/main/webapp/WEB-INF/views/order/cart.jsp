@@ -5,6 +5,7 @@
 <c:url var="root" value="/"/>
 <head>
 <title>장바구니 페이지</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/images/yoon_ico.ico" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/order.css" />
@@ -17,7 +18,7 @@
 </head>
 <center>
 	<div id="wrap">
-		<div class="logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
+		<div class="cart_logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
 		<div class="content">
 			<div class="cart_user_label" align="left"><h3><label>XXX</label>고객님의 장바구니<i class="bi bi-cart4"></i></h3></div>
 			<div class="cartList" align="left">

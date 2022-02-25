@@ -4,6 +4,7 @@
 <c:url var="root" value="/"/>
 <head>
 <title>주문 페이지</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/images/yoon_ico.ico" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/order.css" />
@@ -18,7 +19,7 @@
 
 <center>
 	<div id="wrap">
-		<div class="logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
+		<div class="order_logo"><h2><a href="${root}">Yoon's Recipe</a></h2></div>
 		<div class="content">
 		<div class="order_label" align="left"><h3>주문 및 배송<i class="bi bi-truck"></i></h3></div>
 		

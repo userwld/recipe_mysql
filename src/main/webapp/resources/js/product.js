@@ -21,3 +21,25 @@ function setCount(){
 	if(orderCount > 99) orderCount = 99;
 	$('#orderCount').val(orderCount);
 }
+
+
+/* 상품 관리 페이지 */
+
+/* 상품추가 버튼 클릭시 상품 정보 입력 모달 나옴 */
+function insertFormOpen(){
+	$('#staticBackdrop').modal('show');
+}
+
+function modalHide(){
+	$('#staticBackdrop').modal('hide');
+}
+
+/* 상품명 클릭시 readonly 해제 */
+function enableModify(i){
+	$('.modifyItem'+i).attr('readonly',false);
+}
+
+/* 확정 버튼 클릭시 ajax로 정보 수정후 다시 readonly */
+function productModify(i){
+	$('.modifyItem'+i).attr('readonly',true);
+}

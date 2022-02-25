@@ -15,16 +15,36 @@
 
 <center>
 	<div id="wrap">
-		<div class="content">
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		<div class="member_content">
+			<div class="member_search">
+			  <input type="search" class="form-control rounded" placeholder="아이디 입력" />
+			  <button type="button" class="btn btn-secondary">회원검색</button>
+			</div>		
+				
+			<table class="memberListTb" border="1">
+				<colgroup>
+					<col style="width: 40%">
+					<col style="width: 40%">
+					<col style="width: 20%">
+				</colgroup>
+				<tr>
+					<th>아이디</th>
+					<th>닉네임</th>
+					<th>삭제</th>
+				</tr>
+				<tr>
+					<td>test1</td>
+					<td>테스트일</td>
+					<td> <button type="button" class="btn btn-secondary">삭제</button></td>
+				</tr>
+				<tr>
+					<td>test222</td>
+					<td>테스트이이이</td>
+					<td> <button type="button" class="btn btn-secondary">삭제</button></td>
+				</tr>
+			</table>
+			
+
 		<div class="margin_bottom"></div>
 		</div>
 	</div>

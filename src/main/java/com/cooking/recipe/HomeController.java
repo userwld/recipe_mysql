@@ -61,4 +61,14 @@ public class HomeController {
 	   public String order() {
 		   return "order/order";
 	   }
+	   
+	   @RequestMapping(value="/orderDetail")
+	   public String orderDetail() {
+		   return "order/orderDetail";
+	   }
+	   
+	   @RequestMapping(value="/orderHistory")
+	   public String orderHistory() {
+		   return "order/orderHistory";
+	   }
 }

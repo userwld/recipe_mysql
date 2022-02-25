@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:url var="root" value="/"/>
 <head>
-<meta charset="UTF-8">
+
 <title>회원가입 / 로그인</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/yoon_ico.ico" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/join.css" />

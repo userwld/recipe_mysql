@@ -69,3 +69,31 @@ input:focus, button:focus{outline:none;}
 /* 페이지 맨 하단 버튼 안잘리게 빈 영역 하나 놓고 높이조정*/
 .margin_bottom{height: 60px;}
 
+
+/* 주문 상세 페이지(테이블 공통 css는 주문 페이지 영역에 있음) - orderDetail.jsp */
+.order_detail_label{margin-top:-20px;}
+.order_detail_label i{margin-left:5px; color : green;}
+.deliverInfo .deliverTb .bi.bi-credit-card{font-size:30px;}
+.orderList .orderListTb .orderHistory{font-weight: normal;}
+.orderList .orderListTb strong{color:green;}
+
+
+/* 주문 내역 페이지 - orderHistory.jsp */
+.order_History_label{margin-top:-20px;}
+.order_History_label p{text-align: right;}
+.order_History_label p i{color:red; margin-right: 5px;}
+.order_History_label p strong{color:red;}
+.orderHistory{height:auto; width:980px;}
+.orderHistory .orderHistoryTb{width:100%; text-align: left; margin-top:50px;}
+.orderHistory .orderHistoryTb .orderDate{background-color: rgb(222, 217, 196); height: 35px; border-top: 1px solid darkgray; border-bottom:1px solid darkgray; padding-left: 5px;}
+.orderHistory .orderHistoryTb td{padding-left:10px; height: 40px;}
+.orderHistory .orderHistoryTb td a{text-decoration: underline; font-size:13px; font-weight: bold;}
+.orderHistory .orderHistoryTb .orderDetail{color:blue;}
+.orderHistory .orderHistoryTb .orderCancel{color:red; margin-left:10px;}
+
+.orderHistory .orderHistoryTb .cart_in_label{text-align: center;}
+.orderHistory .orderHistoryTb img{width:120px; height: 90px; margin:20px; cursor:pointer;}
+.orderHistory .orderHistoryTb .product_name{font-size:20px; cursor:pointer;}
+.orderHistory .orderHistoryTb .cart_in_btn_area{text-align: center;}
+
+.orderHistory .orderHistoryTb .last{border-bottom: 1px solid lightgray;}

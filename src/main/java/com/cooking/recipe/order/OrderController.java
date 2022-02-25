@@ -18,5 +18,15 @@ public class OrderController {
 	public String orderViewProc() {
 		return "forward:order";
 	}
+		
+	@RequestMapping(value="/orderDetailViewProc")
+	public String orderDetailViewProc() {
+		return "forward:index?formpath=orderDetail";
+	}
+	
+	@RequestMapping(value="/orderHistoryViewProc")
+	public String orderHistoryViewProc(){
+		return "forward:index?formpath=orderHistory";
+	}
 	
 }

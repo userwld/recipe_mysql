@@ -29,7 +29,7 @@
 				</colgroup>
 				<tr>
 					<th>아이디</th>
-					<th>닉네임</th>
+					<th>소셜계정</th>
 					<th>삭제</th>
 				</tr>
 				<tr>

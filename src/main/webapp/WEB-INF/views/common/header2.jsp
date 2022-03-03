@@ -15,12 +15,12 @@
 	<div class="logo"><a href="${root}">Yoon's Recipe</a></div>
 	<ul class="nav justify-content-end">
 		<c:choose>
-			<c:when test="${empty id}">
+			<c:when test="${empty loginId}">
 				<li class="nav-item"><a href="${root}join">회원가입 / 로그인</a></li>
 				<li class="nav-item"><a href="${root}cartViewProc">장바구니</a></li>
 				<li class="nav-item"><a href="${root}orderHistoryViewProc">주문내역</a></li>
 			</c:when>
-			<c:when test="${not empty id and id eq 'admin' }">
+			<c:when test="${not empty loginId and loginId eq 'admin' }">
 				<li class="nav-item" ><a href="${root}logoutProc">로그아웃</a></li>
 				<li class="nav-item"><a href="${root}memberListViewProc">회원관리</a></li>
 				<li class="nav-item"><a href="${root}productListViewProc">상품관리</a></li>

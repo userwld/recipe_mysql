@@ -8,6 +8,15 @@ public class MemberDTO {
 	private String addr2;
 	private String social;
 	
+	public MemberDTO() {}
+	
+	public MemberDTO(String id, String pw, String phone, String social) {
+		this.id = id; 
+		this.pw = pw;
+		this.phone = phone;
+		this.social = social;
+	}
+	
 	public String getId() {
 		return id;
 	}

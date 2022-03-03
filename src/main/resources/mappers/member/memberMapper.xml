@@ -11,4 +11,18 @@
 	<result column="social" property="social"/>
 </resultMap>
 
+<select id="isExistId" parameterType="String" resultMap="member">
+	select * from member where id=#{id}
+</select>
+
+<select id="isExistSocial" parameterType="String" resultType="int">
+	select count(*) from member where social=#{social}
+</select>
+
+<insert id="insertMember" parameterType="com.cooking.recipe.member.dto.MemberDTO">
+	insert into member values(#{id},#{pw},#{phone},#{addr1 ,jdbcType=VARCHAR},#{addr2 ,jdbcType=VARCHAR},#{social})
+</insert>
+
+
+	
 </mapper>

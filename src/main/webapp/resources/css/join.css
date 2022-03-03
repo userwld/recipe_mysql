@@ -16,7 +16,8 @@
 .login_input_area img{width: 60px; height: 35px;}
 .input-group.flex-nowrap{width : 350px; margin-top: 10px; position: relative; left:-55px;}
 .input-group-text{background-color: rgb(236, 226, 225); width : 60px;}
-.login_btn_area button{width: 90px; height: 108px; position: relative; left: 185px; top: -108px;}
+.loginCheckLabel{font-size:13px; color:red; position:relative;  width:300px; right : 67px; text-align: left; top:5px; height: 20px;}
+.login_btn_area button{width: 90px; height: 108px; position: relative; left: 185px; top: -128px;}
 .login_btn_area button,.join_input_area button, .modal-footer .btn.btn-primary{border-color: transparent;background-color: rgb(236, 226, 225); color : black;}
 .login_btn_area button,.join_input_area button{border-radius: 10px;}
 

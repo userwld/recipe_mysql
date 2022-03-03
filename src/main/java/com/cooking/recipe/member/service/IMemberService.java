@@ -20,6 +20,11 @@ public interface IMemberService {
 
 	public String loginProc(String id, String pw);	// 아이디, 비밀번호 확인 후 로그인 
 
-	
+	public void memberList(Model model, int currentPage);	// 회원 관리 페이지 - 모든 회원 조회
+
+	public void memberSearch(Model model, int currentPage, String searchWord); // 회원 관리 페이지 - 회원 검색
+
+	public void memberDelete(String deleteId);	// 회원 관리 페이지 - 회원 삭제
+
 
 }

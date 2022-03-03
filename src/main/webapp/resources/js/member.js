@@ -1,13 +1,10 @@
 
-/* 소셜 로그인 후 join열릴 때 회원가입 modal여는 형식 ---> <script> import순서 주의! --join.js가 가장 늦게 로드! */
+/* 소셜 로그인 후 join열릴 때 회원가입 modal여는 형식 ---> <script> import순서 주의! --member.js가 가장 늦게 로드! */
 $(document).ready(function(){	
-    var modal = document.getElementById('modalTest').value;
+    var modal = document.getElementById('modalOpen').value;
     if(modal == 'yes'){
 		$('#staticBackdrop').modal('show');	
 	}
-	
-	console.log(modal);
-
 });
 
 /* 회원가입 모달 닫는 메소드 */
@@ -233,6 +230,12 @@ function loginProc(){
 			}
 		})		
 	}
-	
 }
 
+
+function memberSearch(){
+	var searchWord = document.getElementById('searchWord').value;
+	if(searchWord == '') alert('검색할 아이디를 입력해주세요');
+	else location.href='memberListViewProc?searchWord='+searchWord;
+	
+}

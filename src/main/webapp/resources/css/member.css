@@ -41,3 +41,5 @@
 .memberListTb th{background-color: lightgray; border: 1px solid darkgray;}
 .memberListTb td{border-bottom: 1px solid lightgray; border-left: 1px solid lightgray; border-right: 1px solid lightgray;}
 .memberListTb button{height: 30px; line-height: 1;}
+
+.memberList_paging{margin-top:20px;}

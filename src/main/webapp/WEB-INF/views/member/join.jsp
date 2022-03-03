@@ -6,13 +6,13 @@
 
 <title>회원가입 / 로그인</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/yoon_ico.ico" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/join.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="<c:url value="/resources/js/join.js" />"></script>
+<script src="<c:url value="/resources/js/member.js" />"></script>
 </head>
 
 <c:if test="${not empty msg}">
@@ -30,7 +30,7 @@
 				<p>회원가입 후 반드시 <strong>소셜 계정 로그아웃</strong>을 해주세요.</p>
 				<div class="social_btn_area">
 					<c:if test="${empty modal}"><c:set var="modal" value="no"/></c:if>
-					<input type="hidden" value="${modal}" id="modalTest">
+					<input type="hidden" value="${modal}" id="modalOpen">
 					<button><img src="${pageContext.request.contextPath}/resources/images/member/naver.png" class="naver_btn" title="naver" onclick="socialLogin('naver');"></button>
 					<button><img src="${pageContext.request.contextPath}/resources/images/member/kakao.png" class="kakao_btn" title="kakao" onclick="socialLogin('kakao');"></button>
 				</div>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cooking.recipe.member.config.KakaoConfig;
@@ -138,10 +139,25 @@ public class MemberController {
 		return "forward:index";
 	}
 	
-
+	
+	/* 회원관리 페이지 - 회원검색 / 회원전체조회 */
 	@RequestMapping(value="/memberListViewProc")
-	public String memberListViewProc() {
+	public String memberListViewProc(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage, String searchWord) {
+		if(searchWord == null) {
+			service.memberList(model, currentPage);
+		}else {
+			service.memberSearch(model,currentPage,searchWord);
+		}
+		
+		model.addAttribute("cp", currentPage);
 		return "forward:index?formpath=memberList";
+	}
+	
+	/* 회원관리 - 회원삭제 */
+	@RequestMapping(value="/memberDelete")
+	public String memberDelete(String deleteId) {
+		service.memberDelete(deleteId);
+		return "forward:memberListViewProc";
 	}
 	
 }

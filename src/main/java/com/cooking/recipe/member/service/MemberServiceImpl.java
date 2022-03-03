@@ -1,23 +1,20 @@
 package com.cooking.recipe.member.service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.cooking.recipe.member.config.InputConfig;
+import com.cooking.recipe.member.config.PageConfig;
 import com.cooking.recipe.member.dao.IMemberDAO;
 import com.cooking.recipe.member.dto.MemberDTO;
-
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class MemberServiceImpl implements IMemberService{
@@ -34,7 +31,7 @@ public class MemberServiceImpl implements IMemberService{
 			return msg;
 		}
 		
-		MemberDTO dto = dao.isExistId(id);
+		MemberDTO dto = dao.selectId(id);
 		if(dto != null) msg = "중복 아이디 입니다.";
 		else msg = "사용 가능한 아이디 입니다.";
 		
@@ -45,7 +42,7 @@ public class MemberServiceImpl implements IMemberService{
 	public void isExistSocial(Model model) {
 		String social = (String)session.getAttribute("social");
 		
-		int check = dao.isExistSocial(social);
+		int check = dao.selectSocial(social);
 		
 		if(check == 1) {
 			model.addAttribute("msg", "이미 가입된 계정입니다.");	
@@ -127,7 +124,7 @@ public class MemberServiceImpl implements IMemberService{
 
 	@Override
 	public String loginProc(String id, String pw) {
-		MemberDTO member = dao.isExistId(id);
+		MemberDTO member = dao.selectId(id);
 		
 		if(member == null) return "가입되지 않은 계정입니다.";
 		
@@ -139,6 +136,38 @@ public class MemberServiceImpl implements IMemberService{
 		session.setAttribute("loginId", id);
 		return "로그인 성공";
 	}
+
+	@Override
+	public void memberList(Model model, int currentPage) {
+		session.removeAttribute("search");	
+		int[] page = PageConfig.setPage(dao.memberCount(), currentPage);
+		// page[] ={한 페이지당 시작번호, 한 페이지당 끝번호, 페이지당 개수(10), 전체 데이터 개수}
+		ArrayList<MemberDTO> memberList = dao.selectAll(page[0], page[1]);
+		model.addAttribute("list", memberList);
+		
+		String url="/recipe/memberListViewProc?currentPage=";
+		model.addAttribute("page", PageConfig.getNavi(currentPage, page[2], page[3], url));
+	}
+
+	@Override
+	public void memberSearch(Model model, int currentPage, String searchWord) {
+		session.setAttribute("search", searchWord);
+		int[] page = PageConfig.setPage(dao.searchCount(searchWord), currentPage);
+		
+		ArrayList<MemberDTO> searchList = dao.selectSearch(page[0], page[1],searchWord);
+		model.addAttribute("list", searchList);
+		
+		String url="/recipe/memberListViewProc?currentPage=";
+		model.addAttribute("page", PageConfig.getNavi(currentPage, page[2], page[3], url));
+		
+	}
+
+	@Override
+	public void memberDelete(String deleteId) {
+		dao.deleteMember(deleteId);		
+	}
+
+
 
 
 

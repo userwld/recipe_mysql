@@ -11,11 +11,11 @@
 	<result column="social" property="social"/>
 </resultMap>
 
-<select id="isExistId" parameterType="String" resultMap="member">
+<select id="selectId" parameterType="String" resultMap="member">
 	select * from member where id=#{id}
 </select>
 
-<select id="isExistSocial" parameterType="String" resultType="int">
+<select id="selectSocial" parameterType="String" resultType="int">
 	select count(*) from member where social=#{social}
 </select>
 
@@ -23,6 +23,32 @@
 	insert into member values(#{id},#{pw},#{phone},#{addr1 ,jdbcType=VARCHAR},#{addr2 ,jdbcType=VARCHAR},#{social})
 </insert>
 
+<select id ="memberCount" resultType="int">
+	select count(*) from member
+</select>
 
+<select id="selectAll" resultMap="member">
+	select B.* from(
+		select rownum rn, A.* from(
+			select * from member order by id
+		)A
+	)B where rn between #{b} and #{e}
+</select>
+
+<select id ="searchCount" parameterType="String" resultType="int">
+	select count(*) from member where id like '%'||#{searchWord}||'%'
+</select>
+
+<select id="selectSearch" resultMap="member">
+	select B.* from(
+		select rownum rn, A.* from(
+			select * from member where id like '%'||#{word}||'%' order by id
+		)A
+	)B where rn between #{b} and #{e}
+</select>
+
+<delete id="deleteMember" parameterType="String">
+	delete from member where id=#{deleteId}
+</delete>
 	
 </mapper>

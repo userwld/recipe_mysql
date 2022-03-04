@@ -22,7 +22,7 @@
 			</div>
 			
 			<div class="product_insert">
-				<button type="button" class="btn btn-success" onclick="insertFormOpen();">상품추가</button>
+				<button type="button" class="btn btn-success" onclick="insertModal();">상품추가</button>
 			</div>
 			
 			<div class="modifyInfo">
@@ -75,24 +75,24 @@
 		<!-- 상품 추가 modal -->
 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		  <div class="modal-dialog">
-		  <form>
+		  <form id="insertProductForm">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="staticBackdropLabel">관리자 - 상품추가</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-	      		<input type="text" placeholder="이미지 경로"><br>
-	      		<input type="text" placeholder="상품명"><br>
-	      		<input type="text" placeholder="카테고리"><br>
-	      		<input type="text" placeholder="판매량(처음 등록시 0)"><br>
-	      		<input type="text" placeholder="재고"><br>
-	      		<input type="text" placeholder="구성품(ex-된장 10g,쌀 100g,...)"><br>
-	      		<input type="text" placeholder="상세설명"><br>
+	      		<input type="text" placeholder="이미지 경로" id="productImg" name="productImg"><br>
+	      		<input type="text" placeholder="상품명" id="productName" name="productName"><br>
+	      		<input type="text" placeholder="카테고리" id="category" name="category"><br>
+	      		<input type="text" placeholder="가격(숫자만 입력)" id="price" name="price"><br>
+	      		<input type="text" placeholder="재고(숫자만 입력)" id="stock" name="stock"><br>
+	      		<input type="text" placeholder="구성품(ex-된장 10g,쌀 100g,...)" id="component" name="component"><br>
+	      		<input type="text" placeholder="상세설명" id="info" name="info"><br>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">취소</button>
-		       	<button type="button" class="btn btn-success" onclick="modalHide();">상품추가</button>
+		       	<button type="button" class="btn btn-success" onclick="insertProduct();">상품추가</button>
 		      </div>
 		    </div>
 		    </form>

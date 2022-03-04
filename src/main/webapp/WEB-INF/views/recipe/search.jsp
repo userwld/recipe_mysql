@@ -11,21 +11,40 @@
 </head>
 <center>
 	<div id="wrap">
-		<div class="search_result_label"><h3>검색하신 <label>XXX</label>에 대한 결과입니다.</h3></div>
+		<div class="search_result_label"><h3>검색하신 <label>${searchWord}</label>에 대한 결과입니다.</h3></div>
 		<div class="container" >
 			<div class="row">
-				<c:set var="end" value="10"/>
-				<c:forEach begin="1" end="${end}">
-					 <div class="col-md">
-				      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" onclick="location.href='recipeViewProc';">
-				    	<p onclick="location.href='recipeViewProc';">스테이크</p>
-			    	</div>
-				</c:forEach>		<!-- 한줄에 3개씩 넣고 간격 맞추기 위해 3으로 나눠서 0이 아닐경우 빈 div넣어서 간격조정 -->
-				<c:if test="${end % 3 != 0 }">
-					<c:forEach begin="1" end="${3-end%3 }">
-						<div class="col-md"></div>
-					</c:forEach>
-				</c:if>
+				<c:choose>
+					<c:when test="${sel == 'recipe'}">
+						<c:choose>
+							<c:when test="${result.recipeName != '없음'}">
+								 <div class="col-md">
+							      	<img src="${result.img}" onclick="location.href='recipeViewProc?recipeName='+'${result.recipeName}';">
+							    	<p onclick="location.href='recipeViewProc?recipeName='+'${result.recipeName}';">${result.recipeName}</p>
+						    	</div>
+							</c:when>
+							<c:otherwise>
+									<p class="noResult">검색 결과가 없습니다. 검색어를 확인해주세요. </p>
+							</c:otherwise>
+						</c:choose>					
+					</c:when>
+					
+					<c:otherwise>
+						<c:set var="end" value="10"/>
+						<c:forEach begin="1" end="${end}">
+							 <div class="col-md">
+						      	<img src="${result.img}" onclick="location.href='recipeViewProc';">
+						    	<p onclick="location.href='recipeViewProc';">${result.recipeName}</p>
+					    	</div>
+						</c:forEach>		<!-- 한줄에 3개씩 넣고 간격 맞추기 위해 3으로 나눠서 0이 아닐경우 빈 div넣어서 간격조정 -->
+						<c:if test="${end % 3 != 0 }">
+							<c:forEach begin="1" end="${3-end%3 }">
+								<div class="col-md"></div>
+							</c:forEach>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+				
 
 			</div>
 		</div>

@@ -8,4 +8,18 @@
 	<result column="searchDate" property="searchDate"/>
 </resultMap>
 
+<insert id="insertView" parameterType="String">
+	insert into search values(#{recipeName},1,to_char(sysdate,'YY-MM-DD'))
+</insert>
+
+<select id="isExistView" resultType="int">
+	select count(*) from search where recipeName=#{recipeName} and searchDate=#{nowDate}
+</select>
+
+<update id="updateView">
+	update search set searchCount=searchCount+1 where recipeName=#{recipeName} and searchDate=#{nowDate}
+</update>
+
+
+
 </mapper>

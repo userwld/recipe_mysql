@@ -13,5 +13,8 @@
 	<result column="component" property="component"/>
 </resultMap>
 
+<insert id="insertProduct" parameterType="com.cooking.recipe.product.dto.ProductDTO">
+	insert into product values(product_seq.nextval,#{productName},#{category},#{price},#{stock},#{info},#{productImg},#{component})
+</insert>
 
 </mapper>

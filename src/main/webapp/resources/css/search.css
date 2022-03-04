@@ -10,3 +10,5 @@
 .col-md img, .col-md p{cursor: pointer;}
 .col-md p{width: 300px; text-align: center; background-color: #4FBDBA; font-weight: bold;}
 .col-md{margin-left: 10px;}
+
+.noResult{margin-left : 20px; font-size:18px;}

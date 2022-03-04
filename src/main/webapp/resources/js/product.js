@@ -26,8 +26,28 @@ function setCount(){
 /* 상품 관리 페이지 */
 
 /* 상품추가 버튼 클릭시 상품 정보 입력 모달 나옴 */
-function insertFormOpen(){
+function insertModal(){
 	$('#staticBackdrop').modal('show');
+}
+
+function insertProduct(){
+	$.ajax({
+		url: "insertProduct", type:"POST",
+		data: $("#insertProductForm").serialize(), 			
+		dataType: "json", 
+	
+		success : function(result){		
+			if(result.msg == "등록 성공"){
+				modalHide();
+				$("#insertProductForm").reset();
+			}else{
+				alert(result.msg);
+			}
+		},
+		error : function(){
+			alert('error!');
+		}
+	})
 }
 
 function modalHide(){

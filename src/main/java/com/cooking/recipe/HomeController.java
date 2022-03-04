@@ -43,7 +43,7 @@ public class HomeController {
 	   
 	   @RequestMapping(value="/search")
 	   public String search() {
-		   return "search";
+		   return "recipe/search";
 	   }
 	   
 	   @RequestMapping(value="/recipeDetail")

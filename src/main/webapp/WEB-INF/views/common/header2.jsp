@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
+<script src="<c:url value="/resources/js/main.js" />"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <center>
@@ -34,15 +35,15 @@
 	</ul>
 	
 	<div class="search_wrap">
-		<select class="select" data-mdb-filter="true">
-		  <option value="sel">Category</option>
+		<select class="select" data-mdb-filter="true" id="sel">
+		  <option value="noSelect">Category</option>
 		  <option value="recipe">레시피</option>
 		  <option value="product">상품</option> 
 		</select>
 		
 		<div class="search_group">
-		  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." aria-label="Search" aria-describedby="search-addon" />
-		  <button type="button" class="btn btn-outline-primary" onclick="location.href='searchProc';">search</button>
+		  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" />
+		  <button type="button" class="btn btn-outline-primary" onclick="searchProc();">search</button>
 		</div>		
 	</div>
 </div>

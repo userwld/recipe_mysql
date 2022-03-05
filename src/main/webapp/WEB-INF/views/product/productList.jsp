@@ -17,8 +17,8 @@
 	<div id="wrap">
 		<div class="content">
 			<div class="product_search">
-			  <input type="search" class="form-control rounded" placeholder="상품명 입력" />
-			  <button type="button" class="btn btn-secondary">상품검색</button>		
+			  <input type="search" class="form-control rounded" placeholder="상품명 입력" id="searchProduct" name="searchProduct"/>
+			  <button type="button" class="btn btn-secondary" onclick="productSearch();">상품검색</button>		
 			</div>
 			
 			<div class="product_insert">
@@ -26,8 +26,8 @@
 			</div>
 			
 			<div class="modifyInfo">
-				<label><i class="bi bi-exclamation-circle"></i>정보 수정은 <strong>상품명, 단가, 재고</strong>만 가능합니다. 다른 항목은 삭제 후 다시 추가해주세요.</label>
-				<label>상품명을 클릭하면 수정 가능합니다. 수정 후 <strong>확정</strong>버튼을 눌러주세요.</label>
+				<label><i class="bi bi-exclamation-circle"></i>정보 수정은 <strong>이미지, 상품명, 단가, 재고</strong>만 가능합니다. 이미지는 이미지를 클릭하면 수정 가능합니다.</label>
+				<label>다른 항목은 상품명을 클릭하면 수정 가능합니다. 수정 후 <strong>확정</strong>버튼을 눌러주세요.</label>
 			</div>
 			<table class="productListTb">
 				<colgroup>
@@ -48,27 +48,26 @@
 					<th>확정</th>
 					<th>삭제</th>
 				</tr>
-				<tr>
-					<c:set var="index" value="1"/>
-					<td><img src="${pageContext.request.contextPath}/resources/images/main/slide4.jpg"></td>
-					<td><input type="text" value="나물비빔밥" readonly="readonly" id="modifyItem1" class="modifyItem${index}" onclick="enableModify(${index});"></td>
-					<td><input type="text" value="5900" readonly="readonly" id="modifyItem2" class="modifyItem${index}" ></td>
-					<td><input type="text" value="1" readonly="readonly" id="modifyItem3" class="modifyItem${index}"></td>
-					<td>100</td>
-					<td><button type="button" class="btn btn-secondary" onclick="productModify(${index});">확정</button></td>
-					<td><button type="button" class="btn btn-outline-secondary">삭제</button></td>
-				</tr>
-				
-				<tr>
-					<c:set var="index" value="2"/>
-					<td><img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg"></td>
-					<td><input type="text" value="스테이크" readonly="readonly" id="modifyItem1" class="modifyItem${index}" onclick="enableModify(${index});"></td>
-					<td><input type="text" value="10000" readonly="readonly" id="modifyItem2" class="modifyItem${index}"></td>
-					<td><input type="text" value="4" readonly="readonly" id="modifyItem3" class="modifyItem${index}"></td>
-					<td>100</td>
-					<td><button type="button" class="btn btn-secondary" onclick="productModify(${index});">확정</button></td>
-					<td><button type="button" class="btn btn-outline-secondary">삭제</button></td>
-				</tr>												
+		
+					<c:choose>
+						<c:when test="${list.isEmpty() == false}">
+							<c:forEach var="product" items="${list}" varStatus="index">
+								<tr>
+									
+									<td><input type="file" style="display: none;" class="file${index.count}" onchange="updateFileName(${index.count},${product.productNum});"><img src="${pageContext.request.contextPath}/resources/images/product/${product.productImg}" onclick="updateImg(${index.count});" title="이미지 변경시 클릭"></td>
+									<td><input type="text" value="${product.productName}" readonly="readonly" id="modifyItem1" class="modifyItem${index.count}" onclick="enableModify(${index.count});"></td>
+									<td><input type="text" value="${product.price}" readonly="readonly" id="modifyItem2" class="modifyItem${index.count}" onkeyup="numCheck(this);"></td>
+									<td><input type="text" value="${product.stock}" readonly="readonly" id="modifyItem3" class="modifyItem${index.count}" onkeyup="numCheck(this);"></td>
+									<td>${index.count}</td>
+									<td><button type="button" class="btn btn-secondary" onclick="productModify(${index.count}, ${product.productNum});">확정</button></td>
+									<td><button type="button" class="btn btn-outline-secondary" onclick="productDelete(${product.productNum});">삭제</button></td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr><td colspan="7">등록된 상품이 없습니다.</td></tr>
+						</c:otherwise>
+					</c:choose>											
 			</table>
 			
 			
@@ -82,13 +81,13 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-	      		<input type="text" placeholder="이미지 경로" id="productImg" name="productImg"><br>
-	      		<input type="text" placeholder="상품명" id="productName" name="productName"><br>
-	      		<input type="text" placeholder="카테고리" id="category" name="category"><br>
-	      		<input type="text" placeholder="가격(숫자만 입력)" id="price" name="price"><br>
-	      		<input type="text" placeholder="재고(숫자만 입력)" id="stock" name="stock"><br>
-	      		<input type="text" placeholder="구성품(ex-된장 10g,쌀 100g,...)" id="component" name="component"><br>
-	      		<input type="text" placeholder="상세설명" id="info" name="info"><br>
+	      		<input type="text" class="inputText" placeholder="이미지 경로" id="productImg" name="productImg"><br>
+	      		<input type="text" class="inputText" placeholder="상품명" id="productName" name="productName"><br>
+	      		<input type="text" class="inputText" placeholder="카테고리" id="category" name="category"><br>
+	      		<input type="text" class="inputText" placeholder="가격(숫자만 입력)" id="price" name="price" onkeyup="numCheck(this);"><br>
+	      		<input type="text" class="inputText" placeholder="재고(숫자만 입력)" id="stock" name="stock" onkeyup="numCheck(this);"><br>
+	      		<input type="text" class="inputText" placeholder="구성품(ex-된장 10g,쌀 100g,...)" id="component" name="component"><br>
+	      		<input type="text" class="inputText" placeholder="상세설명" id="info" name="info"><br>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">취소</button>
@@ -98,10 +97,11 @@
 		    </form>
 		  </div>
 		</div>
-		
-			
-					
-			
+				
+		<div class="productPaging">
+			${page}
+		</div>
+						
 		<div class="margin_bottom"></div>
 		</div>
 	</div>

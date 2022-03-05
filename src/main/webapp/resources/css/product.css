@@ -43,7 +43,7 @@
 .productListTb th{background-color: lightgray; border: 1px solid darkgray;}
 .productListTb td{border-bottom: 1px solid lightgray; border-left: 1px solid lightgray; border-right: 1px solid lightgray;}
 .productListTb button{height: 30px; line-height: 1;}
-.productListTb img{width:100px; height: auto; margin:10px;}
+.productListTb img{width:100px; height: auto; margin:10px; cursor: pointer;}
 .productListTb #modifyItem1,.productListTb #modifyItem2,.productListTb #modifyItem3{border: none; text-align: center;}
 .productListTb #modifyItem1{cursor:pointer;}
 .productListTb #modifyItem3{width:70px;}
@@ -51,3 +51,5 @@
 input:focus {outline: none;}
 
 .modal-body input[type='text']{width: 300px; height: 50px; border-color: transparent; border-bottom: 2px solid lightgray;}
+
+.productPaging{margin-top:20px;}

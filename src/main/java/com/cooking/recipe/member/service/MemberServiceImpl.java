@@ -138,8 +138,7 @@ public class MemberServiceImpl implements IMemberService{
 	}
 
 	@Override
-	public void memberList(Model model, int currentPage) {
-		session.removeAttribute("search");	
+	public void memberList(Model model, int currentPage) {	
 		int[] page = PageConfig.setPage(dao.memberCount(), currentPage);
 		// page[] ={한 페이지당 시작번호, 한 페이지당 끝번호, 페이지당 개수(10), 전체 데이터 개수}
 		ArrayList<MemberDTO> memberList = dao.selectAll(page[0], page[1]);
@@ -151,7 +150,6 @@ public class MemberServiceImpl implements IMemberService{
 
 	@Override
 	public void memberSearch(Model model, int currentPage, String searchWord) {
-		session.setAttribute("search", searchWord);
 		int[] page = PageConfig.setPage(dao.searchCount(searchWord), currentPage);
 		
 		ArrayList<MemberDTO> searchList = dao.selectSearch(page[0], page[1],searchWord);

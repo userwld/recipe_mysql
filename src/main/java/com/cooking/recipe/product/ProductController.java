@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cooking.recipe.product.service.IProductService;
@@ -23,7 +26,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/productListViewProc")
-	public String productListViewProc() {
+	public String productListViewProc(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage, String searchWord) {
+		if(searchWord == null) {
+			service.productList(model, currentPage);
+		}else {
+			service.productSearch(model,currentPage,searchWord);
+		}
+		
+		model.addAttribute("cp", currentPage);
 		return "forward:index?formpath=productList";
 	}
 	
@@ -35,4 +45,25 @@ public class ProductController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/updateImg", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public void updateImg(@RequestBody Map<String,String>map) {
+		service.updateImg(map.get("newImgName"), map.get("num"));
+	}
+	
+	@RequestMapping(value = "/updateProduct", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public void updateProduct(@RequestBody Map<String,String>map) {
+		String productName = map.get("productName");
+		String newPrice = map.get("price");
+		String newStock = map.get("stock");
+		String num = map.get("num");
+		service.updateProduct(productName, newPrice, newStock, num);
+	}
+	
+	@RequestMapping(value = "/deleteProduct", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public void deleteProduct(@RequestBody Map<String,String>map) {
+		service.deleteProduct(map.get("num"));
+	}
 }

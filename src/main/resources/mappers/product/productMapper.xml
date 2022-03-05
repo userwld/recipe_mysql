@@ -17,4 +17,39 @@
 	insert into product values(product_seq.nextval,#{productName},#{category},#{price},#{stock},#{info},#{productImg},#{component})
 </insert>
 
+<select id="productCount" resultType="int">
+	select count(*) from product
+</select>
+
+<select id="selectAll" resultMap="product">
+	select B.* from(
+		select rownum rn, A.* from(
+			select * from product order by productNum
+		)A
+	)B where rn between #{b} and #{e}
+</select>
+
+<select id ="searchCount" parameterType="String" resultType="int">
+	select count(*) from product where productName like '%'||#{searchWord}||'%'
+</select>
+
+<select id="selectSearch" resultMap="product">
+	select B.* from(
+		select rownum rn, A.* from(
+			select * from product where productName like '%'||#{searchWord}||'%' order by productNum
+		)A
+	)B where rn between #{b} and #{e}
+</select>
+
+<update id="updateImg">
+	update product set productImg=#{productImg} where productNum=#{productNum}
+</update>
+
+<update id="updateProduct" parameterType="com.cooking.recipe.product.dto.ProductDTO">
+	update product set productName=#{productName},price=#{price},stock=#{stock} where productNum=#{productNum}
+</update>
+
+<delete id="deleteProduct" parameterType="int">
+	delete from product where productNum = #{productNum}
+</delete>
 </mapper>

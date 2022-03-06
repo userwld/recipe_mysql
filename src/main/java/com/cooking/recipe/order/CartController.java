@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CartController {
-	
-	@RequestMapping(value="/cartInsertProc")
-	public void cartInsertProc() {}
-	
+		
 	@RequestMapping(value="/cartViewProc")
 	public String cartViewProc() {
 		return "forward:cart";

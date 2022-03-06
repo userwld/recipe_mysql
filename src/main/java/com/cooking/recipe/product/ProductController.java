@@ -21,7 +21,8 @@ public class ProductController {
 	@Autowired IProductService service;
 	
 	@RequestMapping(value="/productViewProc")
-	public String productViewProc() {
+	public String productViewProc(String productNum, Model model) {
+		service.productViewProc(Integer.parseInt(productNum), model);
 		return "forward:index?formpath=productDetail";
 	}
 	
@@ -66,4 +67,23 @@ public class ProductController {
 	public void deleteProduct(@RequestBody Map<String,String>map) {
 		service.deleteProduct(map.get("num"));
 	}
+	
+	@RequestMapping(value = "/isExistProduct", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public Map<String,String> isExistProduct(@RequestBody Map<String,String>map) {
+		String productName = map.get("name");
+		map.put("msg",service.isExistProduct(productName));
+		return map;
+	}
+	
+	@RequestMapping(value = "/cartInsert", produces = "application/json; charset=utf-8" )
+	@ResponseBody		// ajax에서 done이나, success쓰려면 리턴해줘야함(void 안됨)..!
+	public Map<String,String> cartInsert(@RequestBody Map<String,String>map) {
+		int productNum = Integer.parseInt(map.get("num"));
+		int amount = Integer.parseInt(map.get("amount"));
+		
+		service.cartInsert(productNum, amount);
+		return map;
+	}
+	
 }

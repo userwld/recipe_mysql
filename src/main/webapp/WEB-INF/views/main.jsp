@@ -23,7 +23,7 @@
 	      <li><img src="${pageContext.request.contextPath}/resources/images/main/slide4.jpg"></li>
 	    </ul>
 		</div>
-	<form>
+
 		<div class="search_wrap">
 			<select class="select" data-mdb-filter="true" id="sel">
 			  <option value="noSelect">Category</option>
@@ -32,11 +32,11 @@
 			</select>
 			
 			<div class="search_group">
-			  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord"/>
+			  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" onkeypress="inputEnter();"/>
 			  <button type="button" class="btn btn-outline-primary" onclick="searchProc();">search</button>
 			</div>
 		</div>
-	</form>
+
 	<div class="bestRecipe">
 		<label class="br_label">Best Recipe</label><button class="daily">일간</button><button class="weekly">주간</button>
 		<div class="container">

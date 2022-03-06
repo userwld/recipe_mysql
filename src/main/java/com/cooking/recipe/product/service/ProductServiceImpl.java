@@ -95,4 +95,24 @@ public class ProductServiceImpl implements IProductService{
 		dao.deleteProduct(productNum);
 	}
 
+	@Override
+	public void productViewProc(int productNum, Model model) {
+		ProductDTO product = dao.selectProductNum(productNum);
+		model.addAttribute("result", product);
+	}
+	
+	/* 레시피 상세페이지에서 밀키트 보러가기 클릭시 레시피명을 포함하는 상품있는지 리턴*/
+	@Override	
+	public String isExistProduct(String productName) {
+		ProductDTO product = dao.selectProductName(productName);
+		if(product == null) return "없음";
+		else return "있음"; 
+	}
+
+	@Override
+	public void cartInsert(int productNum, int amount) {
+		String id = (String)session.getAttribute("loginId");
+		dao.insertCart(productNum, amount, id);
+	}
+
 }

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="<c:url value="/resources/js/recipe.js" />"></script>
 
 </head>
@@ -30,7 +31,7 @@
 						<li><i class="bi bi-emoji-laughing"></i>난이도 : <label>${resultBasic.level}</label></li>
 					</ul>
 					<div class="mealKit_btn_area">
-						<button class="mealKitBtn" onclick="location.href='productViewProc';">밀키트 보러가기</button>
+						<button class="mealKitBtn" onclick="isExistProduct('${resultBasic.recipeName}');">밀키트 보러가기</button>
 					</div>
 				</div>
 			</div>

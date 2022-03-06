@@ -27,4 +27,12 @@ public interface IProductDAO {
 
 	public void deleteProduct(int productNum);
 
+	public ProductDTO selectProductNum(int productNum);
+	
+	public ProductDTO selectProductName(String productName);
+
+	public void insertCart(@Param("productNum")int productNum, @Param("amount")int amount, @Param("id")String id);
+
+	
+
 }

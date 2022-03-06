@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.cooking.recipe.product.dto.ProductDTO;
 import com.cooking.recipe.recipe.dao.ISearchDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -182,6 +184,11 @@ public class SearchServiceImpl implements ISearchService{
 		}else {
 			dao.updateView(recipeName,nowDate);
 		}
+	}
+
+	@Override
+	public ArrayList<ProductDTO> searchProduct(String searchWord) {
+		return dao.searchProduct(searchWord);
 	}
 	
 	

@@ -1,10 +1,16 @@
 
-/* 상품 상세 페이지 - 수량 plus or minus 버튼 눌렀을 때 (1~99까지의 수량만 가능)*/
-function calcOrder(oper){
+/* 상품 상세 페이지 - 수량 plus or minus 버튼 눌렀을 때 (1~상품재고 수량만 가능)*/
+function calcOrder(oper, stock){
 	orderCount = $('#orderCount').val();
 	
+	if(stock == 0){
+		alert('현재 재고가 없습니다.');
+		$('#orderCount').val("0");		
+		return;
+	}
+	
 	if(oper == '+'){
-		if(orderCount >= 99) orderCount = 99;
+		if(orderCount >= stock) orderCount = stock;
 		else orderCount++;	
 	}else{
 		if(orderCount <= 1) orderCount = 1;
@@ -21,6 +27,39 @@ function setCount(){
 	if(orderCount > 99) orderCount = 99;
 	$('#orderCount').val(orderCount);
 }
+
+/* 장바구니 담기 클릭시 -> db에 넣고 장바구니 페이지로 이동할것인지 선택창뜸 */
+function cartInsert(num){
+	var amount = document.getElementById("orderCount").value;
+	if(amount <= 0){
+		alert("현재 재고가 없습니다.");
+		return;
+	}
+	
+	var info = {num : num, amount : amount};
+	
+	$.ajax({
+	url: "cartInsert", type:"POST",
+	data: JSON.stringify(info),	
+	contentType: "application/json; charset=utf-8",
+	dataType: "json"
+	
+	})	
+	.done(function(){
+		var moveCart = confirm('장바구니에 담겼습니다. 장바구니로 이동할까요?');
+		if(moveCart) location.href='cartViewProc';
+		else location.reload();		
+	});
+}
+
+/* 바로 구매 버튼 클릭시 */
+function orderNow(num, name, price){
+	var amount = document.getElementById("orderCount").value;
+	
+	location.href='orderNowProc?productNum='+num+"&productName="+name+"&price="+price+"&amount="+amount;
+
+}
+
 
 
 /* 상품 관리 페이지 */
@@ -75,6 +114,11 @@ function productSearch(){
 	else location.href='productListViewProc?searchWord='+searchWord;
 }
 
+/* 상품명 검색창에서 엔터 쳤을때 -> productSearch 메소드 호출  */
+function productInputEnter(){
+	if(window.event.keyCode==13) productSearch();
+}
+
 /* 이미지 클릭시 파일선택창 띄우는 메소드 */
 function updateImg(i){
 	$('.file'+i).click();
@@ -91,11 +135,11 @@ function updateFileName(i, num){
 		url: "updateImg", type:"POST",
 		data: JSON.stringify(info),	
 		contentType: "application/json; charset=utf-8",
-		dataType: "json", 
+		dataType: "json" })
 	
-		success : function(){ location.reload();},
-		error : function(){ location.reload();}
-		})		
+		.always(function(){
+			location.reload();
+		})
 	}	
 }
 
@@ -123,11 +167,12 @@ function productModify(i, num){
 	url: "updateProduct", type:"POST",
 	data: JSON.stringify(info),	
 	contentType: "application/json; charset=utf-8",
-	dataType: "json", 
-
-	success : function(){ location.reload();},
-	error : function(){ location.reload();}
-	})	
+	dataType: "json"})
+	
+	.always(function(){
+		alert(productName + ' 정보가 수정되었습니다.');
+		location.reload();
+	})
 }
 
 /* 삭제 버튼 클릭 시 */
@@ -138,9 +183,9 @@ function productDelete(num){
 	url: "deleteProduct", type:"POST",
 	data: JSON.stringify(info),	
 	contentType: "application/json; charset=utf-8",
-	dataType: "json", 
-
-	success : function(){ location.reload();},
-	error : function(){ location.reload();}
-	})	
+	dataType: "json"})
+	
+	.always(function(){
+		location.reload();
+	})
 }

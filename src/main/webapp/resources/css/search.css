@@ -4,7 +4,7 @@
 #wrap{margin-bottom: 100px; margin-top:-30px; margin-left: 20px;}
 .search_result_label{text-align: left; margin-left: 20px; margin-bottom: 30px;}
 .search_result_label label{text-decoration: underline;}
-.container .col-md, .container .col-md img{width : 300px; height: auto; }
+.container .col-md, .container .col-md img{width : 300px; height: 250px; }
 .container .row{text-align: left; }
 .row{--bs-gutter-x: -10rem; margin-left : 0px; margin-right: 10px; }
 .col-md img, .col-md p{cursor: pointer;}

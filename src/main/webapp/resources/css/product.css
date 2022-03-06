@@ -12,6 +12,8 @@
 .product_basic_area li{list-style: none; height: 33px;}
 .product_basic_area li i{margin-right: 5px;}
 .product_basic_area .bi.bi-suit-heart{color:red;}
+.product_stock{margin-left:50px;}
+.product_stock .bi.bi-check-lg{color:green;}
 .product_con{width : 550px; white-space: normal; line-height: 1.2; height: 3.6em; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;}
 .order_area{height: 38%; position: relative; left:170px;}
 .order_area .col{height: 45px; width: 200px; text-align: center; margin:3px;}
@@ -26,6 +28,7 @@
 .product_detail{width:900px; height: auto; text-align: left; border: 5px solid  #35858B; border-radius : 20px; overflow: hidden; margin : 30px 0px 0px 40px; padding:20px;}
 .product_detail label{font-size: 18px; font-weight: bold; margin-left : 5px;}
 .product_detail ul{margin-top:18px;}
+.product_detail li{list-style: none;}
 
 
 /* 관리자페이지 - 상품관리 */
@@ -43,7 +46,7 @@
 .productListTb th{background-color: lightgray; border: 1px solid darkgray;}
 .productListTb td{border-bottom: 1px solid lightgray; border-left: 1px solid lightgray; border-right: 1px solid lightgray;}
 .productListTb button{height: 30px; line-height: 1;}
-.productListTb img{width:100px; height: auto; margin:10px; cursor: pointer;}
+.productListTb img{width:100px; height: 85px; margin:10px; cursor: pointer;}
 .productListTb #modifyItem1,.productListTb #modifyItem2,.productListTb #modifyItem3{border: none; text-align: center;}
 .productListTb #modifyItem1{cursor:pointer;}
 .productListTb #modifyItem3{width:70px;}

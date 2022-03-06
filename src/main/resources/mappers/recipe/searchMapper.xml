@@ -8,6 +8,17 @@
 	<result column="searchDate" property="searchDate"/>
 </resultMap>
 
+<resultMap type="com.cooking.recipe.product.dto.ProductDTO" id="product">
+	<result column="productNum" property="productNum"/>
+	<result column="productName" property="productName"/>
+	<result column="category" property="category"/>
+	<result column="price" property="price"/>
+	<result column="stock" property="stock"/>
+	<result column="info" property="info"/>
+	<result column="productImg" property="productImg"/>
+	<result column="component" property="component"/>
+</resultMap>
+
 <insert id="insertView" parameterType="String">
 	insert into search values(#{recipeName},1,to_char(sysdate,'YY-MM-DD'))
 </insert>
@@ -20,6 +31,9 @@
 	update search set searchCount=searchCount+1 where recipeName=#{recipeName} and searchDate=#{nowDate}
 </update>
 
+<select id="searchProduct" parameterType="String" resultMap="product">
+	select * from product where productName like '%'||#{searchWord}||'%' order by productNum
+</select>
 
 
 </mapper>

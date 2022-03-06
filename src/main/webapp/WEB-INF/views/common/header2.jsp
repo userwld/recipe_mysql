@@ -42,7 +42,7 @@
 		</select>
 		
 		<div class="search_group">
-		  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" />
+		  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" onkeypress="inputEnter();" />
 		  <button type="button" class="btn btn-outline-primary" onclick="searchProc();">search</button>
 		</div>		
 	</div>

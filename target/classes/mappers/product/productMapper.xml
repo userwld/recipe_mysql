@@ -52,4 +52,17 @@
 <delete id="deleteProduct" parameterType="int">
 	delete from product where productNum = #{productNum}
 </delete>
+
+<select id="selectProductNum" parameterType="int" resultMap="product">
+	select * from product where productNum=#{productNum}
+</select>
+
+<select id="selectProductName" parameterType="String" resultMap="product">
+	select * from product where productName like '%'||#{productName}||'%'
+</select>
+
+<insert id="insertCart">
+	insert into cart values(cart_seq.nextval,#{id},#{productNum},#{amount})
+</insert>
+
 </mapper>

@@ -42,11 +42,11 @@
 					<div class="login_input_area">
 						<div class="input-group flex-nowrap">
 						  	<span class="input-group-text" id="addon-wrapping"><img src="${pageContext.request.contextPath}/resources/images/member/user_ico.png"></span>
-						 	<input type="text" class="form-control" placeholder="UserId" id ="userId" name="userId">
+						 	<input type="text" class="form-control" placeholder="UserId" id ="userId" name="userId" onkeypress="loginInputEnter();">
 						</div>
 						<div class="input-group flex-nowrap">
 							<span class="input-group-text" id="addon-wrapping"><img src="${pageContext.request.contextPath}/resources/images/member/pw_ico.png"></span>
-						 	<input type="password" class="form-control" placeholder="UserPassword" id="userPw" name="userPw" >
+						 	<input type="password" class="form-control" placeholder="UserPassword" id="userPw" name="userPw" onkeypress="loginInputEnter();">
 						</div>
 						<label class="loginCheckLabel" id="loginCheck"></label>
 						<div class="login_btn_area">

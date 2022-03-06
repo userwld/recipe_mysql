@@ -24,28 +24,34 @@
 						    	</div>
 							</c:when>
 							<c:otherwise>
-									<p class="noResult">검색 결과가 없습니다. 검색어를 확인해주세요. </p>
+									<p class="noResult">레시피 검색 결과가 없습니다. 검색어를 확인해주세요. </p>
 							</c:otherwise>
 						</c:choose>					
 					</c:when>
 					
 					<c:otherwise>
-						<c:set var="end" value="10"/>
-						<c:forEach begin="1" end="${end}">
-							 <div class="col-md">
-						      	<img src="${result.img}" onclick="location.href='recipeViewProc';">
-						    	<p onclick="location.href='recipeViewProc';">${result.recipeName}</p>
-					    	</div>
-						</c:forEach>		<!-- 한줄에 3개씩 넣고 간격 맞추기 위해 3으로 나눠서 0이 아닐경우 빈 div넣어서 간격조정 -->
-						<c:if test="${end % 3 != 0 }">
-							<c:forEach begin="1" end="${3-end%3 }">
-								<div class="col-md"></div>
-							</c:forEach>
-						</c:if>
+						<c:choose>
+							<c:when test="${result.isEmpty() == false}">
+								<c:set var="end" value="${result.size()}"/>
+								<c:forEach var = "i" begin="0" end="${end-1}">
+									 <div class="col-md">
+								      	<img src="${pageContext.request.contextPath}/resources/images/product/${result[i].productImg}" onclick="location.href='productViewProc?productNum='+'${result[i].productNum}';">
+								    	<p onclick="location.href='productViewProc?productNum='+'${result[i].productNum}';">${result[i].productName}   / 현재고 : ${result[i].stock}</p>
+							    	</div>
+								</c:forEach>		<!-- 한줄에 3개씩 넣고 간격 맞추기 위해 3으로 나눠서 0이 아닐경우 빈 div넣어서 간격조정 -->
+								<c:if test="${end % 3 != 0 }">
+									<c:forEach begin="1" end="${3-end%3 }">
+										<div class="col-md"></div>
+									</c:forEach>
+								</c:if>
+							</c:when>
+							<c:otherwise>
+								<p class="noResult">상품 검색 결과가 없습니다. 검색어를 확인해주세요. </p>
+							</c:otherwise>						
+						</c:choose>						
 					</c:otherwise>
 				</c:choose>
-				
-
+			
 			</div>
 		</div>
 	</div>

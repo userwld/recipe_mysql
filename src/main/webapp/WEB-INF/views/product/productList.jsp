@@ -17,7 +17,7 @@
 	<div id="wrap">
 		<div class="content">
 			<div class="product_search">
-			  <input type="search" class="form-control rounded" placeholder="상품명 입력" id="searchProduct" name="searchProduct"/>
+			  <input type="search" class="form-control rounded" placeholder="상품명 입력" id="searchProduct" name="searchProduct" onkeypress="productInputEnter();"/>
 			  <button type="button" class="btn btn-secondary" onclick="productSearch();">상품검색</button>		
 			</div>
 			
@@ -87,7 +87,7 @@
 	      		<input type="text" class="inputText" placeholder="가격(숫자만 입력)" id="price" name="price" onkeyup="numCheck(this);"><br>
 	      		<input type="text" class="inputText" placeholder="재고(숫자만 입력)" id="stock" name="stock" onkeyup="numCheck(this);"><br>
 	      		<input type="text" class="inputText" placeholder="구성품(ex-된장 10g,쌀 100g,...)" id="component" name="component"><br>
-	      		<input type="text" class="inputText" placeholder="상세설명" id="info" name="info"><br>
+	      		<input type="text" class="inputText" placeholder="상세설명(ex-1.쌀을 씻는다.<br>2.~~<br>)" id="info" name="info"><br>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">취소</button>

@@ -17,7 +17,7 @@
 	<div id="wrap">
 		<div class="member_content">
 			<div class="member_search">
-			  <input type="search" class="form-control rounded" placeholder="아이디 입력" id="searchMember" name="searchMember" />
+			  <input type="search" class="form-control rounded" placeholder="아이디 입력" id="searchMember" name="searchMember" onkeypress="memberInputEnter();"/>
 			  <button type="button" class="btn btn-secondary" onclick="memberSearch();">회원검색</button>
 			</div>		
 				

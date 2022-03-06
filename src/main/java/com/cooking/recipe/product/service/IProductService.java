@@ -18,4 +18,10 @@ public interface IProductService {
 
 	public void deleteProduct(String num);
 
+	public void productViewProc(int productNum, Model model);
+
+	public String isExistProduct(String productName);
+
+	public void cartInsert(int productNum, int amount);
+
 }

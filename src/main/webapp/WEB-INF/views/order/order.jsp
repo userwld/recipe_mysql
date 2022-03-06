@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:url var="root" value="/"/>
 <head>
 <title>주문 페이지</title>
@@ -26,9 +27,15 @@
 		<div class="orderList">
 			<table class="orderListTb">
 				<tr><th>주문 상품 목록</th></tr>
-				<tr><td>기가막힌 스테이크 | 10개 | 100,000원</td></tr>
-				<tr><td>열무비빔밥 | 1개 | 5,900원</td></tr>	
-				<tr><td class="total_price">총 결제 금액 : 105,900원</td></tr>	
+				<c:choose>
+					<c:when test="${state == 'now'}">	<!-- 바로주문클릭하고 주문페이지 들어왔을 때 -->
+						<tr><td>${orderInfo.productName} | ${orderInfo.amount}개 | <fmt:formatNumber value="${orderInfo.price * orderInfo.amount}" pattern="#,###"/>원</td></tr>
+					</c:when>
+					<c:otherwise>	<!-- 장바구니 페이지에서 주문페이지로 들어왔을 때 -->
+					
+					</c:otherwise>
+				</c:choose>
+				<tr><td class="total_price">총 결제 금액 : <fmt:formatNumber value="${orderInfo.price * orderInfo.amount}" pattern="#,###"/>원</td></tr>	
 			</table>
 		</div>
 		

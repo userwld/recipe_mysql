@@ -232,10 +232,22 @@ function loginProc(){
 	}
 }
 
+function loginInputEnter(){
+	if(window.event.keyCode == 13){
+		loginProc();
+	}
+}
 
+
+/* 회원관리 페이지 - 회원검색 */
 function memberSearch(){
 	var searchWord = document.getElementById('searchMember').value;
 	if(searchWord == '') alert('검색할 아이디를 입력해주세요');
 	else location.href='memberListViewProc?searchWord='+searchWord;
 	
 }
+
+function memberInputEnter(){
+	if(window.event.keyCode == 13) memberSearch();
+}
+

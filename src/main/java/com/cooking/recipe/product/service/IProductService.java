@@ -22,6 +22,4 @@ public interface IProductService {
 
 	public String isExistProduct(String productName);
 
-	public void cartInsert(int productNum, int amount);
-
 }

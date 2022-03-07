@@ -2,11 +2,11 @@
 /* 장바구니 페이지 */
 
 // 수량 조정 버튼 클릭 시 
-function calcOrder(oper, i,unitPrice){
+function calcOrder(oper, i,unitPrice, stock){
 	orderCount = $('#orderCount'+i).val();
 	
 	if(oper == '+'){
-		if(orderCount >= 99) orderCount = 99;
+		if(orderCount >= stock) orderCount = stock;
 		else orderCount++;	
 	}else{
 		if(orderCount <= 1) orderCount = 1;
@@ -84,6 +84,7 @@ function checkList(){
 
 /* 주문 페이지 */
 
+/* 카카오 주소 */
 function daumPost(){		
 	new daum.Postcode({
 		oncomplete:function(data){	
@@ -99,4 +100,36 @@ function daumPost(){
 			$('.addr2').focus();
 		}
 	}).open();
+}
+
+/* 결제 */
+
+function payProc(totalPrice){
+	var name = document.getElementById("name").value;
+	var addr1 = document.getElementById("addr1").innerHTML;
+	var addr2 = document.getElementById("addr2").value;
+		
+	if(name == '' || addr2 == '' || addr1.substr(0,3) == '등록된' ){
+		alert('배송지 입력칸에 빈 항목이 있습니다. 모두 작성해주세요.');
+		return;
+	}
+	
+	var info = {name : name, addr1 : addr1, addr2 : addr2, totalPrice : totalPrice};
+	
+	$.ajax({		
+		url: "payProc", type: "POST",		
+		data: JSON.stringify(info), 			
+		contentType: "application/json; charset=utf-8", 	
+		dataType: "json",
+	
+		success : function(result){	
+			var resURL = result.next_redirect_pc_url;
+			location.href=resURL;
+		},
+		error : function(){
+			alert('error!');
+		}
+	})	
+	
+	
 }

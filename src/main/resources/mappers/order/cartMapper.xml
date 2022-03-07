@@ -7,7 +7,26 @@
 	<result column="id" property="id"/>
 	<result column="productNum" property="productNum"/>
 	<result column="amount" property="amount"/>
+	<result column="productName" property="productName"/>
+	<result column="price" property="price"/>
+	<result column="productImg" property="productImg"/>
+	<result column="stock" property="stock"/>
 </resultMap>
 
+<select id="selectCart" parameterType="String" resultMap="cart">
+	select cart.*,product.productName,product.price,product.productImg,product.stock
+	from cart inner join product on cart.productNum=product.productNum where cart.id=#{id}
+</select>
 
+<insert id="insertCart">
+	insert into cart values(cart_seq.nextval,#{id},#{productNum},#{amount})
+</insert>
+
+<select id="isExistCart" resultType="com.cooking.recipe.order.dto.CartDTO">
+	select * from cart where productNum=#{productNum} and id=#{id}
+</select>
+
+<update id="updateCart">
+	update cart set amount=#{amount} where productNum=#{productNum} and id=#{id}
+</update>
 </mapper>

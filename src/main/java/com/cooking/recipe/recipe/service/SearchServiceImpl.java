@@ -47,6 +47,7 @@ public class SearchServiceImpl implements ISearchService{
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        String line = "";
 	        String result = "";
+	    
 	        while ((line = br.readLine()) != null) {
 	            result += line;
 	        }

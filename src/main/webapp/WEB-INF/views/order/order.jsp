@@ -27,15 +27,16 @@
 		<div class="orderList">
 			<table class="orderListTb">
 				<tr><th>주문 상품 목록</th></tr>
+				<c:set var="totalPrice" value="${orderInfo.price * orderInfo.amount}"/>
 				<c:choose>
 					<c:when test="${state == 'now'}">	<!-- 바로주문클릭하고 주문페이지 들어왔을 때 -->
-						<tr><td>${orderInfo.productName} | ${orderInfo.amount}개 | <fmt:formatNumber value="${orderInfo.price * orderInfo.amount}" pattern="#,###"/>원</td></tr>
+						<tr><td>${orderInfo.productName} | ${orderInfo.amount}개 | <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</td></tr>
 					</c:when>
 					<c:otherwise>	<!-- 장바구니 페이지에서 주문페이지로 들어왔을 때 -->
 					
 					</c:otherwise>
 				</c:choose>
-				<tr><td class="total_price">총 결제 금액 : <fmt:formatNumber value="${orderInfo.price * orderInfo.amount}" pattern="#,###"/>원</td></tr>	
+				<tr><td class="total_price">총 결제 금액 : <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</td></tr>	
 			</table>
 		</div>
 		
@@ -44,21 +45,41 @@
 			<table class="deliverTb">
 				<tr>
 					<th>주문자 이름</th>
-					<td colspan="2">XXX</td>		
-					
+					<c:choose>
+						<c:when test="${not empty memberInfo.name}">
+							<td colspan="2"><input type="text" id="name" value="${memberInfo.name}" readonly="readonly" class="name"></td>	
+						</c:when>
+						<c:otherwise>
+							<td><input type="text" id="name" name="name" placeholder="주문자 이름을 입력해주세요." class="name"></td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 				<tr>
 					<th>배송지 주소</th>
-					<td class="addr" colspan="2"><label class="addr1">주소가 어쩌구 저쩌구</label></td>					
+					<c:choose>
+						<c:when test="${not empty memberInfo.addr1}">
+							<td class="addr" colspan="2"><label class="addr1" id="addr1">${memberInfo.addr1}</label></td>
+						</c:when>
+						<c:otherwise>
+							<td class="addr" colspan="2"><label class="addr1" id="addr1">등록된 주소가 없습니다. 주소입력 버튼을 눌러주세요.</label></td>
+						</c:otherwise>
+					</c:choose>						
 				</tr>
 				<tr>
 					<th></th>
-					<td><input type="text" placeholder="상세주소를 입력해주세요. ex) 101동 101호" class="addr2"></td>
+					<c:choose>
+						<c:when test="${not empty memberInfo.addr2}">
+							<td><input type="text" id="addr2" value="${memberInfo.addr2 }" class="addr2"></td>
+						</c:when>
+						<c:otherwise>
+							<td><input type="text" placeholder="상세주소를 입력해주세요. ex) 101동 101호" class="addr2" id="addr2"></td>
+						</c:otherwise>
+					</c:choose>
 					<td class="addrBtn"><button type="button" class="btn btn-outline-info" onclick="daumPost();">주소 입력 및 변경</button></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td colspan="2">010-1234-1234</td>	
+					<td colspan="2">${memberInfo.phone}</td>	
 				</tr>
 			</table>		
 		</div>
@@ -68,7 +89,7 @@
 			<table class="payTb">
 				<tr>
 					<th>총 결제 금액</th>
-					<td>105,900원</td>				
+					<td><label id="total"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></label>원</td>				
 				</tr>
 				<tr>
 					<th>결제 수단</th>
@@ -78,7 +99,7 @@
 			
 			<div class="order_btn_area">
 				<button type="button" class="btn btn-primary btn-lg" onclick="location.href='${root}';">취소</button>
-				<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='orderViewProc';">결제하기</button>
+				<button type="button" class="btn btn-secondary btn-lg" onclick="payProc(${totalPrice});">결제하기</button>
 			</div>
 			<div class="margin_bottom"></div>
 			</div>

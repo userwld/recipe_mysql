@@ -31,8 +31,4 @@ public interface IProductDAO {
 	
 	public ProductDTO selectProductName(String productName);
 
-	public void insertCart(@Param("productNum")int productNum, @Param("amount")int amount, @Param("id")String id);
-
-	
-
 }

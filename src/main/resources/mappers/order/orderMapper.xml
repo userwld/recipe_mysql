@@ -13,5 +13,16 @@
 	<result column="orderState" property="orderState"/>
 </resultMap>
 
+<update id="updateAddr" parameterType="com.cooking.recipe.member.dto.MemberDTO">
+	update member set addr1=#{addr1},addr2=#{addr2},name=#{name} where id=#{id}
+</update>
+
+<insert id="insertOrder" parameterType="com.cooking.recipe.order.dto.OrderDTO">
+	insert into orderList values(order_seq.nextval,#{id},#{productNum},#{productName},#{amount},#{totalPrice},to_char(sysdate,'YY-MM-DD'),'결제완료')
+</insert>
+
+<update id="updateStock">
+	update product set stock=stock-#{amount} where productNum=#{productNum}
+</update>
 
 </mapper>

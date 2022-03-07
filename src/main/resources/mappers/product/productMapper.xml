@@ -61,8 +61,4 @@
 	select * from product where productName like '%'||#{productName}||'%'
 </select>
 
-<insert id="insertCart">
-	insert into cart values(cart_seq.nextval,#{id},#{productNum},#{amount})
-</insert>
-
 </mapper>

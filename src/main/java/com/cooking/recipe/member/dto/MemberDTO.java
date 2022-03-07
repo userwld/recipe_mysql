@@ -7,9 +7,11 @@ public class MemberDTO {
 	private String addr1;
 	private String addr2;
 	private String social;
+	private String name;
 	
 	public MemberDTO() {}
 	
+	// 주소와 이름은 주문시에 입력받아서 저장됨(가입시에는 4가지 항목만)
 	public MemberDTO(String id, String pw, String phone, String social) {
 		this.id = id; 
 		this.pw = pw;
@@ -54,7 +56,13 @@ public class MemberDTO {
 		this.social = social;
 	}
 	
+	public String getName() {
+		return name;
+	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 
 }

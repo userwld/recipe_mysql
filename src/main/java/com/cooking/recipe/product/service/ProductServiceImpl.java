@@ -109,10 +109,4 @@ public class ProductServiceImpl implements IProductService{
 		else return "있음"; 
 	}
 
-	@Override
-	public void cartInsert(int productNum, int amount) {
-		String id = (String)session.getAttribute("loginId");
-		dao.insertCart(productNum, amount, id);
-	}
-
 }

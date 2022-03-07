@@ -52,7 +52,8 @@
 .deliverInfo .deliverTb th{width:15%; text-align: left; padding-left:40px; }
 .deliverInfo .deliverTb .addrInfo{font-size:13px; font-weight: bold;}
 .deliverInfo .deliverTb .addr{width:60%;}
-.deliverInfo .deliverTb .addr2{ border-color:transparent; border-bottom-color: rgb(208, 202, 178); height: 30px; margin-bottom: 10px; width:575px;}
+.deliverInfo .deliverTb .name, .deliverInfo .deliverTb .addr2{ border-color:transparent; border-bottom-color: rgb(208, 202, 178); height: 30px; margin-bottom: 10px; width:575px; margin-left: -5px;}
+.deliverInfo .deliverTb .addr2{margin-top:5px;}
 input:focus, button:focus{outline:none;}
 
 .deliverInfo .deliverTb .btn.btn-outline-info{width:200px; color:rgb(208, 202, 178);border:2px solid rgb(208, 202, 178); font-weight: bold;}

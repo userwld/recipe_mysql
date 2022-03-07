@@ -9,6 +9,7 @@
 	<result column="addr1" property="addr1"/>
 	<result column="addr2" property="addr2"/>
 	<result column="social" property="social"/>
+	<result column="name" property="name"/>
 </resultMap>
 
 <select id="selectId" parameterType="String" resultMap="member">
@@ -20,7 +21,7 @@
 </select>
 
 <insert id="insertMember" parameterType="com.cooking.recipe.member.dto.MemberDTO">
-	insert into member values(#{id},#{pw},#{phone},#{addr1 ,jdbcType=VARCHAR},#{addr2 ,jdbcType=VARCHAR},#{social})
+	insert into member values(#{id},#{pw},#{phone},#{addr1 ,jdbcType=VARCHAR},#{addr2 ,jdbcType=VARCHAR},#{social}, #{name ,jdbcType=VARCHAR})
 </insert>
 
 <select id ="memberCount" resultType="int">

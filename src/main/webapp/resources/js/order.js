@@ -1,6 +1,11 @@
 
 /* 장바구니 페이지 */
 
+$(function (){
+	$('#chkAll').attr("checked", true);
+	checkAll();
+})
+
 // 수량 조정 버튼 클릭 시 
 function calcOrder(oper, i,unitPrice, stock){
 	orderCount = $('#orderCount'+i).val();
@@ -60,12 +65,12 @@ function check(){
 
 // 체크박스 체크된 것들의 금액만 배열에 담아서, 품목의 가격(수량*단가) 추출해서 더한 후 총 금액 창에 표시
 function checkList(){
-	var check = document.getElementsByName("check");	
+	var check = document.getElementsByName("check");		
 	var checkList = new Array();
 	
 	for(var i=0; i<check.length;i++){
 		if(check[i].checked == true){
-			checkList.push(check[i].value);
+			checkList.push(i+1);
 		}
 	}
 	
@@ -80,8 +85,61 @@ function checkList(){
 	$('.totalPrice').text(totalPrice);
 }
 
+/* 장바구니 페이지에서 삭제 눌렀을때 */
+function itemDelete(num){
+	var info = {num:num};
+	
+	$.ajax({
+		url: "itemDelete", type:"POST",
+		data: JSON.stringify(info),	
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"	
+	})
+	.done(function(){
+		location.reload();
+	})
+}
 
+/* 장바구니 페이지에서 주문하기 눌렀을 때, 모든 항목 다시 cart db에 업데이트 한 후(수량조정됐을수있으므로), 체크된 카트번호만 넘겨서 주문페이지로 가져가는 메소드 호출 */
+function orderCart(size){			
+	var cartData = new Object();	// 서버에 json형태로 넘겨주기 위한 작업
+	var dataArr = new Array();
+	
+	var productNum =  document.getElementsByName("productNum");
+	var amount =  document.getElementsByName("orderCount");
+	
+	for(var i= 0; i < size; i++){	// 해당 아이디의 장바구니에 담긴 모든 항목들의 상품번호와 양을 담음
+		var data = new Object();
+				
+	    data.productNum = productNum[i].value; data.amount = amount[i].value; 
+		dataArr.push(data);
+	}
+	
+	cartData.data = dataArr;
+//	console.log(JSON.stringify(cartData));
+	
+	$.ajax({						
+		url: "cartUpdate", type:"POST",
+		data: JSON.stringify(cartData),	
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"	
+	})
+	.done(function(result){			// 카트 업데이트 후 해당 회원이 체크한 항목들의 카트번호들만 담아서 전달하는 메소드 호출
+		if(result == true) orderCheck();
+	})
+		
+}
 
+function orderCheck(){
+	var check = document.getElementsByName("check");
+	var checkCart = new Array();		// 체크된 카트번호만 들어가있는 배열 -> 체크된것만 주문
+	for(var i=0; i < check.length; i++){
+		if(check[i].checked == true) checkCart.push(check[i].value);
+	}
+	
+	location.href='orderCartProc?orderItems='+checkCart;
+		
+}
 /* 주문 페이지 */
 
 /* 카카오 주소 */

@@ -24,8 +24,10 @@ public class OrderController {
 	}
 	
 	/* 장바구니 페이지에서 주문하기 눌렀을 때 -> 카트에 담긴거 전부 가져와서 출력*/
-	@RequestMapping(value="/orderViewProc")
-	public String orderViewProc() {
+	@RequestMapping(value="/orderCartProc")
+	public String orderCartProc(String[] orderItems, Model model) {
+		boolean check = service.orderCart(orderItems, model);
+		if(check == false) return "forward:join";
 		return "forward:order";
 	}
 	

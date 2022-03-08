@@ -16,7 +16,11 @@ public interface ICartDAO {
 	
 	public CartDTO isExistCart(@Param("productNum")int productNum, @Param("id")String id);
 
-	public void updateCart(@Param("productNum")int productNum, @Param("amount")int amount, @Param("id")String id); 
+	public void updateCart(@Param("productNum")int productNum, @Param("amount")int amount, @Param("id")String id);
+
+	public void deleteItem(int cartNum);
+
+	public CartDTO selectCartNum(int cartNum); 
 
 
 }

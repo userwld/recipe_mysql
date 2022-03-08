@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,9 @@ import org.springframework.ui.Model;
 
 import com.cooking.recipe.member.dao.IMemberDAO;
 import com.cooking.recipe.member.dto.MemberDTO;
+import com.cooking.recipe.order.dao.ICartDAO;
 import com.cooking.recipe.order.dao.IOrderDAO;
+import com.cooking.recipe.order.dto.CartDTO;
 import com.cooking.recipe.order.dto.OrderDTO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -26,6 +29,7 @@ import com.google.gson.JsonParser;
 public class OrderServiceImpl implements IOrderService{
 	@Autowired IOrderDAO dao;
 	@Autowired IMemberDAO memberDao;
+	@Autowired ICartDAO cartDao;
 	@Autowired HttpSession session;
 
 	/* 상품상세페이지에서 바로주문 눌렀을 때 주문페이지 셋팅*/
@@ -199,6 +203,27 @@ public class OrderServiceImpl implements IOrderService{
 		int amount = (int)orderInfo.get("amount");
 		
 		dao.updateStock(productNum, amount);
+	}
+
+	@Override
+	public boolean orderCart(String[] orderItems, Model model) {
+		ArrayList<CartDTO> cart = new ArrayList<CartDTO>();
+		String id = (String)session.getAttribute("loginId");
+		if(id == null) return false;
+		
+		for(int i=0; i < orderItems.length; i++) {
+			int cartNum = Integer.parseInt(orderItems[i]);
+			CartDTO dto = cartDao.selectCartNum(cartNum);
+			cart.add(dto);
+		}
+		
+		model.addAttribute("state", "cart");
+		session.setAttribute("orderInfo", cart);
+		
+		MemberDTO member = memberDao.selectId(id);
+		model.addAttribute("memberInfo", member);	
+				
+		return true;
 	}
 
 

@@ -43,9 +43,12 @@
 							<c:when test="${cartList.isEmpty() == false }">
 								<c:forEach	var="cart" items="${cartList}" varStatus="index">
 									<tr>
-										<td><input type="checkbox" class="check${index.count}" value="${index.count}" name="check" onclick="check();"></td>
+										<td>
+											<input type="checkbox" class="check${index.count}" value="${cart.cartNum}" name="check" onclick="check();">									
+											<input type="hidden" value="${cart.productNum}" name ="productNum">
+											</td>
 										<td><img src="${pageContext.request.contextPath}/resources/images/product/${cart.productImg}" onclick = "location.href='productViewProc?productNum='+'${cart.productNum}';"></td>
-										<td><span class="product_name" onclick = "location.href='productViewProc?productNum='+'${cart.productNum}';">${cart.productName}</span></td>
+										<td><span class="product_name" onclick = "location.href='productViewProc?productNum='+'${cart.productNum}';" >${cart.productName}</span></td>
 										<td>	
 											<div class="input-group mb-3">
 											  <button class="btn btn-outline-secondary" type="button" id="minusBtn" onclick="calcOrder('-',${index.count},${cart.price},${cart.stock});">-</button>
@@ -53,8 +56,9 @@
 											  <input type="text" class="form-control" value="${cart.amount}" id="orderCount${index.count}" name="orderCount" onkeyup="setCount();" readonly="readonly">
 											</div>
 										</td>
-										<td><span class="itemPrice${index.count}"><fmt:formatNumber value="${cart.price}" pattern="#,###"/></span>원</td>
-										<td><button type="button" class="btn btn-outline-danger">삭제</button></td>
+										
+										<td><span class="itemPrice${index.count}"><fmt:formatNumber value="${cart.price * cart.amount}" pattern="#,###"/></span>원</td>
+										<td><button type="button" class="btn btn-outline-danger" onclick="itemDelete(${cart.cartNum});">삭제</button></td>
 									</tr>	
 								</c:forEach>
 							
@@ -71,14 +75,14 @@
 					 <div class="row">
 					   <div class="col"><strong>총 결제 금액</strong></div>
 					   <div class="col-6"></div>
-					   <div class="col"><span class="totalPrice">0</span>원</div>
+					   <div class="col"><span class="totalPrice" id="totalPrice">0</span>원</div>
 					</div>
 				</div>
 			</div>
 			
 			<div class="order_btn_area">
 				<button type="button" class="btn btn-primary btn-lg" onclick="location.href='${root}';">취소</button>
-				<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='orderViewProc';">주문하기</button>
+				<button type="button" class="btn btn-secondary btn-lg" onclick="orderCart(${cartList.size()});">주문하기</button>
 			</div>
 			
 			<div class="margin_bottom"></div>

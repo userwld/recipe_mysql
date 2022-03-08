@@ -20,4 +20,6 @@ public interface IOrderService {
 
 	public void stockUpdate();
 
+	public boolean orderCart(String[] orderItems, Model model);
+
 }

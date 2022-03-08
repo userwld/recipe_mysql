@@ -29,4 +29,14 @@
 <update id="updateCart">
 	update cart set amount=#{amount} where productNum=#{productNum} and id=#{id}
 </update>
+
+<delete id="deleteItem" parameterType="int">
+	delete from cart where cartNum=#{cartNum}
+</delete>
+
+<select id="selectCartNum" parameterType="int" resultMap="cart">
+	select cart.*,product.productName,product.price,product.productImg,product.stock
+	from cart inner join product on cart.productNum=product.productNum where cart.cartNum=#{cartNum}
+</select>
+
 </mapper>

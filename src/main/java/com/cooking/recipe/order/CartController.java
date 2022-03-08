@@ -2,6 +2,8 @@ package com.cooking.recipe.order;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cooking.recipe.order.service.ICartService;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 @Controller
 public class CartController {
@@ -31,6 +35,22 @@ public class CartController {
 		service.cartInsert(productNum, amount);
 		return map;
 	}
+	
+	@RequestMapping(value = "/itemDelete", produces = "application/json; charset=utf-8" )
+	@ResponseBody		
+	public Map<String,String> itemDelete(@RequestBody Map<String,String>map) {
+		int cartNum = Integer.parseInt(map.get("num"));
+		service.itemDelete(cartNum);
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/cartUpdate", produces = "application/json; charset=utf-8" )
+	@ResponseBody		
+	public boolean cartUpdate(HttpServletRequest req) {
+		return service.updateCart(req);
+	}
+	
 	
 
 }

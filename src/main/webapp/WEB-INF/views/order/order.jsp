@@ -109,7 +109,7 @@
 			
 			<div class="order_btn_area">
 				<button type="button" class="btn btn-primary btn-lg" onclick="location.href='${root}';">취소</button>
-				<button type="button" class="btn btn-secondary btn-lg" onclick="payProc(${totalPrice});">결제하기</button>
+				<button type="button" class="btn btn-secondary btn-lg" onclick="payProc(${totalPrice}, '${state}', ${orderInfo.size()});">결제하기</button>
 			</div>
 			<div class="margin_bottom"></div>
 			</div>

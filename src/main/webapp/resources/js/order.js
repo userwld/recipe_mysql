@@ -162,17 +162,22 @@ function daumPost(){
 
 /* 결제 */
 
-function payProc(totalPrice){
+function payProc(totalPrice, state, itemCount){		// 총 결제금액, 바로주문인지 장바구니에 넘어온것인지 구분, 주문 상품 갯수
 	var name = document.getElementById("name").value;
 	var addr1 = document.getElementById("addr1").innerHTML;
 	var addr2 = document.getElementById("addr2").value;
+	
+	if(itemCount == 0){
+		alert('주문할 상품이 없습니다. 주문목록을 확인해주세요'); 
+		return;
+	}
 		
 	if(name == '' || addr2 == '' || addr1.substr(0,3) == '등록된' ){
 		alert('배송지 입력칸에 빈 항목이 있습니다. 모두 작성해주세요.');
 		return;
 	}
-	
-	var info = {name : name, addr1 : addr1, addr2 : addr2, totalPrice : totalPrice};
+		
+	var info = {name : name, addr1 : addr1, addr2 : addr2, totalPrice : totalPrice, state:state};
 	
 	$.ajax({		
 		url: "payProc", type: "POST",		

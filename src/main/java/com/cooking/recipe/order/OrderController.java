@@ -39,43 +39,51 @@ public class OrderController {
 	
 	/* 결제 준비 완료 후 결제 승인으로 리다이렉트 됐을때*/
 	@RequestMapping(value="/payApprove")
-	public String payApprove(String pg_token) {
+	public String payApprove(String pg_token, String state) {
 		String resURL = "";
 		
 		// 결제 승인
 		int resCode = service.payApprove(pg_token);
 
 		if(resCode == 200) {
-			// 결제 성공시 member테이블에 이름과 배송지 정보 업데이트
-			service.addrUpdate();
-			// order테이블에 넣기
-			service.orderInsert();
-			// product테이블에서 상품 재고 수정
-			service.stockUpdate();
+			service.addrUpdate();		// 결제 성공시 member테이블에 이름과 배송지 정보 업데이트
 			
+			if(state.equals("now")) {	// 바로 주문 결제 성공시
+				service.orderInsert(); 	// 단건 주문 주문테이블에 삽입
+				service.stockUpdate();	// 단건 주문 상품 -> 상품테이블에서 재고 수정
+				
+			}else {						// 장바구니 페이지 담았던것 주문 결제 성공시
+				service.ordersInsert();	// 여러건 주문 주문테이블에 삽입
+				service.stocksUpdate();	// 여러건 주문 상품 -> 상품테이블에서 재고 수정
+				service.cartDelete();	// 주문한 상품들 장바구니테이블에서 삭제
+			}
+						
 			resURL = "forward:orderHistoryViewProc";
 		}else {
 			resURL = "forward:orderDetailViewProc";
 		}
-		
-		// cartTable 삭제
-		
+				
 		return resURL;
 		
 	}
 	
 	/* 결제 준비 후 결제 실패로 리다이렉트 시*/
 	@RequestMapping(value="/payFail")
-	public String payFail() {
-		String[] param = service.payFail();		// 바로주문에서 결제실패시 -> 다시 바로주문페이지로
-		return "forward:orderNowProc?productNum="+param[0]+"&productName="+param[1]+"&price="+param[2]+"&amount="+param[3];
+	public String payFail(String state) {
+		if(state.equals("now")) {
+			String[] param = service.payFail();		// 바로주문에서 결제 실패시 -> 다시 바로주문 페이지로
+			return "forward:orderNowProc?productNum="+param[0]+"&productName="+param[1]+"&price="+param[2]+"&amount="+param[3];
+		}else return "forward:cartViewProc";		// 장바구니 결제 실패시 -> 다시 장바구니 페이지로
+		
 	}
 	
 	/* 결제 준비 후 결제 취소로 리다이렉트 시*/
 	@RequestMapping(value="/payCancel")
-	public String payCancel() {
-		String[] param = service.payFail();		// 바로주문에서 결제취소시
-		return "forward:orderNowProc?productNum="+param[0]+"&productName="+param[1]+"&price="+param[2]+"&amount="+param[3];
+	public String payCancel(String state) {
+		if(state.equals("now")) {
+			String[] param = service.payFail();		// 바로주문에서 결제 취소시
+			return "forward:orderNowProc?productNum="+param[0]+"&productName="+param[1]+"&price="+param[2]+"&amount="+param[3];
+		}else return "forward:cartViewProc";		// 장바구니 결제 실패시 -> 다시 장바구니 페이지로
 	}
 	
 	@RequestMapping(value="/orderDetailViewProc")

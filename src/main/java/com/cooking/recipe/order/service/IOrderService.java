@@ -8,18 +8,28 @@ public interface IOrderService {
 
 	public boolean orderNowProc(String productNum, String productName, String price, String amount, Model model);
 
-	public String payProc(Map<String, String> map);
+	public boolean orderCart(String[] orderItems, Model model);
 	
+	public String payProc(Map<String, String> map);
+		
 	public int payApprove(String pg_token);
 	
 	public String[] payFail();
 
 	public void addrUpdate();
 
-	public void orderInsert();
+	public void orderInsert();		
 
 	public void stockUpdate();
 
-	public boolean orderCart(String[] orderItems, Model model);
+	public void ordersInsert();
+
+	public void stocksUpdate();
+
+	public void cartDelete();
+
+	
+
+	
 
 }

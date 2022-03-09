@@ -30,5 +30,9 @@ public interface IProductDAO {
 	public ProductDTO selectProductNum(int productNum);
 	
 	public ProductDTO selectProductName(String productName);
+	
+	public ArrayList<Integer> selectGroup();
+	
+	public ArrayList<Integer> selectSales();
 
 }

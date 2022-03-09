@@ -61,4 +61,12 @@
 	select * from product where productName like '%'||#{productName}||'%'
 </select>
 
+<select id="selectGroup" resultType="int">
+	select productNum from orderList group by productNum order by productNum
+</select>
+
+<select id="selectSales" resultType="int">
+	select sum(amount) from orderList group by productNum order by productNum
+</select>
+
 </mapper>

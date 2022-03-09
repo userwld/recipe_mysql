@@ -58,7 +58,12 @@
 									<td><input type="text" value="${product.productName}" readonly="readonly" id="modifyItem1" class="modifyItem${index.count}" onclick="enableModify(${index.count});"></td>
 									<td><input type="text" value="${product.price}" readonly="readonly" id="modifyItem2" class="modifyItem${index.count}" onkeyup="numCheck(this);"></td>
 									<td><input type="text" value="${product.stock}" readonly="readonly" id="modifyItem3" class="modifyItem${index.count}" onkeyup="numCheck(this);"></td>
-									<td>${index.count}</td>
+									<td>
+										<c:choose>
+											<c:when test="${empty sales.get(product.productNum)}">0</c:when>
+											<c:otherwise>${sales.get(product.productNum)}</c:otherwise>
+										</c:choose>
+									</td>
 									<td><button type="button" class="btn btn-secondary" onclick="productModify(${index.count}, ${product.productNum});">확정</button></td>
 									<td><button type="button" class="btn btn-outline-secondary" onclick="productDelete(${product.productNum});">삭제</button></td>
 								</tr>

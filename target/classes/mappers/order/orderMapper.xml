@@ -25,4 +25,8 @@
 	update product set stock=stock-#{amount} where productNum=#{productNum}
 </update>
 
+<delete id="deleteCart" parameterType="int">
+	delete from cart where cartNum=#{cartNum}
+</delete>
+
 </mapper>

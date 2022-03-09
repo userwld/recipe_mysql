@@ -15,4 +15,6 @@ public interface IOrderDAO {
 
 	public void updateStock(@Param("productNum")int productNum, @Param("amount")int amount);
 
+	public void deleteCart(int cartNum);
+
 }

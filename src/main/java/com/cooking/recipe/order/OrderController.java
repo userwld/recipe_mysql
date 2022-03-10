@@ -31,10 +31,17 @@ public class OrderController {
 		return "forward:order";
 	}
 	
+	/* 주문페이지에서 결제하기 눌렀을 때 */
 	@RequestMapping(value = "/payProc", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String payProc(@RequestBody Map<String,String> map){
-		return service.payProc(map);
+	public Map<String,String> payProc(@RequestBody Map<String,String> map){
+		boolean stockCheck = service.stockCheck(map.get("state"));
+		if(stockCheck == true) {
+			map.put("msg", service.payProc(map));
+		}else {
+			map.put("msg", "재고 없음");
+		}	
+		return map;
 	}
 	
 	/* 결제 준비 완료 후 결제 승인으로 리다이렉트 됐을때*/
@@ -49,11 +56,11 @@ public class OrderController {
 			service.addrUpdate();		// 결제 성공시 member테이블에 이름과 배송지 정보 업데이트
 			
 			if(state.equals("now")) {	// 바로 주문 결제 성공시
-				service.orderInsert(); 	// 단건 주문 주문테이블에 삽입
+				service.orderInsert(); 	// 단건 주문 주문테이블에 삽입 / 배송테이블에 배송정보 삽입
 				service.stockUpdate();	// 단건 주문 상품 -> 상품테이블에서 재고 수정
 				
 			}else {						// 장바구니 페이지 담았던것 주문 결제 성공시
-				service.ordersInsert();	// 여러건 주문 주문테이블에 삽입
+				service.ordersInsert();	// 여러건 주문 주문테이블에 삽입 / 배송테이블에 배송정보 삽입
 				service.stocksUpdate();	// 여러건 주문 상품 -> 상품테이블에서 재고 수정
 				service.cartDelete();	// 주문한 상품들 장바구니테이블에서 삭제
 			}
@@ -64,7 +71,6 @@ public class OrderController {
 		}
 				
 		return resURL;
-		
 	}
 	
 	/* 결제 준비 후 결제 실패로 리다이렉트 시*/
@@ -92,8 +98,17 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/orderHistoryViewProc")
-	public String orderHistoryViewProc(){
+	public String orderHistoryViewProc(Model model){
+		service.orderHistory(model);
 		return "forward:index?formpath=orderHistory";
+	}
+	
+	/* 주문내역 페이지에서 장바구니 담기 버튼 클릭시 -> 재고 조회 후 있으면 장바구니 테이블에 수량 1개로 담음 */
+	@RequestMapping(value = "/putCart", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String,String> putCart(@RequestBody Map<String,String> map){
+		map.put("msg", service.putCart(Integer.parseInt(map.get("num"))));
+		return map;
 	}
 	
 }

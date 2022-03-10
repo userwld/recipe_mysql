@@ -93,7 +93,7 @@ input:focus, button:focus{outline:none;}
 .orderHistory .orderHistoryTb .orderCancel{color:red; margin-left:10px;}
 
 .orderHistory .orderHistoryTb .cart_in_label{text-align: center;}
-.orderHistory .orderHistoryTb img{width:120px; height: 90px; margin:20px; cursor:pointer;}
+.orderHistory .orderHistoryTb img{width:110px; height: 90px; margin:20px; cursor:pointer;}
 .orderHistory .orderHistoryTb .product_name{font-size:20px; cursor:pointer;}
 .orderHistory .orderHistoryTb .cart_in_btn_area{text-align: center;}
 

@@ -69,4 +69,8 @@
 	select sum(amount) from orderList group by productNum order by productNum
 </select>
 
+<select id="selectStock" parameterType="int" resultType="int">
+	select stock from product where productNum=#{productNum}
+</select>
+
 </mapper>

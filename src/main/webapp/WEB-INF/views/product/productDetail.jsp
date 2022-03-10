@@ -42,7 +42,7 @@
 								 	<div class="input-group mb-3">
 										  <button class="btn btn-outline-secondary" type="button" id="minusBtn" onclick="calcOrder('-',${result.stock});">-</button>
 										  <button class="btn btn-outline-secondary" type="button" id="plusBtn" onclick="calcOrder('+',${result.stock});">+</button>
-										  <input type="text" class="form-control" <c:if test="${result.stock == 0}"> value="0" </c:if> value="1" id="orderCount" name="orderCount" onkeyup="setCount();" readonly="readonly">
+										  <input type="text" class="form-control" <c:if test="${result.stock <= 0}"> value="0" </c:if> value="1" id="orderCount" name="orderCount" onkeyup="setCount();" readonly="readonly">
 									</div>
 								</div>
 							    <div class="col"><button class="order_now_btn" id="orderNow" onclick="orderNow(${result.productNum}, '${result.productName}', ${result.price});">바로 구매</button></div>

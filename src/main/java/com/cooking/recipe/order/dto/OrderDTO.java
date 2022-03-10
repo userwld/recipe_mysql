@@ -3,7 +3,7 @@ package com.cooking.recipe.order.dto;
 import java.util.Date;
 
 public class OrderDTO {
-	private int orderNum;
+	private String orderNum;
 	private String id;
 	private int productNum;
 	private String productName;
@@ -12,10 +12,10 @@ public class OrderDTO {
 	private Date orderDate;
 	private String orderState;
 	
-	public int getOrderNum() {
+	public String getOrderNum() {
 		return orderNum;
 	}
-	public void setOrderNum(int orderNum) {
+	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
 	}
 	public String getId() {

@@ -28,6 +28,12 @@ public interface IOrderService {
 
 	public void cartDelete();
 
+	public void orderHistory(Model model);
+
+	public String putCart(int productNum);
+
+	public boolean stockCheck(String state);
+
 	
 
 	

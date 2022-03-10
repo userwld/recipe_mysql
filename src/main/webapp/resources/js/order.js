@@ -10,6 +10,11 @@ $(function (){
 function calcOrder(oper, i,unitPrice, stock){
 	orderCount = $('#orderCount'+i).val();
 	
+	if(orderCount <= 0){
+		alert('현재 재고가 없습니다. 이 상품은 제외하고 주문해주세요.');
+		return;
+	}
+	
 	if(oper == '+'){
 		if(orderCount >= stock) orderCount = stock;
 		else orderCount++;	
@@ -186,13 +191,38 @@ function payProc(totalPrice, state, itemCount){		// 총 결제금액, 바로주�
 		dataType: "json",
 	
 		success : function(result){	
-			var resURL = result.next_redirect_pc_url;
+			var resURL = result.msg;
+			
+			if(result.msg == '재고 없음'){
+				alert('죄송합니다. 재고가 소진된 상품이 존재합니다. 메인화면으로 돌아갑니다.');
+				resURL = 'index';
+			}
+
 			location.href=resURL;
 		},
 		error : function(){
 			alert('error!');
 		}
 	})	
+}
+
+
+/* 주문내역 페이지 - orderHistory.jsp */
+
+/* 장바구니 담기 버튼 클릭시 - 상품번호로 재고 있는지 db에서 조회 후 있으면 수량 1개로 장바구니 테이블에 담음 */
+function putCart(num){
+	var info = {num : num};
+	$.ajax({		
+		url: "putCart", type: "POST",		
+		data: JSON.stringify(info), 			
+		contentType: "application/json; charset=utf-8", 	
+		dataType: "json",
 	
-	
+		success : function(result){	
+			alert(result.msg);
+		},
+		error : function(){
+			alert('error!');
+		}
+	})	
 }

@@ -1,6 +1,11 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.LinkedHashMap"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.cooking.recipe.order.dto.OrderDetailDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="root" value="/"/>
 <head>
 <title>주문 내역 페이지</title>
@@ -24,62 +29,63 @@
 			</div>
 			
 			<div class="orderHistory">
+			<c:choose>
+				<c:when test="${not empty result}">
+					<%
+						LinkedHashMap<String,ArrayList<OrderDetailDTO>> result = (LinkedHashMap<String,ArrayList<OrderDetailDTO>>) session.getAttribute("result");
+						Iterator itr = result.keySet().iterator();
+						while(itr.hasNext()) {
+							ArrayList<OrderDetailDTO> order = result.get(itr.next());
+							pageContext.setAttribute("order", order);
+					%>
+							<c:set var="orderValue" value="${order}"/>
+							<table class="orderHistoryTb">
+								<colgroup>
+									<col style="width : 20%;"></col>
+									<col style="width : auto;"></col>
+									<col style="width : 20%;"></col>
+								</colgroup>
+								<tr class="orderDate">
+									<td><strong><fmt:formatDate value="${orderValue.get(0).orderDate}" pattern="yyyy-MM-dd"/></strong> 주문 내역</td>
+									<td>
+										<a href="orderDetailViewProc" class="orderDetail">주문 상세 보기</a>
+										<a href="#" class="orderCancel">주문 취소</a>
+									</td>
+									<td class="cart_in_label">장바구니 담기</td>
+								</tr>
+																			
+					<% 		for(OrderDetailDTO dto : order) {
+								pageContext.setAttribute("dto", dto);
+					%>
+								<c:set var="dtoValue" value="${dto}"/>
+								<tr>
+									<td><img src="${pageContext.request.contextPath}/resources/images/product/${dtoValue.productImg}" onclick="location.href='productViewProc?productNum='+'${dtoValue.productNum}';"></td>
+									<td><label class="product_name" onclick="location.href='productViewProc?productNum='+'${dtoValue.productNum}';"> ${dtoValue.productName} </label></td>
+									<td class="cart_in_btn_area"><button type="button" class="btn btn-outline-success"onclick="putCart('${dtoValue.productNum}');">담기</button></td>
+								</tr>
+							<%}%>
+							</table>
+					<%}	%>
 				
-				<table class="orderHistoryTb">
-					<colgroup>
-						<col style="width : 20%;"></col>
-						<col style="width : auto;"></col>
-						<col style="width : 20%;"></col>
-					</colgroup>
+				</c:when>
+				<c:otherwise>
+							<table class="orderHistoryTb">
+								<colgroup>
+									<col style="width : 20%;"></col>
+									<col style="width : auto;"></col>
+									<col style="width : 20%;"></col>
+								</colgroup>
+								<tr class="orderDate">
+									<td>주문 내역</td>
+									<td></td>
+									<td class="cart_in_label">장바구니 담기</td>
+								</tr>
+								<tr><td colspan="3"><p align="center" style="margin-top:20px;">주문 내역이 존재하지 않습니다.</p></td></tr>
+							</table>
+				</c:otherwise>
+			</c:choose>
+			
 					
-					<tr class="orderDate">
-						<td><strong>22.XX.XX</strong> 주문 내역</td>
-						<td>
-							<a href="orderDetailViewProc" class="orderDetail">주문 상세 보기</a>
-							<a href="#" class="orderCancel">주문 취소</a>
-						</td>
-						<td class="cart_in_label">장바구니 담기</td>
-					</tr>
-					<tr>
-						<td><img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" onclick="location.href='productViewProc';"></td>
-						<td><label class="product_name" onclick="location.href='productViewProc';">기가막힌 스테이크</label></td>
-						<td class="cart_in_btn_area"><button type="button" class="btn btn-outline-success">담기</button></td>
-					</tr>
-					<tr class="last">
-						<td><img src="${pageContext.request.contextPath}/resources/images/main/slide2.jpg"></td>
-						<td><label class="product_name">고향의 맛 된장찌개</label></td>
-						<td class="cart_in_btn_area"><button type="button" class="btn btn-outline-success">담기</button></td>
-					</tr>
-				</table>
-				
-				<table class="orderHistoryTb">
-					<colgroup>
-						<col style="width : 20%;"></col>
-						<col style="width : auto;"></col>
-						<col style="width : 20%;"></col>
-					</colgroup>
-					
-					<tr class="orderDate">
-						<td><strong>22.XX.XX</strong> 주문 내역</td>
-						<td>
-							<a href="orderDetailViewProc" class="orderDetail">주문 상세 보기</a>
-							<a href="#" class="orderCancel">주문 취소</a>
-						</td>
-						<td class="cart_in_label">장바구니 담기</td>
-					</tr>
-					<tr>
-						<td><img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" onclick="location.href='productViewProc';"></td>
-						<td><label class="product_name" onclick="location.href='productViewProc';">기가막힌 스테이크</label></td>
-						<td class="cart_in_btn_area"><button type="button" class="btn btn-outline-success">담기</button></td>
-					</tr>
-					<tr class="last">
-						<td><img src="${pageContext.request.contextPath}/resources/images/main/slide2.jpg"></td>
-						<td><label class="product_name">고향의 맛 된장찌개</label></td>
-						<td class="cart_in_btn_area"><button type="button" class="btn btn-outline-success">담기</button></td>
-					</tr>
-				</table>
-				
-				
 			<div class="margin_bottom"></div>
 		</div>
 	</div>	

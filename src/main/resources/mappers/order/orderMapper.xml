@@ -13,12 +13,25 @@
 	<result column="orderState" property="orderState"/>
 </resultMap>
 
+<resultMap type="com.cooking.recipe.order.dto.OrderDetailDTO" id="detail">
+	<result column="orderNum" property="orderNum"/>
+	<result column="id" property="id"/>
+	<result column="productNum" property="productNum"/>
+	<result column="productName" property="productName"/>
+	<result column="amount" property="amount"/>
+	<result column="totalPrice" property="totalPrice"/>
+	<result column="orderDate" property="orderDate"/>
+	<result column="orderState" property="orderState"/>
+	<result column="productImg" property="productImg"/>
+	<result column="price" property="price"/>
+</resultMap>
+
 <update id="updateAddr" parameterType="com.cooking.recipe.member.dto.MemberDTO">
 	update member set addr1=#{addr1},addr2=#{addr2},name=#{name} where id=#{id}
 </update>
 
 <insert id="insertOrder" parameterType="com.cooking.recipe.order.dto.OrderDTO">
-	insert into orderList values(order_seq.nextval,#{id},#{productNum},#{productName},#{amount},#{totalPrice},to_char(sysdate,'YY-MM-DD'),'결제완료')
+	insert into orderList values(#{orderNum},#{id},#{productNum},#{productName},#{amount},#{totalPrice},to_char(sysdate,'YY-MM-DD'),'결제완료')
 </insert>
 
 <update id="updateStock">
@@ -29,4 +42,16 @@
 	delete from cart where cartNum=#{cartNum}
 </delete>
 
+<select id="selectOrderNum" parameterType="String" resultType="String">
+	select distinct orderNum,orderDate from orderList where id=#{id} order by orderDate desc
+</select>
+
+<select id="selectOrderHistory" parameterType="String" resultMap="detail">
+	select orderList.*, product.productImg, product.price from orderList inner join product on orderList.productNum=product.productNum 
+	where orderList.id=#{id} order by orderDate desc
+</select>
+
+<insert id="insertDelivery" parameterType="com.cooking.recipe.order.dto.DeliveryDTO">
+	insert into delivery values(#{orderNum},#{addr1},#{addr2},#{id})
+</insert>
 </mapper>

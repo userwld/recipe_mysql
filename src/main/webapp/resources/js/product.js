@@ -3,7 +3,7 @@
 function calcOrder(oper, stock){
 	orderCount = $('#orderCount').val();
 	
-	if(stock == 0){
+	if(stock <= 0){
 		alert('현재 재고가 없습니다.');
 		$('#orderCount').val("0");		
 		return;
@@ -55,6 +55,9 @@ function cartInsert(num){
 /* 바로 구매 버튼 클릭시 */
 function orderNow(num, name, price){
 	var amount = document.getElementById("orderCount").value;
+	if(amount <= 0){
+		alert('현재 재고가 없습니다.'); return;
+	}
 	
 	location.href='orderNowProc?productNum='+num+"&productName="+name+"&price="+price+"&amount="+amount;
 

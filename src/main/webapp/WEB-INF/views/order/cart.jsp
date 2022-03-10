@@ -53,7 +53,7 @@
 											<div class="input-group mb-3">
 											  <button class="btn btn-outline-secondary" type="button" id="minusBtn" onclick="calcOrder('-',${index.count},${cart.price},${cart.stock});">-</button>
 											  <button class="btn btn-outline-secondary" type="button" id="plusBtn" onclick="calcOrder('+',${index.count},${cart.price},${cart.stock});">+</button>
-											  <input type="text" class="form-control" value="${cart.amount}" id="orderCount${index.count}" name="orderCount" onkeyup="setCount();" readonly="readonly">
+											  <input type="text" class="form-control" <c:if test="${cart.stock <= 0}"> value="0" </c:if> value="${cart.amount}" id="orderCount${index.count}" name="orderCount" onkeyup="setCount();" readonly="readonly">
 											</div>
 										</td>
 										

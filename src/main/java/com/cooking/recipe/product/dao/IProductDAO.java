@@ -35,4 +35,6 @@ public interface IProductDAO {
 	
 	public ArrayList<Integer> selectSales();
 
+	public int selectStock(int productNum);
+
 }

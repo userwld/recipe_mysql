@@ -7,6 +7,7 @@ public class DeliveryDTO {
 	private String name;
 	private String addr1;
 	private String addr2;
+	private String phone;
 	
 	public String getOrderNum() {
 		return orderNum;
@@ -37,6 +38,12 @@ public class DeliveryDTO {
 	}
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	

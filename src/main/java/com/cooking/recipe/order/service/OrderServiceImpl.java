@@ -113,7 +113,8 @@ public class OrderServiceImpl implements IOrderService{
 			ArrayList<CartDTO> orderInfo = (ArrayList<CartDTO>) session.getAttribute("orderInfo");
 			if(id == null || orderInfo == null) return "잘못된 접근입니다.";
 			
-			item = orderInfo.size() == 1 ? (String) orderInfo.get(0).getProductName() : (String) orderInfo.get(0).getProductName() + " 외 "+ orderInfo.size() + "건";
+			int etc = orderInfo.size();
+			item = etc == 1 ? (String) orderInfo.get(0).getProductName() : (String) orderInfo.get(0).getProductName() + " 외 "+ (etc-1)+"" + "건";
 			qnt = (int) orderInfo.get(0).getAmount();
 		}
 		
@@ -281,8 +282,6 @@ public class OrderServiceImpl implements IOrderService{
 		
 		dao.updateStock(productNum, amount);
 		
-		session.removeAttribute("orderInfo");
-		session.removeAttribute("payInfo");
 	}
 	
 	/* 다건 결제 승인 성공시(장바구니 담긴 품목 주문), 주문테이블에 다건 주문 삽입 / 배송테이블 배송지 정보 삽입 메소드 호출 */
@@ -328,10 +327,7 @@ public class OrderServiceImpl implements IOrderService{
 			int cartNum = cart.getCartNum();
 			dao.deleteCart(cartNum);
 		}
-		
-		session.removeAttribute("orderInfo");
-		session.removeAttribute("payInfo");
-		
+				
 	}
 	
 	/* 결제성공 후 주문 테이블 담을 때 사용하는 주문번호 생성 메소드 */
@@ -392,13 +388,15 @@ public class OrderServiceImpl implements IOrderService{
 		}
 	}
 
+	/* 주문 내역 페이지에서 주문 상세페이지 클릭시 해당 주문번호에 맞게 페이지 셋팅 */
+	@Override
+	public void orderDetail(String orderNum, Model model) {
+		ArrayList<OrderDetailDTO> orderDetail = dao.selectOrderDetail(orderNum);
+		DeliveryDTO deliveryInfo = dao.selectDelivery(orderNum);
+		model.addAttribute("orderDetail", orderDetail);
+		model.addAttribute("deliverInfo", deliveryInfo);
+		
+	}
 
-
-	
-	
-	
-	
-	
-	
 
 }

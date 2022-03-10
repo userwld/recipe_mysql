@@ -34,6 +34,8 @@ public interface IOrderService {
 
 	public boolean stockCheck(String state);
 
+	public void orderDetail(String orderNum, Model model);
+
 	
 
 	

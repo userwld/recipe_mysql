@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:url var="root" value="/"/>
 <head>
 <title>주문 상세 페이지</title>
@@ -22,10 +23,11 @@
 			
 			<div class="orderList">
 				<table class="orderListTb">
-					<tr><th class="orderHistory"><strong>22.XX.XX</strong> 주문 내역</th></tr>
-					<tr><td>기가막힌 스테이크 | 10개 | 100,000원</td></tr>
-					<tr><td>열무비빔밥 | 1개 | 5,900원</td></tr>	
-					<tr><td class="total_price">총 결제 금액 : 105,900원</td></tr>	
+					<tr><th class="orderHistory"><strong><fmt:formatDate value="${orderDetail.get(0).orderDate}" pattern="yy/MM/dd"/></strong> 주문 내역</th></tr>
+					<c:forEach var="detail" items="${orderDetail}">
+						<tr><td>${detail.productName} | ${detail.amount}개 | <fmt:formatNumber value="${detail.amount * detail.price }" pattern="#,###"/>원</td></tr>
+					</c:forEach>
+					<tr><td class="total_price">총 결제 금액 :  <fmt:formatNumber value="${orderDetail.get(0).totalPrice}" pattern="#,###"/>원</td></tr>	
 				</table>
 			</div>
 			
@@ -34,15 +36,15 @@
 				<table class="deliverTb">
 					<tr>
 						<th>주문자 이름</th>
-						<td>XXX</td>							
+						<td>${deliverInfo.name}</td>							
 					</tr>
 					<tr>
 						<th>배송지 주소</th>
-						<td class="addr" ><label class="addr">주소가 어쩌구 저쩌구</label></td>					
+						<td class="addr" ><label class="addr">${deliverInfo.addr1}<br>${deliverInfo.addr2} </label></td>					
 					</tr>
 					<tr>
 						<th>연락처</th>
-						<td>010-1234-1234</td>	
+						<td>${deliverInfo.phone}</td>	
 					</tr>
 					<tr>
 						<th>결제 수단</th>

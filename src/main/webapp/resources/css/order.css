@@ -88,12 +88,12 @@ input:focus, button:focus{outline:none;}
 .orderHistory .orderHistoryTb{width:100%; text-align: left; margin-top:50px;}
 .orderHistory .orderHistoryTb .orderDate{background-color: rgb(222, 217, 196); height: 35px; border-top: 1px solid darkgray; border-bottom:1px solid darkgray; padding-left: 5px;}
 .orderHistory .orderHistoryTb td{padding-left:10px; height: 40px;}
-.orderHistory .orderHistoryTb td a{text-decoration: underline; font-size:13px; font-weight: bold;}
+.orderHistory .orderHistoryTb .orderDetail, .orderHistory .orderHistoryTb .orderCancel{text-decoration: underline; font-size:13px; font-weight: bold; cursor: pointer;}
 .orderHistory .orderHistoryTb .orderDetail{color:blue;}
 .orderHistory .orderHistoryTb .orderCancel{color:red; margin-left:10px;}
 
 .orderHistory .orderHistoryTb .cart_in_label{text-align: center;}
-.orderHistory .orderHistoryTb img{width:110px; height: 90px; margin:20px; cursor:pointer;}
+.orderHistory .orderHistoryTb img{width:100px; height: 85px; margin:20px; cursor:pointer;}
 .orderHistory .orderHistoryTb .product_name{font-size:20px; cursor:pointer;}
 .orderHistory .orderHistoryTb .cart_in_btn_area{text-align: center;}
 

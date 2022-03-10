@@ -35,9 +35,12 @@
 						LinkedHashMap<String,ArrayList<OrderDetailDTO>> result = (LinkedHashMap<String,ArrayList<OrderDetailDTO>>) session.getAttribute("result");
 						Iterator itr = result.keySet().iterator();
 						while(itr.hasNext()) {
-							ArrayList<OrderDetailDTO> order = result.get(itr.next());
-							pageContext.setAttribute("order", order);
+							String orderNumber = (String)itr.next();
+							ArrayList<OrderDetailDTO> order = result.get(orderNumber);
+							pageContext.setAttribute("order", order);	
+							pageContext.setAttribute("orderNumber", orderNumber);
 					%>
+							<c:set var="orderNumber" value="${orderNumber}"/>
 							<c:set var="orderValue" value="${order}"/>
 							<table class="orderHistoryTb">
 								<colgroup>
@@ -46,10 +49,10 @@
 									<col style="width : 20%;"></col>
 								</colgroup>
 								<tr class="orderDate">
-									<td><strong><fmt:formatDate value="${orderValue.get(0).orderDate}" pattern="yyyy-MM-dd"/></strong> 주문 내역</td>
+									<td><strong><fmt:formatDate value="${orderValue.get(0).orderDate}" pattern="YY/MM/dd"/></strong> 주문 내역</td>
 									<td>
-										<a href="orderDetailViewProc" class="orderDetail">주문 상세 보기</a>
-										<a href="#" class="orderCancel">주문 취소</a>
+										<label onclick="location.href='orderDetailViewProc?orderNum='+'${orderNumber}';" class="orderDetail">주문 상세 보기</label>
+										<label class="orderCancel">주문 취소</label>
 									</td>
 									<td class="cart_in_label">장바구니 담기</td>
 								</tr>

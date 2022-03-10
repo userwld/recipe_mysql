@@ -37,14 +37,16 @@ public class CartServiceImpl implements ICartService{
 	}
 
 	@Override
-	public void cartInsert(int productNum, int amount) {
+	public boolean cartInsert(int productNum, int amount) {
 		String id = (String)session.getAttribute("loginId");
+		if(id == null) return false;
 		
 		if(dao.isExistCart(productNum, id) == null) {
 			dao.insertCart(productNum, amount, id);
 		}else {
 			dao.updateCart(productNum, amount, id);
 		}
+		return true;
 	}
 
 	@Override

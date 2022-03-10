@@ -93,7 +93,8 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/orderDetailViewProc")
-	public String orderDetailViewProc() {
+	public String orderDetailViewProc(String orderNum, Model model) {
+		service.orderDetail(orderNum, model);
 		return "forward:index?formpath=orderDetail";
 	}
 	

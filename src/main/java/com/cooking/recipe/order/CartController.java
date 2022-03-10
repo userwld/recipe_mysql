@@ -32,7 +32,8 @@ public class CartController {
 		int productNum = Integer.parseInt(map.get("num"));
 		int amount = Integer.parseInt(map.get("amount"));
 		
-		service.cartInsert(productNum, amount);
+		boolean check = service.cartInsert(productNum, amount);
+		if(check == false) map.put("msg", "로그인 필요");
 		return map;
 	}
 	

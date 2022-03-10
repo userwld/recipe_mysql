@@ -26,12 +26,22 @@
 	<result column="price" property="price"/>
 </resultMap>
 
+<resultMap type="com.cooking.recipe.order.dto.DeliveryDTO" id="delivery">
+	<result column="orderNum" property="orderNum"/>
+	<result column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="addr1" property="addr1"/>
+	<result column="addr2" property="addr2"/>
+	<result column="phone" property="phone"/>
+
+</resultMap>
+
 <update id="updateAddr" parameterType="com.cooking.recipe.member.dto.MemberDTO">
 	update member set addr1=#{addr1},addr2=#{addr2},name=#{name} where id=#{id}
 </update>
 
 <insert id="insertOrder" parameterType="com.cooking.recipe.order.dto.OrderDTO">
-	insert into orderList values(#{orderNum},#{id},#{productNum},#{productName},#{amount},#{totalPrice},to_char(sysdate,'YY-MM-DD'),'결제완료')
+	insert into orderList values(#{orderNum},#{id},#{productNum},#{productName},#{amount},#{totalPrice},sysdate,'결제완료')
 </insert>
 
 <update id="updateStock">
@@ -54,4 +64,14 @@
 <insert id="insertDelivery" parameterType="com.cooking.recipe.order.dto.DeliveryDTO">
 	insert into delivery values(#{orderNum},#{addr1},#{addr2},#{id})
 </insert>
+
+<select id="selectOrderDetail" parameterType="String" resultMap="detail">
+	select orderList.*, product.productImg, product.price from orderList inner join product on orderList.productNum=product.productNum 
+	where orderList.orderNum=#{orderNum}
+</select>
+
+<select id="selectDelivery" parameterType="String" resultMap="delivery">
+	select delivery.*, member.phone, member.name from delivery inner join member on delivery.id=member.id
+	where delivery.orderNum=#{orderNum}
+</select>
 </mapper>

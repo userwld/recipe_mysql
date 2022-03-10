@@ -8,7 +8,7 @@ public interface ICartService {
 
 	public boolean cartViewProc(Model model);
 
-	public void cartInsert(int productNum, int amount);
+	public boolean cartInsert(int productNum, int amount);
 
 	public void itemDelete(int cartNum);
 

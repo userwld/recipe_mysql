@@ -45,7 +45,12 @@ function cartInsert(num){
 	dataType: "json"
 	
 	})	
-	.done(function(){
+	.done(function(result){
+		if(result.msg == '로그인 필요'){
+			location.href='join';
+			return;
+		}
+		
 		var moveCart = confirm('장바구니에 담겼습니다. 장바구니로 이동할까요?');
 		if(moveCart) location.href='cartViewProc';
 		else location.reload();		

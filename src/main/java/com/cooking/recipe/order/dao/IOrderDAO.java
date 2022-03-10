@@ -27,4 +27,8 @@ public interface IOrderDAO {
 
 	public void insertDelivery(DeliveryDTO delivery);
 
+	public ArrayList<OrderDetailDTO> selectOrderDetail(String orderNum);
+
+	public DeliveryDTO selectDelivery(String orderNum);
+
 }

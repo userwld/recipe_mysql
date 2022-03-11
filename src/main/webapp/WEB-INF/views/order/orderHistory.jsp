@@ -1,6 +1,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.LinkedHashMap"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
 <%@page import="com.cooking.recipe.order.dto.OrderDetailDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,6 +20,10 @@
 <script src="<c:url value="/resources/js/order.js" />"></script>
 
 </head>
+
+<c:if test="${not empty msg}">
+	<script>alert('${msg}');</script>
+</c:if>
 
 <center>
 	<div id="wrap">
@@ -49,10 +54,15 @@
 									<col style="width : 20%;"></col>
 								</colgroup>
 								<tr class="orderDate">
-									<td><strong><fmt:formatDate value="${orderValue.get(0).orderDate}" pattern="YY/MM/dd"/></strong> 주문 내역</td>
+									<c:set var ="orderDate"><fmt:formatDate value="${orderValue.get(0).orderDate}" pattern="YY/MM/dd"/></c:set>
+									<c:set var ="now" value="<%=new Date() %>"/>
+									<c:set var ="nowDate"><fmt:formatDate value="${now}" pattern="YY/MM/dd"/></c:set>
+									<td><strong>${orderDate}</strong> 주문 내역</td>
 									<td>
 										<label onclick="location.href='orderDetailViewProc?orderNum='+'${orderNumber}';" class="orderDetail">주문 상세 보기</label>
-										<label class="orderCancel">주문 취소</label>
+										<c:if test="${orderDate == nowDate}"><label class="orderCancel" onclick="location.href='orderCancelProc?orderNum='+'${orderValue.get(0).orderNum}'+'&orderDate='+'${orderDate}';">주문 취소</label></c:if>	<!-- 당일 결제만 취소레이블 보여짐 -->
+										
+							<!--  		orderDate : ${orderDate} | nowDate = ${nowDate} | ${orderDate==nowDate} 확인용 -->
 									</td>
 									<td class="cart_in_label">장바구니 담기</td>
 								</tr>

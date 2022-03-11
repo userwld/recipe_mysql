@@ -17,7 +17,7 @@ public interface IOrderDAO {
 
 	public void insertOrder(OrderDTO order);
 
-	public void updateStock(@Param("productNum")int productNum, @Param("amount")int amount);
+	public void updateStock(@Param("productNum")int productNum, @Param("amount")int amount, @Param("oper")String operation);
 
 	public void deleteCart(int cartNum);
 
@@ -30,5 +30,11 @@ public interface IOrderDAO {
 	public ArrayList<OrderDetailDTO> selectOrderDetail(String orderNum);
 
 	public DeliveryDTO selectDelivery(String orderNum);
+
+	public ArrayList<OrderDTO> selectOrderCancel(String orderNum);
+
+	public void deleteOrder(String orderNum);
+
+	public void deleteDelivery(String orderNum);
 
 }

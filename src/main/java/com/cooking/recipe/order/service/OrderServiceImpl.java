@@ -257,7 +257,7 @@ public class OrderServiceImpl implements IOrderService{
 		order.setOrderNum(orderNum);
 		order.setId(id); order.setProductName((String)orderInfo.get("productName"));
 		order.setAmount((int)orderInfo.get("amount")); order.setProductNum((int)orderInfo.get("productNum"));
-		order.setTotalPrice(Integer.parseInt(payInfo.get("totalPrice")));
+		order.setTotalPrice(Integer.parseInt(payInfo.get("totalPrice"))); order.setTid(payInfo.get("tid"));
 		
 		dao.insertOrder(order);
 		deliveryInsert(payInfo,orderNum,id);
@@ -279,8 +279,8 @@ public class OrderServiceImpl implements IOrderService{
 		
 		int productNum = (int)orderInfo.get("productNum");
 		int amount = (int)orderInfo.get("amount");
-		
-		dao.updateStock(productNum, amount);
+		String operation = "minus";
+		dao.updateStock(productNum, amount, operation);
 		
 	}
 	
@@ -300,6 +300,7 @@ public class OrderServiceImpl implements IOrderService{
 			order.setOrderNum(orderNum);
 			order.setId(id); order.setProductNum(cart.getProductNum()); order.setProductName(cart.getProductName());
 			order.setAmount(cart.getAmount()); order.setTotalPrice(Integer.parseInt(payInfo.get("totalPrice")));
+			order.setTid(payInfo.get("tid"));
 			dao.insertOrder(order);
 		}
 		
@@ -310,11 +311,11 @@ public class OrderServiceImpl implements IOrderService{
 	@Override
 	public void stocksUpdate() {
 		ArrayList<CartDTO>orderInfo = (ArrayList<CartDTO>)session.getAttribute("orderInfo");
-		
+		String operation = "minus";
 		for(CartDTO cart : orderInfo) {
 			int productNum = cart.getProductNum();
 			int amount = cart.getAmount();
-			dao.updateStock(productNum, amount);
+			dao.updateStock(productNum, amount, operation);
 		}		
 	}
 	
@@ -391,12 +392,81 @@ public class OrderServiceImpl implements IOrderService{
 	/* 주문 내역 페이지에서 주문 상세페이지 클릭시 해당 주문번호에 맞게 페이지 셋팅 */
 	@Override
 	public void orderDetail(String orderNum, Model model) {
+		if(orderNum == null) return;
 		ArrayList<OrderDetailDTO> orderDetail = dao.selectOrderDetail(orderNum);
 		DeliveryDTO deliveryInfo = dao.selectDelivery(orderNum);
 		model.addAttribute("orderDetail", orderDetail);
 		model.addAttribute("deliverInfo", deliveryInfo);
 		
 	}
+	
+	/* 주문 내역 페이지에서 주문 취소 클릭시 - 오늘날짜 주문인지 확인 후 취소*/
+	@Override
+	public int orderCancel(String orderNum, String orderDate, Model model) {
+		String nowDate = new SimpleDateFormat("YY/MM/dd").format(new Date());
+		int responseCode = 0;
+		if(!orderDate.equals(nowDate)) {
+			model.addAttribute("msg", "주문 취소는 당일 결제만 가능합니다. 취소 불가");
+		}else {
+			ArrayList<OrderDTO> order = dao.selectOrderCancel(orderNum);	// 취소 후 재고 증가에도 쓰기위해 주문번호안에 주문내역 전부 가져오게 ArrayList로 받음, 결제는 0번째 인덱스의 값으로 처리
+			if(order.size() == 0) return 0;			// 결제 취소 후 새로고침시 에러나는것 방지
+			Integer tax_free = (int)((double)order.get(0).getTotalPrice() * 0.1);
+			String admin_key = "5241637b723b0cbf3b3bce9e90e1b510";
+			String reqURL = "https://kapi.kakao.com/v1/payment/cancel";
+			Map<String, String> payInfo = (Map<String, String>) session.getAttribute("payInfo");
+			String parameter = "cid="+payInfo.get("cid")+"&tid="+order.get(0).getTid()+"&cancel_amount="+order.get(0).getTotalPrice();
+			parameter += "&cancel_tax_free_amount="+tax_free;
+
+//			System.out.println(parameter);
+			
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "KakaoAK "+admin_key);
+				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				conn.setDoOutput(true);
+				
+				OutputStreamWriter osr = new OutputStreamWriter(conn.getOutputStream());	
+				BufferedWriter bw = new BufferedWriter(osr);								
+				bw.write(parameter); 	
+				bw.close();  		 
+				
+				responseCode = conn.getResponseCode();
+				if(responseCode == 200) model.addAttribute("msg", "주문이 취소되었습니다.");
+				else model.addAttribute("msg", "주문 취소 실패, 카드사 문의가 필요합니다.");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return responseCode;
+	}
+	
+	@Override
+	public void stockPlus(String orderNum) {
+		ArrayList<OrderDTO> cancelList = dao.selectOrderCancel(orderNum);
+		String operation = "plus";
+		for(OrderDTO order : cancelList) {
+			dao.updateStock(order.getProductNum(), order.getAmount(), operation);
+		}
+	}
+
+	@Override
+	public void orderDelete(String orderNum) {
+		dao.deleteOrder(orderNum);
+	}
+	
+	@Override
+	public void deliveryDelete(String orderNum) {
+		dao.deleteDelivery(orderNum);
+	}
 
 
+
+	
+	
+	
+	
+	
 }

@@ -36,6 +36,16 @@ public interface IOrderService {
 
 	public void orderDetail(String orderNum, Model model);
 
+	public int orderCancel(String orderNum, String orderDate, Model model);
+	
+	public void stockPlus(String orderNum);
+	
+	public void orderDelete(String orderNum);
+
+	public void deliveryDelete(String orderNum);
+
+
+
 	
 
 	

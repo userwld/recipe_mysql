@@ -11,6 +11,7 @@
 	<result column="totalPrice" property="totalPrice"/>
 	<result column="orderDate" property="orderDate"/>
 	<result column="orderState" property="orderState"/>
+	<result column="tid" property="tid"/>
 </resultMap>
 
 <resultMap type="com.cooking.recipe.order.dto.OrderDetailDTO" id="detail">
@@ -22,6 +23,7 @@
 	<result column="totalPrice" property="totalPrice"/>
 	<result column="orderDate" property="orderDate"/>
 	<result column="orderState" property="orderState"/>
+	<result column="tid" property="tid"/>
 	<result column="productImg" property="productImg"/>
 	<result column="price" property="price"/>
 </resultMap>
@@ -41,11 +43,20 @@
 </update>
 
 <insert id="insertOrder" parameterType="com.cooking.recipe.order.dto.OrderDTO">
-	insert into orderList values(#{orderNum},#{id},#{productNum},#{productName},#{amount},#{totalPrice},sysdate,'결제완료')
+	insert into orderList values(#{orderNum},#{id},#{productNum},#{productName},#{amount},#{totalPrice},sysdate,'결제완료',#{tid})
 </insert>
 
 <update id="updateStock">
-	update product set stock=stock-#{amount} where productNum=#{productNum}
+	update product set 
+	<choose>
+		<when test="oper == 'plus'">	
+			stock=stock+#{amount}
+		</when>
+		<otherwise>					
+			stock=stock-#{amount}	
+		</otherwise>
+	</choose>
+	 where productNum=#{productNum}
 </update>
 
 <delete id="deleteCart" parameterType="int">
@@ -74,4 +85,16 @@
 	select delivery.*, member.phone, member.name from delivery inner join member on delivery.id=member.id
 	where delivery.orderNum=#{orderNum}
 </select>
+
+<select id="selectOrderCancel" parameterType="String" resultMap="order">
+	select * from orderList where orderNum=#{orderNum}
+</select>
+
+<delete id ="deleteOrder" parameterType="String">
+	delete from orderList where orderNum=#{orderNum}
+</delete>
+
+<delete id="deleteDelivery" parameterType="String">
+	delete from delivery where orderNum=#{orderNum}
+</delete>
 </mapper>

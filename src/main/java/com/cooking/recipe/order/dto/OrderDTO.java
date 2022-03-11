@@ -11,6 +11,7 @@ public class OrderDTO {
 	private int totalPrice;
 	private Date orderDate;
 	private String orderState;
+	private String tid;
 	
 	public String getOrderNum() {
 		return orderNum;
@@ -61,6 +62,12 @@ public class OrderDTO {
 		this.orderState = orderState;
 	}
 	
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 	
 
 }

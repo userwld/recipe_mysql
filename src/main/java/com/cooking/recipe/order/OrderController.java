@@ -112,4 +112,16 @@ public class OrderController {
 		return map;
 	}
 	
+	/* 주문내역 페이지에서 주문취소 눌렀을 때 (당일 취소일 경우에만 결제취소)*/
+	@RequestMapping(value="/orderCancelProc")
+	public String orderCalcelProc(String orderNum, String orderDate, Model model) {	// orderDate -  YY/MM/dd 형태로 옴
+		int responseCode = service.orderCancel(orderNum, orderDate , model);
+		if(responseCode == 200) {				// 결제 취소 성공시
+			service.stockPlus(orderNum);		// 상품테이블 재고증가 / 주문 테이블에서 주문내역 가져와야 하므로 주문내역 삭제전 실행
+			service.orderDelete(orderNum);		// 주문테이블 주문내역삭제
+			service.deliveryDelete(orderNum);	// 배송테이블 배송정보삭제
+		}
+		return "forward:orderHistoryViewProc";
+	}
+	
 }

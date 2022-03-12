@@ -44,6 +44,8 @@ public interface IOrderService {
 
 	public void deliveryDelete(String orderNum);
 
+	public void bestSales(String term);
+
 
 
 	

@@ -126,7 +126,7 @@ public class ProductServiceImpl implements IProductService{
 	
 	/* 레시피 상세페이지에서 밀키트 보러가기 클릭시 레시피명을 포함하는 상품있는지 리턴*/
 	@Override	
-	public String isExistProduct(String productName) {
+	public String isExistProduct(String productName) {	// 상품 존재여부만 확인하기 위해 rowNum=1사용(같은 이름의 상품 존재할수있으므로)
 		ProductDTO product = dao.selectProductName(productName);
 		if(product == null) return "없음";
 		else return "있음"; 

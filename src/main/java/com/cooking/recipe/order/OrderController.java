@@ -2,12 +2,18 @@ package com.cooking.recipe.order;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cooking.recipe.order.service.IOrderService;
 
@@ -124,4 +130,12 @@ public class OrderController {
 		return "forward:orderHistoryViewProc";
 	}
 	
+	/* 메인 페이지에서 베스트 상품 일간/주간 버튼 클릭시 */
+	@RequestMapping(value="/bestSales", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String,String> bestSales(@RequestBody Map<String,String> map) {
+		service.bestSales(map.get("term"));
+		return map;
+	}
+
 }

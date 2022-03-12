@@ -6,6 +6,8 @@ public class SearchDTO {
 	private String recipeName;
 	private int searchCount;
 	private Date searchDate;
+	private String img;
+	private int totalSearch;
 	
 	public String getRecipeName() {
 		return recipeName;
@@ -24,6 +26,18 @@ public class SearchDTO {
 	}
 	public void setSearchDate(Date searchDate) {
 		this.searchDate = searchDate;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public int getTotalSearch() {
+		return totalSearch;
+	}
+	public void setTotalSearch(int totalSearch) {
+		this.totalSearch = totalSearch;
 	}
 	
 	

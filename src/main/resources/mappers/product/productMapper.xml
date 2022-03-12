@@ -58,7 +58,7 @@
 </select>
 
 <select id="selectProductName" parameterType="String" resultMap="product">
-	select * from product where productName like '%'||#{productName}||'%'
+	select * from product where productName like '%'||#{productName}||'%' and rowNum=1
 </select>
 
 <select id="selectGroup" resultType="int">

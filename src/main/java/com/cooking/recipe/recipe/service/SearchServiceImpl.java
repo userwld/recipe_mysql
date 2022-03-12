@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 
 import com.cooking.recipe.product.dto.ProductDTO;
 import com.cooking.recipe.recipe.dao.ISearchDAO;
+import com.cooking.recipe.recipe.dto.SearchDTO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -181,7 +182,7 @@ public class SearchServiceImpl implements ISearchService{
 		String nowDate = sdf.format(new Date());
 		
 		if(dao.isExistView(recipeName,nowDate) == 0) {
-			dao.insertView(recipeName);
+			dao.insertView(recipeName, (String)resultBasic.get("img"));
 		}else {
 			dao.updateView(recipeName,nowDate);
 		}
@@ -190,6 +191,16 @@ public class SearchServiceImpl implements ISearchService{
 	@Override
 	public ArrayList<ProductDTO> searchProduct(String searchWord) {
 		return dao.searchProduct(searchWord);
+	}
+
+	@Override
+	public void bestRecipe(String term) {
+		ArrayList<SearchDTO> bestRecipe = dao.selectBestRecipe(term);
+		if(bestRecipe.isEmpty()) return;
+		
+		session.setAttribute("bestRecipe", bestRecipe);
+		session.setAttribute("recipeTerm", term);
+
 	}
 	
 	

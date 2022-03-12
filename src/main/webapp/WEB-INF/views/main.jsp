@@ -38,70 +38,79 @@
 		</div>
 
 	<div class="bestRecipe">
-		<label class="br_label">Best Recipe</label><button class="daily">일간</button><button class="weekly">주간</button>
+		<label class="br_label">Best Recipe | <span class="term">${recipeTerm}</span></label><button class="daily" onclick="bestRecipe('day');">일간</button><button class="weekly" onclick="bestRecipe('week')">주간</button>
 		<div class="container">
 		  <div class="row">
-		    <div class="col-md">
-		    	<label>1</label>
-		      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" onclick="location.href='${root}';">
-		    	<p>스테이크</p>
-		    </div>
-		      <div class="col-md" >
-		      	<label>2</label>
-		      	<img src="${pageContext.request.contextPath}/resources/images/main/slide2.jpg" >
-		    	<p>스테이크</p>
-		    </div>
-		     <div class="col-md" >
-		     	<label>3</label>
-		      	<img src="${pageContext.request.contextPath}/resources/images/main/slide3.jpg">
-		    	<p>스테이크</p>
-		    </div>
-		     <div class="col-md" >
-		     	<label>4</label>
-		      	<img src="${pageContext.request.contextPath}/resources/images/main/slide4.jpg">
-		    	<p>스테이크</p>
-		    </div>
-		     <div class="col-md">
-		     	<label>5</label>
-		      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg">
-		    	<p>스테이크</p>
-		    </div>
+		  <c:choose>
+			  	<c:when test="${not empty bestRecipe}">
+			  		<c:set var="end" value="${bestRecipe.size() >= 5 ? 5 : bestRecipe.size()}" />
+			  		<c:forEach var= "i" begin="0" end="${end-1}" >
+			  			 <div class="col-md">
+					    	<label>${i+1}</label>
+					      	<img src="${bestRecipe.get(i).img}" onclick="location.href='recipeViewProc?recipeName='+'${bestRecipe.get(i).recipeName}';">
+					    	<p onclick="location.href='recipeViewProc?recipeName='+'${bestRecipe.get(i).recipeName}';">${bestRecipe.get(i).recipeName}</p>
+					    </div>
+			  		</c:forEach>
+			  		<c:if test="${bestRecipe.size() < 5}">	<!-- 담아온 레시피 검색 리스트가 5개 미만이면 나머지 순위없음으로 채움 -->
+			  			<c:forEach var = "i" begin="${bestRecipe.size()+1}" end="5" >
+				  			 <div class="col-md">
+						    	<label>${i}</label>
+						      	<img src="http://file.okdab.com/UserFiles/searching/recipe/061400.jpg" >
+						    	<p>아직 순위 없음</p>
+						    </div>		
+  						</c:forEach>
+			  		</c:if>
+			  	</c:when>
+			  	<c:otherwise>
+			  		<c:forEach begin="1" end="5" varStatus="index">
+			  			 <div class="col-md">
+					    	<label>${index.count}</label>
+					      	<img src="http://file.okdab.com/UserFiles/searching/recipe/061400.jpg" >
+					    	<p>아직 순위 없음</p>
+					    </div>		
+  					</c:forEach>
+  				</c:otherwise>
+ 			 </c:choose>
 		  </div>
 		</div>
 	</div>
 	
 	<div class="bestProduct">
-		<label class="bp_label">Best Product</label><button class="daily">일간</button><button class="weekly">주간</button>
-		<div class="container">
+		<label class="bp_label">Best Product | <span class="term" id="term">${term}</span></label><button class="daily" onclick="bestSales('day');">일간</button><button class="weekly" onclick="bestSales('week');">주간</button>
+		<div class="container">			
 			  <div class="row">
-			    <div class="col-md">
-			    	<label>1</label>
-			      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" >
-			    	<p>스테이크</p>
-			    </div>
-			      <div class="col-md" >
-			      	<label>2</label>
-			      	<img src="${pageContext.request.contextPath}/resources/images/main/slide2.jpg" >
-			    	<p>스테이크</p>
-			    </div>
-			     <div class="col-md" >
-			     	<label>3</label>
-			      	<img src="${pageContext.request.contextPath}/resources/images/main/slide3.jpg">
-			    	<p>스테이크</p>
-			    </div>
-			     <div class="col-md" >
-			     	<label>4</label>
-			      	<img src="${pageContext.request.contextPath}/resources/images/main/slide4.jpg">
-			    	<p>스테이크</p>
-			    </div>
-			     <div class="col-md">
-			     	<label>5</label>
-			      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg">
-			    	<p>스테이크</p>
-			    </div>
-			  </div>
+			  <c:choose>
+			  	<c:when test="${not empty sales}">
+			  		<c:set var="end" value="${sales.size() >= 5 ? 5 : sales.size()}" />
+			  		<c:forEach var= "i" begin="0" end="${end-1}" >
+			  			 <div class="col-md">
+					    	<label>${i+1}</label>
+					      	<img src="${pageContext.request.contextPath}/resources/images/product/${sales.get(i).productImg}" onclick="location.href='productViewProc?productNum='+'${sales.get(i).productNum}';">
+					    	<p onclick="location.href='productViewProc?productNum='+'${sales.get(i).productNum}';">${sales.get(i).productName}</p>
+					    </div>
+			  		</c:forEach>
+			  		<c:if test="${bestRecipe.size() < 5}">	<!-- 담아온 상품 판매량 리스트가 5개 미만이면 나머지 순위없음으로 채움 -->
+			  			<c:forEach var = "i" begin="${sales.size()+1}" end="5" >
+				  			 <div class="col-md">
+						    	<label>${i}</label>
+						      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" >
+						    	<p>아직 순위 없음</p>
+						    </div>		
+  						</c:forEach>
+			  		</c:if>
+			  	</c:when>
+			  	<c:otherwise>
+			  		<c:forEach begin="1" end="5" varStatus="index">
+			  			 <div class="col-md">
+					    	<label>${index.count}</label>
+					      	<img src="${pageContext.request.contextPath}/resources/images/main/slide1.jpg" >
+					    	<p>아직 순위 없음</p>
+					    </div>		
+  					</c:forEach>
+  				</c:otherwise>
+ 			 </c:choose>
+  			</div>
 			</div>
-
 		</div>
 	</div>
 </center>

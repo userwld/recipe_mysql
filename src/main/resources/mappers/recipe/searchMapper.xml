@@ -6,6 +6,8 @@
 	<result column="recipeName" property="recipeName"/>
 	<result column="searchCount" property="searchCount"/>
 	<result column="searchDate" property="searchDate"/>
+	<result column="img" property="img"/>
+	<result column="totalSearch" property="totalSearch"/>
 </resultMap>
 
 <resultMap type="com.cooking.recipe.product.dto.ProductDTO" id="product">
@@ -20,7 +22,7 @@
 </resultMap>
 
 <insert id="insertView" parameterType="String">
-	insert into search values(#{recipeName},1,to_char(sysdate,'YY-MM-DD'))
+	insert into search values(#{recipeName},1,to_char(sysdate,'YY-MM-DD'),#{img})
 </insert>
 
 <select id="isExistView" resultType="int">
@@ -35,5 +37,17 @@
 	select * from product where productName like '%'||#{searchWord}||'%' order by productNum
 </select>
 
+<select id="selectBestRecipe" parameterType="String" resultMap="search">
+	select sum(searchCount) as totalSearch, recipeName, img from search where
+	<choose>
+		<when test="term == 'day'">
+			to_char(searchDate,'yy-mm-dd') = to_char(sysdate-1,'yy-mm-dd')
+		</when>
+		<otherwise>
+			to_char(searchDate,'yy-mm-dd') between to_char(sysdate-8,'yy-mm-dd') and to_char(sysdate-1,'yy-mm-dd')
+		</otherwise>
+	</choose>
+	group by recipeName,img order by totalSearch desc
+</select>
 
 </mapper>

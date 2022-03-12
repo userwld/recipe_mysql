@@ -1,3 +1,4 @@
+
 /* 검색버튼 클릭시 */
 function searchProc(){
 	var sel = document.getElementById("sel").value;
@@ -20,3 +21,34 @@ function inputEnter(){
 		searchProc();
 	}
 }
+
+/* 베스트 레시피 일간/주간 버튼 클릭시 */
+function bestRecipe(term){
+	var info= {term : term};
+	$.ajax({
+		url: "bestRecipe", type:"POST",
+		data: JSON.stringify(info), 	
+		dataType: "json", 
+		contentType: "application/json; charset=utf-8"})
+		
+	.done(function() { 
+		console.log("결과");
+		location.reload();
+	})	
+}
+
+/* 베스트 상품 일간/주간 버튼 클릭시 */
+function bestSales(term){
+	var info= {term : term};
+	$.ajax({
+		url: "bestSales", type:"POST",
+		data: JSON.stringify(info), 	
+		dataType: "json", 
+		contentType: "application/json; charset=utf-8"})
+		
+	.done(function() { 
+		console.log("결과");
+		location.reload();
+	})	
+}
+

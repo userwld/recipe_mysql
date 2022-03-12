@@ -3,20 +3,31 @@ package com.cooking.recipe;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cooking.recipe.order.service.IOrderService;
+import com.cooking.recipe.recipe.service.ISearchService;
 
 @Controller
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired IOrderService orderService;			// 메인에 베스트 상품과 베스트 레시피 구하기 위해 
+	@Autowired ISearchService searchService;
 	
 
 	 @RequestMapping(value = "/")
-	   public String main(Model model, HttpSession session) {	    
+	   public String main(Model model, HttpSession session) {
 		 model.addAttribute("formpath", "main");
-	      return "index";
+		 if(session.getAttribute("sales") == null)
+			 orderService.bestSales("day");
+		 if(session.getAttribute("bestRecipe") == null)
+			 searchService.bestRecipe("day");
+
+	     return "index";
 	   }
 	 
 	   @RequestMapping(value = "/main")

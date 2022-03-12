@@ -14,6 +14,8 @@ public interface ISearchService {
 	public void recipeDetail(String recipeName, Model model);
 
 	public ArrayList<ProductDTO> searchProduct(String searchWord);
+
+	public void bestRecipe(String term);
 	
 	
 	

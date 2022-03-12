@@ -28,6 +28,7 @@ import com.cooking.recipe.order.dto.CartDTO;
 import com.cooking.recipe.order.dto.DeliveryDTO;
 import com.cooking.recipe.order.dto.OrderDTO;
 import com.cooking.recipe.order.dto.OrderDetailDTO;
+import com.cooking.recipe.order.dto.SalesDTO;
 import com.cooking.recipe.product.dao.IProductDAO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -340,7 +341,7 @@ public class OrderServiceImpl implements IOrderService{
 		String orderNum=sdf.format(new Date());
 				
 	  for(int i =0; i < 5; i++) { 
-		  char c = (char)(random.nextInt(27)+'A');
+		  char c = (char)(random.nextInt(26)+'A');
 		  if(i % 2 == 0) orderNum+=c;
 		  else orderNum+=random.nextInt(10);
 	  }
@@ -443,6 +444,7 @@ public class OrderServiceImpl implements IOrderService{
 		return responseCode;
 	}
 	
+	/* 결제 취소 후 상품 테이블 재고 증가*/
 	@Override
 	public void stockPlus(String orderNum) {
 		ArrayList<OrderDTO> cancelList = dao.selectOrderCancel(orderNum);
@@ -452,21 +454,27 @@ public class OrderServiceImpl implements IOrderService{
 		}
 	}
 
+	/* 결제 취소 후 주문테이블 주문내역 삭제 */
 	@Override
 	public void orderDelete(String orderNum) {
 		dao.deleteOrder(orderNum);
 	}
 	
+	/* 결제 취소 후 배송테이블 배송정보 삭제 */
 	@Override
 	public void deliveryDelete(String orderNum) {
 		dao.deleteDelivery(orderNum);
 	}
 
+	@Override
+	public void bestSales(String term) {
+		ArrayList<SalesDTO> sales = dao.selectBestSales(term);
+		if(sales.isEmpty()) return;
+		
+		session.setAttribute("sales", sales);
+		session.setAttribute("term", term);
+		
+	}
 
 
-	
-	
-	
-	
-	
 }

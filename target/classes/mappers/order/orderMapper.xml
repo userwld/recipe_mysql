@@ -35,7 +35,13 @@
 	<result column="addr1" property="addr1"/>
 	<result column="addr2" property="addr2"/>
 	<result column="phone" property="phone"/>
+</resultMap>
 
+<resultMap type="com.cooking.recipe.order.dto.SalesDTO" id="sales">
+	<result column="sales" property="sales"/>
+	<result column="productNum" property="productNum"/>
+	<result column="productName" property="productName"/>
+	<result column="productImg" property="productImg"/>
 </resultMap>
 
 <update id="updateAddr" parameterType="com.cooking.recipe.member.dto.MemberDTO">
@@ -97,4 +103,19 @@
 <delete id="deleteDelivery" parameterType="String">
 	delete from delivery where orderNum=#{orderNum}
 </delete>
+
+<select id="selectBestSales" parameterType="String" resultMap="sales">
+	select sum(orderList.amount) as sales, orderList.productNum, orderList.productName, product.productImg 
+	from orderList inner join product on orderList.productNum=product.productNum where
+	<choose>
+		<when test="term == 'day'">
+			to_char(orderList.orderDate,'yy/mm/dd') = to_char(sysdate-1,'yy/mm/dd')
+		</when>
+		<otherwise>
+			to_char(orderList.orderdate,'yy/mm/dd') between to_char(sysdate-8,'yy/mm/dd') and to_char(sysdate-1,'yy/mm/dd')
+		</otherwise>
+	</choose>
+	group by orderList.productNum, orderList.productName, product.productImg order by sales desc
+</select>
+
 </mapper>

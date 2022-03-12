@@ -9,6 +9,7 @@ import com.cooking.recipe.member.dto.MemberDTO;
 import com.cooking.recipe.order.dto.DeliveryDTO;
 import com.cooking.recipe.order.dto.OrderDTO;
 import com.cooking.recipe.order.dto.OrderDetailDTO;
+import com.cooking.recipe.order.dto.SalesDTO;
 
 @Repository
 public interface IOrderDAO {
@@ -36,5 +37,7 @@ public interface IOrderDAO {
 	public void deleteOrder(String orderNum);
 
 	public void deleteDelivery(String orderNum);
+
+	public ArrayList<SalesDTO> selectBestSales(@Param("term")String term);
 
 }

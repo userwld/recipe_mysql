@@ -10,10 +10,10 @@
 
 /* 메인 검색 영역 */
 button {cursor: pointer;}
-#content{width : 980px; height: auto; margin-top: -60px; background-color: black; padding-bottom: 120px; margin-bottom: 20px;}
-.search_wrap{ position: relative; top: -200px; left: -200px;}
-.search_wrap select{ width : 100px; height: 40px; position: relative; top: -14px; text-align: center; border-radius: 6px; border-color: #35858B; color:#35858B;}
-.search_group { position: relative;left: 250px; top: -53px;flex-wrap: wrap;align-items: stretch; width: 40%; }
+#content{width : 980px; height: auto; margin-top: -60px; background-color: black; padding-bottom: 80px; margin-bottom: 20px;}
+.search_wrap{ position: relative; top: -200px; }
+.search_wrap select{ width : 100px; height: 40px; position: relative; top: 38px; text-align: center; border-radius: 6px; border-color: #35858B; color:#35858B; left:-250px;}
+.search_group { position: relative;left: -53px; top: -36px;flex-wrap: wrap;align-items: stretch; width: 40%; }
 .search_group .form-control.rounded{border-color: #35858B;}
 .search_group .btn.btn-outline-primary {top: -38px; color: #35858B; background-color: white; position: relative; border-color: #35858B; left: 236px;}
 input:focus{outline: none;}
@@ -38,17 +38,18 @@ input:focus{outline: none;}
     }
    
 /* 메인 best 영역*/
+
 .bestRecipe{margin-top : -80px; color : white;}   
-.bestProduct{margin-top: 80px; color : white;}
-.bestRecipe .col-md, .bestRecipe .col-md img, .bestProduct .col-md, .bestProduct .col-md img{width: 170px; height: 95px;}
-.bestRecipe .col-md img, .bestProduct .col-md img{border: 1px solid  rgb(150, 199, 193); cursor: pointer;}
-.bestRecipe .br_label, .bestProduct .bp_label{margin-bottom: 5px; width : 200px; border-radius: 10px; color: white; font-weight: bold; position: relative; left: -300px; font-size: 18px; text-align: left;}
+.bestProduct{margin-top: 65px; color : white;}
+.bestRecipe .col-md, .bestProduct .col-md{width: 190px; height: 150px;}
+.bestRecipe .col-md img, .bestProduct .col-md img{cursor: pointer; width: 170px; height: 95px;}
+.bestRecipe .br_label, .bestProduct .bp_label{margin-bottom: 5px; width : 200px; border-radius: 10px; color: white; font-weight: bold; position: relative; left: -300px; font-size: 18px; text-align: left; }
 .bestRecipe .br_label .term, .bestProduct .bp_label .term{color:white; font-size:13px;}
 .col-md label{ width : 25px;  border-radius: 20px; color: white; font-weight: bold; z-index:2; 
 position: relative; left: -75px; top: 15px;}
 .col-md p{width: 170px; cursor: pointer;}
-.bestRecipe .col-md label, .bestRecipe .col-md p{background-color: #4FBDBA;}
-.bestProduct .col-md label, .bestProduct .col-md p{background-color :#35858B;}
+.bestRecipe .col-md label, .bestRecipe .col-md p{background-color: #4FBDBA; border: 2px solid  #4FBDBA; }
+.bestProduct .col-md label, .bestProduct .col-md p{background-color :#35858B; border: 2px solid #35858B; }
 .daily, .weekly{border-color: transparent; width:60px; border-radius: 10px; margin-left:8px; position: relative; left:300px; font-weight: bold;}
 .daily{background-color: rgb(222, 217, 196);}
 .weekly{background-color: rgb(208, 202, 178);}

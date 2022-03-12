@@ -25,21 +25,21 @@
 		</div>
 
 		<div class="search_wrap">
-			<select class="select" data-mdb-filter="true" id="sel">
-			  <option value="noSelect">Category</option>
-			  <option value="recipe">레시피</option>
-			  <option value="product">상품</option> 
-			</select>
-			
 			<div class="search_group">
-			  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" onkeypress="inputEnter();"/>
-			  <button type="button" class="btn btn-outline-primary" onclick="searchProc();">search</button>
+				<select class="select" data-mdb-filter="true" id="sel">
+				  <option value="noSelect">Category</option>
+				  <option value="recipe">레시피</option>
+				  <option value="product">상품</option> 
+				</select>
+			
+				  <input type="search" class="form-control rounded" placeholder="검색어를 입력하세요." id="searchWord" name="searchWord" onkeypress="inputEnter();"/>
+				  <button type="button" class="btn btn-outline-primary" onclick="searchProc();">search</button>
 			</div>
 		</div>
 
 	<div class="bestRecipe">
 		<label class="br_label">Best Recipe | <span class="term">${recipeTerm}</span></label><button class="daily" onclick="bestRecipe('day');">일간</button><button class="weekly" onclick="bestRecipe('week')">주간</button>
-		<div class="container">
+		<div class="container" style="max-width: 955px;">
 		  <div class="row">
 		  <c:choose>
 			  	<c:when test="${not empty bestRecipe}">
@@ -77,7 +77,7 @@
 	
 	<div class="bestProduct">
 		<label class="bp_label">Best Product | <span class="term" id="term">${term}</span></label><button class="daily" onclick="bestSales('day');">일간</button><button class="weekly" onclick="bestSales('week');">주간</button>
-		<div class="container">			
+		<div class="container" style="max-width: 955px;">
 			  <div class="row">
 			  <c:choose>
 			  	<c:when test="${not empty sales}">
@@ -89,7 +89,7 @@
 					    	<p onclick="location.href='productViewProc?productNum='+'${sales.get(i).productNum}';">${sales.get(i).productName}</p>
 					    </div>
 			  		</c:forEach>
-			  		<c:if test="${bestRecipe.size() < 5}">	<!-- 담아온 상품 판매량 리스트가 5개 미만이면 나머지 순위없음으로 채움 -->
+			  		<c:if test="${sales.size() < 5}">	<!-- 담아온 상품 판매량 리스트가 5개 미만이면 나머지 순위없음으로 채움 -->
 			  			<c:forEach var = "i" begin="${sales.size()+1}" end="5" >
 				  			 <div class="col-md">
 						    	<label>${i}</label>

@@ -12,7 +12,7 @@
 <center>
 	<div id="wrap">
 		<div class="search_result_label"><h3>검색하신 <label>${searchWord}</label>에 대한 결과입니다.</h3></div>
-		<div class="container" >
+		<div class="container" style="max-width: 980px;">
 			<div class="row">
 				<c:choose>
 					<c:when test="${sel == 'recipe'}">

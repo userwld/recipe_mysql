@@ -98,18 +98,21 @@ public class OrderController {
 		}else return "forward:cartViewProc";		// 장바구니 결제 실패시 -> 다시 장바구니 페이지로
 	}
 	
+	/* 주문내역 페이지 */
+	@RequestMapping(value="/orderHistoryViewProc")
+	public String orderHistoryViewProc(Model model){
+		boolean check = service.orderHistory(model);
+		if(check == false) return "forward:join";
+		return "forward:index?formpath=orderHistory";
+	}
+	
+	/* 주문내역 페이지에서 주문상세보기 클릭시 */
 	@RequestMapping(value="/orderDetailViewProc")
 	public String orderDetailViewProc(String orderNum, Model model) {
 		service.orderDetail(orderNum, model);
 		return "forward:index?formpath=orderDetail";
 	}
-	
-	@RequestMapping(value="/orderHistoryViewProc")
-	public String orderHistoryViewProc(Model model){
-		service.orderHistory(model);
-		return "forward:index?formpath=orderHistory";
-	}
-	
+		
 	/* 주문내역 페이지에서 장바구니 담기 버튼 클릭시 -> 재고 조회 후 있으면 장바구니 테이블에 수량 1개로 담음 */
 	@RequestMapping(value = "/putCart", produces = "application/json; charset=utf-8")
 	@ResponseBody

@@ -99,7 +99,7 @@ public class OrderServiceImpl implements IOrderService{
 		return true;
 	}
 
-	/* 주문페이지 - 결제버튼 클릭시 카카오 페이 결제 준비(map에 담긴 state변수로 바로주문인지, 장바구니에서 온 주문인지 구분해서 파라미터값 다르게 가져감) */
+	/* 주문페이지 - 결제버튼 클릭시 카카오 페이 결제 준비(map에 담긴 state로 바로주문인지, 장바구니에서 온 주문인지 구분해서 파라미터값 다르게 가져감) */
 	@Override		
 	public String payProc(Map<String, String> map) {
 		String cid = "TC0ONETIME"; String partner_order_id = "partner_order_id";	// 테스트용 / 승인에서도 같은값으로 써야하기 때문에 변수로 만들어서 전달
@@ -351,14 +351,12 @@ public class OrderServiceImpl implements IOrderService{
 	
 	/* 주문내역 페이지 셋팅 */
 	@Override
-	public void orderHistory(Model model) {
+	public boolean orderHistory(Model model) {
 		String id = (String)session.getAttribute("loginId");
 		
-		if(id == null) return;
+		if(id == null) return false;
 		ArrayList<OrderDetailDTO> orderHistory = dao.selectOrderHistory(id);
 		ArrayList<String> numList = dao.selectOrderNum(id);		// 해당 아이디가 주문했던 모든 주문번호 리스트
-		
-		if(numList == null) return;
 		
 		// 주문번호를 키로, 주문번호에 해당하는 내역들을 값으로 순서유지해서 담아감(날짜 내림차순) -> orderHistory페이지에서 iterator사용해서 반복출력
 		LinkedHashMap<String,ArrayList<OrderDetailDTO>> result = new LinkedHashMap<>(); 
@@ -373,8 +371,20 @@ public class OrderServiceImpl implements IOrderService{
 			result.put(num, eachOrder);
 		}
 		session.setAttribute("result", result);	
+		return true;
 	}
 
+	/* 주문 내역 페이지에서 주문 상세페이지 클릭시 해당 주문번호에 맞게 페이지 셋팅 */
+	@Override
+	public void orderDetail(String orderNum, Model model) {
+		if(orderNum == null) return;
+		ArrayList<OrderDetailDTO> orderDetail = dao.selectOrderDetail(orderNum);
+		DeliveryDTO deliveryInfo = dao.selectDelivery(orderNum);
+		model.addAttribute("orderDetail", orderDetail);
+		model.addAttribute("deliverInfo", deliveryInfo);
+		
+	}
+	
 	/* 주문내역 페이지에서 장바구니 담기 */
 	@Override
 	public String putCart(int productNum) {
@@ -390,16 +400,7 @@ public class OrderServiceImpl implements IOrderService{
 		}
 	}
 
-	/* 주문 내역 페이지에서 주문 상세페이지 클릭시 해당 주문번호에 맞게 페이지 셋팅 */
-	@Override
-	public void orderDetail(String orderNum, Model model) {
-		if(orderNum == null) return;
-		ArrayList<OrderDetailDTO> orderDetail = dao.selectOrderDetail(orderNum);
-		DeliveryDTO deliveryInfo = dao.selectDelivery(orderNum);
-		model.addAttribute("orderDetail", orderDetail);
-		model.addAttribute("deliverInfo", deliveryInfo);
-		
-	}
+
 	
 	/* 주문 내역 페이지에서 주문 취소 클릭시 - 오늘날짜 주문인지 확인 후 취소*/
 	@Override
@@ -465,11 +466,11 @@ public class OrderServiceImpl implements IOrderService{
 	public void deliveryDelete(String orderNum) {
 		dao.deleteDelivery(orderNum);
 	}
-
+	
+	/* 메인 화면에 로드시 베스트 판매상품 셋팅, 주간/일간 버튼 눌렀을 때*/
 	@Override
-	public void bestSales(String term) {
+	public void bestSales(String term) {	// term에 따라 주간(현재날짜-8일~ 현재날짜-1일)/일간(현재날짜-1일) 나눠서 db에서 조회
 		ArrayList<SalesDTO> sales = dao.selectBestSales(term);
-		if(sales.isEmpty()) return;
 		
 		session.setAttribute("sales", sales);
 		session.setAttribute("term", term);

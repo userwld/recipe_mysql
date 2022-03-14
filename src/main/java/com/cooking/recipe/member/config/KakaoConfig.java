@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @Configuration
-public class KakaoConfig {
+public class KakaoConfig {	/* 카카오 소셜 로그인 */
 	
 	// 카카오 로그인창 여는 url -> ajax로 요청시 url반환해서 응답받은곳에서 열어줌
 	public String getUrl() {
@@ -31,6 +31,7 @@ public class KakaoConfig {
 	}
 	
 	//https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#refresh-token
+	/* 엑세스 토큰 얻기 */
 	public String getAccessToken (String code) {
 		String accessToken = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -62,8 +63,8 @@ public class KakaoConfig {
 			while ((line = br.readLine()) != null) {		// readLine() 데이터를 라인단위로 읽음
 				result += line;
 			}
-			System.out.println("response body : " + result);
-			System.out.println("result.split : "+result.split(","));
+//			System.out.println("response body : " + result);
+//			System.out.println("result.split : "+result.split(","));
 			
 			//Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JsonParser parser = new JsonParser(); 
@@ -80,6 +81,7 @@ public class KakaoConfig {
 	}
 	
 	//https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-user-info
+	/* 얻은 엑세스 토큰으로 유저정보 얻기 */
 	public HashMap<String, Object> getUserInfo (String accessToken) {
 	    HashMap<String, Object> userInfo = new HashMap<String, Object>();
 	    String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -94,8 +96,8 @@ public class KakaoConfig {
 	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 	                
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
-	        System.out.println(conn.getResponseMessage());
+//	        System.out.println("responseCode : " + responseCode);
+//	        System.out.println(conn.getResponseMessage());
 
 	       	
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -104,8 +106,8 @@ public class KakaoConfig {
 	        while ((line = br.readLine()) != null) {
 	            result += line;
 	        }
-	        System.out.println("response body : " + result);
-	        System.out.println("result.split : "+result.split(","));
+//	        System.out.println("response body : " + result);
+//	        System.out.println("result.split : "+result.split(","));
 	        
 	        JsonParser parser = new JsonParser();
 	        JsonElement element = parser.parse(result);
@@ -114,31 +116,11 @@ public class KakaoConfig {
 	        String kakaoId = element.getAsJsonObject().get("id").getAsString();
 //	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();	
 	    	
-	        userInfo.put("kakaoId", kakaoId);
+	        userInfo.put("kakaoId", kakaoId);			// 아직 이메일 계정 얻는 권한 x -> 넘어오는 아이디로 받음(db 저장되서 소셜 가입 여부 판단하는 값 - 중복 계정 가입x)
 	        
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 	    return userInfo;
-	}
-	
-	 // https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#logout
-	public void logout(String accessToken) {
-	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
-	    
-	    try {
-	        URL url = new URL(reqURL); // URL 객체 생성
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
-	        
-	        conn.setRequestMethod("POST"); // 메소드 설정
-	        
-	        // 요청 정보 헤더에 담기.
-	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-	        // 응답 코드 확인
-	        int responseCode = conn.getResponseCode();
-//	        System.out.println("responseCode : " + responseCode);
-	    }catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -20,35 +20,22 @@ import com.cooking.recipe.product.dto.ProductDTO;
 public class ProductServiceImpl implements IProductService{
 	@Autowired IProductDAO dao;
 	@Autowired HttpSession session;
-
-	/* 관리자 - 상품관리 페이지에서 상품추가 */
+	
+	/* 상품이미지 혹은 상품이름 클릭시 해당 상품의 정보 담아오는 메소드 */
 	@Override
-	public String insertProduct(HttpServletRequest req) {
-		String productName = req.getParameter("productName");
-		String productImg = req.getParameter("productImg");
-		String category = req.getParameter("category");
-		String price = req.getParameter("price");
-		String stock = req.getParameter("stock");
-		String component = req.getParameter("component");
-		String info = req.getParameter("info");
-		
-		if(productName == "" || productImg == "" || category =="" || price == "" ||
-				stock == "" || component == "" || info == "") {
-			return "모든 항목을 채워주세요";
-		}
-		
-		int p = Integer.parseInt(price); int s = Integer.parseInt(stock);
-		
-		ProductDTO product = new ProductDTO();
-		product.setProductImg(productImg); product.setProductName(productName);
-		product.setCategory(category); product.setPrice(p); product.setStock(s);
-		product.setComponent(component); product.setInfo(info);
-		
-		dao.insertProduct(product);
-		
-		return "등록 성공";
+	public void productViewProc(int productNum, Model model) {
+		ProductDTO product = dao.selectProductNum(productNum);
+		model.addAttribute("result", product);
 	}
 	
+	/* 레시피 상세페이지에서 밀키트 보러가기 클릭시 해당 레시피명을 포함하는 상품있는지 확인 후 리턴*/
+	@Override	
+	public String isExistProduct(String productName) {	// 상품 존재여부만 확인하기 위해 rowNum=1사용(같은 이름의 상품 존재할수있으므로)
+		ProductDTO product = dao.selectProductName(productName);
+		if(product == null) return "없음";
+		else return "있음"; 
+	}
+		
 	/* 관리자 - 상품관리 페이지 셋팅*/
 	@Override
 	public void productList(Model model, int currentPage) {	
@@ -89,6 +76,34 @@ public class ProductServiceImpl implements IProductService{
 		return sales;
 	}
 
+	/* 관리자 - 상품관리 페이지에서 상품추가 */
+	@Override
+	public String insertProduct(HttpServletRequest req) {
+		String productName = req.getParameter("productName");
+		String productImg = req.getParameter("productImg");
+		String category = req.getParameter("category");
+		String price = req.getParameter("price");
+		String stock = req.getParameter("stock");
+		String component = req.getParameter("component");
+		String info = req.getParameter("info");
+		
+		if(productName == "" || productImg == "" || category =="" || price == "" ||
+				stock == "" || component == "" || info == "") {
+			return "모든 항목을 채워주세요";
+		}
+		
+		int p = Integer.parseInt(price); int s = Integer.parseInt(stock);
+		
+		ProductDTO product = new ProductDTO();
+		product.setProductImg(productImg); product.setProductName(productName);
+		product.setCategory(category); product.setPrice(p); product.setStock(s);
+		product.setComponent(component); product.setInfo(info);
+		
+		dao.insertProduct(product);
+		
+		return "등록 성공";
+	}
+	
 	/* 관리자- 상품관리 페이지에서 상품목록에 이미지 클릭해서 변경했을 때 상품DB에 해당 상품 이미지 변경 */
 	@Override
 	public void updateImg(String productImg, String num) {
@@ -116,22 +131,8 @@ public class ProductServiceImpl implements IProductService{
 		int productNum = Integer.parseInt(num);
 		dao.deleteProduct(productNum);
 	}
-	
-	/* 상품이미지 혹은 상품이름 클릭시 해당 상품의 정보 담아오는 메소드 */
-	@Override
-	public void productViewProc(int productNum, Model model) {
-		ProductDTO product = dao.selectProductNum(productNum);
-		model.addAttribute("result", product);
-	}
-	
-	/* 레시피 상세페이지에서 밀키트 보러가기 클릭시 레시피명을 포함하는 상품있는지 리턴*/
-	@Override	
-	public String isExistProduct(String productName) {	// 상품 존재여부만 확인하기 위해 rowNum=1사용(같은 이름의 상품 존재할수있으므로)
-		ProductDTO product = dao.selectProductName(productName);
-		if(product == null) return "없음";
-		else return "있음"; 
-	}
-	
+		
+
 	
 
 }

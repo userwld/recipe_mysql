@@ -134,13 +134,13 @@ public class MemberController {
 	
 	/* 로그아웃 */
 	@RequestMapping(value="/logoutProc")
-	public String logoutProc(HttpSession session) {
-		session.invalidate();
-		return "forward:index";
+	public String logoutProc() {
+		service.removeSession();
+		return "forward:/";
 	}
 	
 	
-	/* 회원관리 페이지 - 회원검색 / 회원전체조회 */
+	/* 관리자 - 회원관리 페이지 - 회원검색 / 회원전체조회 */
 	@RequestMapping(value="/memberListViewProc")
 	public String memberListViewProc(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage, String searchWord) {
 		if(searchWord == null) {
@@ -153,7 +153,7 @@ public class MemberController {
 		return "forward:index?formpath=memberList";
 	}
 	
-	/* 회원관리 - 회원삭제 */
+	/* 관리자 - 회원관리 - 회원삭제 */
 	@RequestMapping(value="/memberDelete")
 	public String memberDelete(String deleteId) {
 		service.memberDelete(deleteId);

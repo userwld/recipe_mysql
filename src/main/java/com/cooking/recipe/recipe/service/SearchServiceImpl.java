@@ -65,7 +65,7 @@ public class SearchServiceImpl implements ISearchService{
         return element;
 	}
 	
-	/* 레시피 검색시 레시피명으로 정보요청, 응답받은 element 가공해서 해당 레시피의 기본정보들 담아서 리턴*/
+	/* 레시피 검색시 레시피명(완전일치)으로 정보요청, 응답받은 element 가공해서 해당 레시피의 기본정보들 담아서 리턴*/
 	@Override
 	public Map<String, Object> searchRecipe(String searchWord) {
 		Map<String, Object> recipeInfo = new HashMap<String, Object>();
@@ -181,22 +181,23 @@ public class SearchServiceImpl implements ISearchService{
 		SimpleDateFormat sdf = new SimpleDateFormat("YY-MM-dd");
 		String nowDate = sdf.format(new Date());
 		
-		if(dao.isExistView(recipeName,nowDate) == 0) {
+		if(dao.isExistView(recipeName,nowDate) == 0) {		// 메인영역에 베스트 부분에 이미지 필요하므로 db에 같이저장
 			dao.insertView(recipeName, (String)resultBasic.get("img"));
 		}else {
 			dao.updateView(recipeName,nowDate);
 		}
 	}
 
+	/* 검색창에 상품 검색 했을 때 - 일부일치시에도 결과나옴*/
 	@Override
 	public ArrayList<ProductDTO> searchProduct(String searchWord) {
 		return dao.searchProduct(searchWord);
 	}
 
+	/* 메인 화면에 로드시 베스트 레시피 셋팅, 주간/일간 버튼 눌렀을 때*/
 	@Override
-	public void bestRecipe(String term) {
+	public void bestRecipe(String term) {		// term에 따라 주간(현재날짜-8일~ 현재날짜-1일)/일간(현재날짜-1일) 나눠서 db에서 조회
 		ArrayList<SearchDTO> bestRecipe = dao.selectBestRecipe(term);
-		if(bestRecipe.isEmpty()) return;
 		
 		session.setAttribute("bestRecipe", bestRecipe);
 		session.setAttribute("recipeTerm", term);

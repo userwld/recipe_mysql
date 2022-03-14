@@ -23,6 +23,7 @@ public class MemberServiceImpl implements IMemberService{
 	@Autowired IMemberDAO dao;
 	@Autowired InputConfig ic;
 
+	/* 아이디 유효성 & 중복체크 */
 	@Override
 	public String isExistId(String id) {
 		String msg = "";		
@@ -38,6 +39,7 @@ public class MemberServiceImpl implements IMemberService{
 		return msg;
 	}
 	
+	/* 소셜계정 가입여부 체크(이미 가입된 계정 가입 x) */
 	@Override
 	public void isExistSocial(Model model) {
 		String social = (String)session.getAttribute("social");
@@ -51,6 +53,7 @@ public class MemberServiceImpl implements IMemberService{
 		}	
 	}
 	
+	/* 핸드폰 번호 유효성 체크 */
 	@Override
 	public boolean numberCheck(String phone) {				// 휴대폰번호 10 또는 11자리만 가능
 		if(!(phone.length() == 10 || phone.length() == 11)) {
@@ -59,6 +62,7 @@ public class MemberServiceImpl implements IMemberService{
 
 	}
 
+	/* 핸드폰 SMS 인증번호 전송 */
 	@Override
 	public void sendAuth(String phone) {
 		Random random = new Random();
@@ -90,6 +94,7 @@ public class MemberServiceImpl implements IMemberService{
 */		
 	}
 
+	/* 핸드폰에 전송된 인증번호와 사용자 입력 인증번호 일치여부 확인 */
 	@Override
 	public String authPhone(String authNum) {
 		String errorMsg = "인증번호를 다시 확인해주세요";
@@ -101,6 +106,7 @@ public class MemberServiceImpl implements IMemberService{
 		else return "인증 성공";
 	}
 
+	/* 유효성 전부 체크 후 비밀번호 암호화 후 최종 가입 */
 	@Override
 	public String joinProc(HttpServletRequest req) {
 		
@@ -121,7 +127,8 @@ public class MemberServiceImpl implements IMemberService{
 						
 		return "회원가입 성공";
 	}
-
+	
+	/* 아이디, 비밀번호 확인 후 로그인 */
 	@Override
 	public String loginProc(String id, String pw) {
 		MemberDTO member = dao.selectId(id);
@@ -136,7 +143,21 @@ public class MemberServiceImpl implements IMemberService{
 		session.setAttribute("loginId", id);
 		return "로그인 성공";
 	}
+	
+	/* 로그아웃시 세션지우는 메소드 (메인 베스트 세션을 남겨야 하므로 메인 베스트 세션 제외 삭제) */
+	@Override
+	public void removeSession() {
+		session.removeAttribute("accessToken_n");
+		session.removeAttribute("accessToken_k");
+		session.removeAttribute("social");
+		session.removeAttribute("savedNum");
+		session.removeAttribute("loginId");
+		session.removeAttribute("orderInfo");
+		session.removeAttribute("payInfo");
+		session.removeAttribute("result");
+	}
 
+	/* 회원 관리 페이지 - 모든 회원 조회 */
 	@Override
 	public void memberList(Model model, int currentPage) {	
 		int[] page = PageConfig.setPage(dao.memberCount(), currentPage);
@@ -148,6 +169,7 @@ public class MemberServiceImpl implements IMemberService{
 		model.addAttribute("page", PageConfig.getNavi(currentPage, page[2], page[3], url));
 	}
 
+	/* 회원 관리 페이지 - 회원 검색 */
 	@Override
 	public void memberSearch(Model model, int currentPage, String searchWord) {
 		int[] page = PageConfig.setPage(dao.searchCount(searchWord), currentPage);
@@ -160,10 +182,13 @@ public class MemberServiceImpl implements IMemberService{
 		
 	}
 
+	/* 회원 관리 페이지 - 회원 삭제 */
 	@Override
 	public void memberDelete(String deleteId) {
 		dao.deleteMember(deleteId);		
 	}
+
+
 
 
 

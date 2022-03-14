@@ -19,12 +19,15 @@ public interface IMemberService {
 	public String joinProc(HttpServletRequest req);	 // 유효성 전부 체크 후 비밀번호 암호화 후 최종 가입
 
 	public String loginProc(String id, String pw);	// 아이디, 비밀번호 확인 후 로그인 
+	
+	public void removeSession();					// 로그아웃시 세션지우는 메소드 (메인 베스트 세션을 남겨야 하므로 메인 베스트 세션 제외 삭제)
 
-	public void memberList(Model model, int currentPage);	// 회원 관리 페이지 - 모든 회원 조회
+	public void memberList(Model model, int currentPage);	// 관리자 - 회원 관리 페이지 - 모든 회원 조회
 
-	public void memberSearch(Model model, int currentPage, String searchWord); // 회원 관리 페이지 - 회원 검색
+	public void memberSearch(Model model, int currentPage, String searchWord); // 관리자 - 회원 관리 페이지 - 회원 검색
 
-	public void memberDelete(String deleteId);	// 회원 관리 페이지 - 회원 삭제
+	public void memberDelete(String deleteId);	// 관리자 - 회원 관리 페이지 - 회원 삭제
+
 
 
 }

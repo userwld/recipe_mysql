@@ -18,25 +18,24 @@ public class HomeController {
 	@Autowired IOrderService orderService;			// 메인에 베스트 상품과 베스트 레시피 구하기 위해 
 	@Autowired ISearchService searchService;
 	
-
 	 @RequestMapping(value = "/")
 	   public String main(Model model, HttpSession session) {
 		 model.addAttribute("formpath", "main");
-		 if(session.getAttribute("sales") == null)
-			 orderService.bestSales("day");
-		 if(session.getAttribute("bestRecipe") == null)
-			 searchService.bestRecipe("day");
-
 	     return "index";
 	   }
 	 
 	   @RequestMapping(value = "/main")
-	   public void main() { }
+	   public void main(HttpSession session) {
+		   if(session.getAttribute("sales") == null)
+				 orderService.bestSales("week");		// 기본적으로 주간 베스트로 셋팅
+		   if(session.getAttribute("bestRecipe") == null)
+				 searchService.bestRecipe("week");
+	   }
 	   
 	   @RequestMapping(value = "/index")
 	   public String index(Model model, HttpSession session, String formpath) {
 	      if(formpath == null) {
-	    	  formpath = "main";
+	    	  formpath="main";
 	      }	      
 	      model.addAttribute("formpath", formpath);
 	      logger.warn("formpath : " + formpath);

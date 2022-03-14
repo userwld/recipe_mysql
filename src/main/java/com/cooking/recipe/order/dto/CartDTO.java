@@ -5,7 +5,7 @@ public class CartDTO {
 	private String id;
 	private int productNum;
 	private int amount;
-	private String productName;		// 테이블 조인으로 product테이블에서 가져올 항목들(이름,가격,이미지)
+	private String productName;		// 테이블 조인으로 product테이블에서 가져올 항목들(이름,가격,이미지,재고)
 	private int price;
 	private String productImg;
 	private int stock;

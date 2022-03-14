@@ -18,6 +18,7 @@ import com.cooking.recipe.recipe.service.ISearchService;
 public class SearchController {
 	@Autowired ISearchService service;
 	
+	/* 메인화면 또는 헤더에서 레시피 / 상품 검색 */
 	@RequestMapping(value="/searchProc")
 	public String searchProc(String sel, String searchWord, Model model) {
 		Map<String,Object> result = new HashMap<String,Object>();
@@ -34,9 +35,10 @@ public class SearchController {
 		return "forward:index?formpath=search";
 	}
 	
+	/* 검색된 레시피 이미지 또는 레시피명 클릭시 디테일 페이지 셋팅해서 출력*/
 	@RequestMapping(value="/recipeViewProc")
 	public String recipeViewProc(String recipeName, Model model) {
-		service.recipeDetail(recipeName, model);
+		service.recipeDetail(recipeName, model);		// 레시피기본정보, 재료정보, 과정정보 메소드들 호출해서 가공후 model에 담아서 리턴
 		return "forward:index?formpath=recipeDetail";
 	}
 	

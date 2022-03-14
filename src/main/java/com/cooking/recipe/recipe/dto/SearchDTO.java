@@ -7,7 +7,7 @@ public class SearchDTO {
 	private int searchCount;
 	private Date searchDate;
 	private String img;
-	private int totalSearch;
+	private int totalSearch;			// 메인에서 베스트 레시피 추출하기 위해 / ex) 쿼리문 select sum(searchDount) as totalSearch ...
 	
 	public String getRecipeName() {
 		return recipeName;

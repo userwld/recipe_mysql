@@ -87,13 +87,13 @@ public class OrderServiceImpl implements IOrderService{
 		if(state.equals("now")) {
 			Map<String, Object> orderInfo = (Map<String, Object>) session.getAttribute("orderInfo");
 			int stock = productDao.selectStock((int)orderInfo.get("productNum"));
-			if(stock <= 0) return false;
+			if(stock < (int)orderInfo.get("amount")) return false;
 		}else {
 			ArrayList<CartDTO> orderInfo = (ArrayList<CartDTO>) session.getAttribute("orderInfo");
 			for(CartDTO dto : orderInfo) {
 				int productNum = dto.getProductNum();
 				int stock = productDao.selectStock(productNum);
-				if(stock <= 0) return false;
+				if(stock < dto.getAmount()) return false;
 			}
 		}
 		return true;
